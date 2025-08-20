@@ -1,13 +1,61 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>register-user</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login-user"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cadastro de Usuário</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register-user</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  
+  <div *ngIf="registrationStep === 1">
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+        <ion-input label="Nome" [(ngModel)]="name" placeholder="Seu nome completo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email" type="email" [(ngModel)]="email" placeholder="seuemail@exemplo.com"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Senha" type="password" [(ngModel)]="password" placeholder="Sua senha"></ion-input>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button expand="block" class="ion-padding-top" (click)="nextStep()">Continuar</ion-button>
+  </div>
+
+  <div *ngIf="registrationStep === 2">
+    <ion-list lines="full" class="ion-no-margin">
+      <ion-item>
+        <ion-input label="CEP" [(ngModel)]="cep" placeholder="00000-000" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
+        <ion-button slot="end" (click)="buscarCep()">Buscar CEP</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Rua" [(ngModel)]="rua" placeholder="Rua, Avenida, etc." [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Bairro" [(ngModel)]="bairro" placeholder="Seu bairro" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Cidade" [(ngModel)]="cidade" placeholder="Sua cidade" [disabled]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Estado" [(ngModel)]="estado" placeholder="Seu estado (UF)" [disabled]="true"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-row class="ion-padding-top">
+      <ion-col>
+        <ion-button expand="block" fill="outline" (click)="prevStep()">
+          Voltar
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="register()">
+          Cadastrar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>
