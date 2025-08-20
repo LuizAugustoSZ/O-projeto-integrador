@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
   standalone: true,
   templateUrl: './register-user.page.html',
   styleUrls: ['./register-user.page.scss'],
-  imports: [IonicModule, FormsModule, CommonModule, RouterLink]
+  imports: [IonicModule, FormsModule, CommonModule]
 })
 export class RegisterUserPage {
   name = '';
@@ -21,7 +21,7 @@ export class RegisterUserPage {
   bairro = '';
   cidade = '';
   estado = '';
-
+  
   registrationStep: number = 1;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -40,7 +40,18 @@ export class RegisterUserPage {
 
   async register() {
     try {
-      await this.authService.register(this.name, this.email, this.password);
+      const user = await this.authService.register(this.name, this.email, this.password);
+
+      if (user) {
+        await this.authService.saveAddress(user.uid, {
+          cep: this.cep,
+          rua: this.rua,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          estado: this.estado
+        });
+      }
+
       alert('Usuário registrado com sucesso!');
       this.router.navigate(['/login-user']);
     } catch (error: any) {
