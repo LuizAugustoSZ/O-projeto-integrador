@@ -1,20 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login-user',
+  standalone: true,
   templateUrl: './login-user.page.html',
   styleUrls: ['./login-user.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, FormsModule, CommonModule, RouterLink]
 })
-export class LoginUserPage implements OnInit {
+export class LoginUserPage {
+  email = '';
+  password = '';
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
+  async login() {
+    try {
+      await this.authService.login(this.email, this.password);
+      alert('Login realizado com sucesso!');
+      // Redireciona para a página principal ou outra página após o login
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      alert('Erro ao fazer login: ' + error.message);
+    }
   }
-
 }

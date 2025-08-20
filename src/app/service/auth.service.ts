@@ -24,11 +24,18 @@ export class AuthService {
     return userCredential;
   }
 
-  async login(email: string, password: string): Promise<UserCredential> {
-    return await signInWithEmailAndPassword(auth, email, password);
-  }
+  
 
-  async logout(): Promise<void> {
-    return await signOut(auth);
+ async login(email: string, password: string) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    throw error;
   }
+}
+
+async logout() {
+  await auth.signOut();
+}
 }

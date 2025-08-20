@@ -23,6 +23,11 @@
     </ion-list>
     
     <ion-button expand="block" class="ion-padding-top" (click)="nextStep()">Continuar</ion-button>
+    <div class="ion-text-center ion-padding-top">
+      <ion-text class="ion-text-center ion-margin-top">
+        <p>Já tem uma conta? <a routerLink="/login-user">Faça o login!</a></p>
+      </ion-text>
+    </div>
   </div>
 
   <div *ngIf="registrationStep === 2">
