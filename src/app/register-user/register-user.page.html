@@ -3,11 +3,22 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login-user"></ion-back-button>
     </ion-buttons>
-    <ion-title>Cadastro de Usuário</ion-title>
+    <ion-title> </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <div class="body-design">
+
+    <div class='img-design'>
+      <ion-img src="../assets/icon/logo camelo.png" alt="Logo da empresa">
+      </ion-img>
+    </div>
+
+    <div class="titulo-login">
+      <h1> Cadastro de Usuário </h1>
+    </div>
   
   <div *ngIf="registrationStep === 1">
     <ion-list lines="full" class="ion-no-margin">
@@ -22,7 +33,7 @@
       </ion-item>
     </ion-list>
     
-    <ion-button expand="block" class="ion-padding-top" (click)="nextStep()">Continuar</ion-button>
+    <ion-button expand="block" class="ion-padding-top" (click)="nextStep()" color="dark">Continuar</ion-button>
     <div class="ion-text-center ion-padding-top">
       <ion-text class="ion-text-center ion-margin-top">
         <p>Já tem uma conta? <a routerLink="/login-user">Faça o login!</a></p>
@@ -30,11 +41,12 @@
     </div>
   </div>
 
+
   <div *ngIf="registrationStep === 2">
     <ion-list lines="full" class="ion-no-margin">
       <ion-item>
         <ion-input label="CEP" [(ngModel)]="cep" placeholder="00000-000" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
-        <ion-button slot="end" (click)="buscarCep()">Buscar CEP</ion-button>
+        <ion-button slot="end" (click)="buscarCep()" color="dark">Buscar CEP</ion-button>
       </ion-item>
       <ion-item>
         <ion-input label="Rua" [(ngModel)]="rua" placeholder="Rua, Avenida, etc." [disabled]="true"></ion-input>
@@ -52,15 +64,16 @@
 
     <ion-row class="ion-padding-top">
       <ion-col>
-        <ion-button expand="block" fill="outline" (click)="prevStep()">
+        <ion-button expand="block" fill="outline" (click)="prevStep()" color="dark">
           Voltar
         </ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" (click)="register()">
+        <ion-button expand="block" (click)="register()" color="dark">
           Cadastrar
         </ion-button>
       </ion-col>
     </ion-row>
   </div>
+</div>
 </ion-content>
