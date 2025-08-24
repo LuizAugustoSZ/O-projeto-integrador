@@ -22,6 +22,12 @@ export class RegisterProductPage implements OnInit {
     name: '',
     description: '',
     price: '',
-    quantity: ''
+    quantity: '',
+    sendingMethods: [],
+    image: ''
+  }
+
+  category = {
+    name: '',
   }
 }
