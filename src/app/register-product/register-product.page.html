@@ -20,12 +20,12 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="floating">Título do Produto</ion-label>
-        <ion-input></ion-input>
+        <ion-input [(ngModel)]="product.name"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Descrição do Produto</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea [(ngModel)]="product.description"></ion-textarea>
       </ion-item>
 
       <ion-item>
@@ -41,11 +41,11 @@
     <ion-card-header><ion-card-title>Preço e estoque</ion-card-title></ion-card-header>
     <ion-card-content>
       <ion-item>
-      <ion-input labelPlacement="floating" label="Preço (R$)"></ion-input>
+      <ion-input labelPlacement="floating" label="Preço (R$)" [(ngModel)]="product.price"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input labelPlacement="floating" label="Quantidade Disponível"></ion-input>
+      <ion-input labelPlacement="floating" label="Quantidade Disponível" [(ngModel)]="product.quantity"></ion-input>
     </ion-item>
     </ion-card-content>
   </ion-card>

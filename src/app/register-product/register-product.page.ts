@@ -30,4 +30,6 @@ export class RegisterProductPage implements OnInit {
   category = {
     name: '',
   }
+
+  
 }
