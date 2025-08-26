@@ -20,16 +20,19 @@
       <h1> Cadastro de Usuário </h1>
     </div>
   
-  <div *ngIf="registrationStep === 1">
+  <div *ngIf="registrationStep === 1" class="step-1">
     <ion-list lines="full" class="ion-no-margin">
       <ion-item>
-        <ion-input label="Nome" [(ngModel)]="name" placeholder="Seu nome completo"></ion-input>
+        <ion-input type="name" fill="solid" label="Digite seu nome" labelPlacement="floating" errorText="Invalid email"
+          [(ngModel)]="name"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Email" type="email" [(ngModel)]="email" placeholder="seuemail@exemplo.com"></ion-input>
+        <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Invalid email"
+          [(ngModel)]="email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input label="Senha" type="password" [(ngModel)]="password" placeholder="Sua senha"></ion-input>
+        <ion-input type="password" fill="solid" label="Senha" labelPlacement="floating" errorText="Invalid email"
+          [(ngModel)]="password"></ion-input>
       </ion-item>
     </ion-list>
     
