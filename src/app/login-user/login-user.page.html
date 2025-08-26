@@ -1,21 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title> </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="login-container">
-    <ion-list lines="full">
-      <ion-item>
-        <ion-input label="Email" type="email" [(ngModel)]="email" placeholder="seuemail@exemplo.com"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Senha" type="password" [(ngModel)]="password" placeholder="Sua senha"></ion-input>
-      </ion-item>
-    </ion-list>
 
-    <ion-button expand="block" class="ion-padding-top" (click)="login()">
+  <div class="body-design">
+
+    <div class='img-design'>
+      <ion-img src="../assets/icon/logo camelo.png" alt="Logo da empresa">
+      </ion-img>
+    </div>
+
+    <div class="titulo-login">
+      <h1> Login </h1>
+    </div>
+
+
+    <div class="login-container">
+      <ion-list lines="full">
+        <ion-item>
+          <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Invalid email"
+            [(ngModel)]="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="password" fill="solid" label="Senha" labelPlacement="floating" errorText="Invalid email"
+            [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <ion-button expand="block" class="ion-padding-top" (click)="login()" color="dark">
       Entrar
     </ion-button>
 
@@ -24,5 +41,7 @@
         <p>Não tem uma conta? <a routerLink="/register-user">Cadastre-se</a></p>
       </ion-text>
     </div>
+
   </div>
+ 
 </ion-content>

@@ -1,0 +1,30 @@
+.body-design {
+    border: 1px solid darkgray;
+    width: 95%;
+    margin-left: 3%;
+    background-color: rgb(27, 26, 26);
+    border-radius: 2%;
+}
+
+.titulo-login {
+    margin-bottom: 5%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.img-design {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+ion-img {
+    height: 200px;
+    width: 200px;
+}
+
+.step-1 {
+    padding: 15px;
+}
