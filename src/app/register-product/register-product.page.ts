@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+
 /* import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonList, IonItem, IonInput, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
  */
+import { CategoryService } from '../service/category.service';
+
 @Component({
   selector: 'app-register-product',
   templateUrl: './register-product.page.html',
@@ -13,10 +17,14 @@ import {IonicModule} from '@ionic/angular';
 })
 export class RegisterProductPage implements OnInit {
 
+
   constructor() { }
 
-  ngOnInit() {
+   ngOnInit() {
+
   }
+
+
 
   product = {
     name: '',
@@ -26,6 +34,8 @@ export class RegisterProductPage implements OnInit {
     sendingMethods: [],
     image: ''
   }
+
+ 
 
   category = {
     name: '',
