@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu Content</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">This is the menu content.</ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding"> </ion-content>
+  </div>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="img-master">
+    <ion-img src="../assets/icon/suoer.jpg" alt="Imagem master"></ion-img>
+  </div>
+
+  <div class="bestsellers-sector">
+    <div class="text-ligning">
+      <h2> Bestsellers </h2>
+      <h3> Ver tudo </h3>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </div>
+    <div class="img-bestsellers">
+      <div class="item">
+        <ion-img src="../assets/icon/labubu.webp" alt="Imagem meramente ilustrativa"></ion-img>
+        <p> Labubu </p>
+      </div>
+
+      <div class="item">
+        <ion-img src="../assets/icon/labubu.webp" alt="Imagem meramente ilustrativa"></ion-img>
+        <p> Labubu </p>
+      </div>
+
+      <div class="item">
+        <ion-img src="../assets/icon/labubu.webp" alt="Imagem meramente ilustrativa"></ion-img>
+        <p> Labubu </p>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
