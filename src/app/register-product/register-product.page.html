@@ -47,15 +47,20 @@
           <ion-label position="floating">Descrição do Produto</ion-label>
           <ion-textarea [(ngModel)]="product.description"></ion-textarea>
         </ion-item>
-
+        
         <ion-item>
-          <ion-label>Categoria</ion-label>
-          <ion-select>
-          </ion-select>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+        <ion-label>Categoria</ion-label>
+        <ion-select [(ngModel)]="product.category">
+          <ion-select-option *ngFor="let i of categories" [value]="i.name">
+            {{ i.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card> 
   </div>
+
+
 
   <ion-card>
 
