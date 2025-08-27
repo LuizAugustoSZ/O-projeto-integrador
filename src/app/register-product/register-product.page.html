@@ -1,34 +1,54 @@
 <ion-header [translucent]="true">
+
   <ion-toolbar>
-    <ion-title>register-product</ion-title>
+    <ion-title> Registrar Produto </ion-title>
   </ion-toolbar>
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menu Content</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">This is the menu content.</ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">register-product</ion-title>
+      <ion-title size="large"> Cadastro de Produto </ion-title>
     </ion-toolbar>
   </ion-header>
 
 
-  
+  <div class="basic-information">
     <ion-card>
-    <ion-card-header>
-      <ion-card-title>Informações Básicas</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Título do Produto</ion-label>
-        <ion-input [(ngModel)]="product.name"></ion-input>
-      </ion-item>
+      <ion-card-header>
+        <ion-card-title>Informações Básicas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Título do Produto</ion-label>
+          <ion-input [(ngModel)]="product.name"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="floating">Descrição do Produto</ion-label>
-        <ion-textarea [(ngModel)]="product.description"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
+        <ion-item>
+          <ion-label position="floating">Descrição do Produto</ion-label>
+          <ion-textarea [(ngModel)]="product.description"></ion-textarea>
+        </ion-item>
+        
+        <ion-item>
         <ion-label>Categoria</ion-label>
         <ion-select [(ngModel)]="product.category">
           <ion-select-option *ngFor="let i of categories" [value]="i.name">
@@ -37,19 +57,22 @@
         </ion-select>
       </ion-item>
     </ion-card-content>
-  </ion-card>
+  </ion-card> 
+  </div>
+
+
 
   <ion-card>
-    
+
     <ion-card-header><ion-card-title>Preço e estoque</ion-card-title></ion-card-header>
     <ion-card-content>
       <ion-item>
-      <ion-input labelPlacement="floating" label="Preço (R$)" [(ngModel)]="product.price"></ion-input>
-    </ion-item>
+        <ion-input labelPlacement="floating" label="Preço (R$)" [(ngModel)]="product.price"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-input labelPlacement="floating" label="Quantidade Disponível" [(ngModel)]="product.quantity"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-input labelPlacement="floating" label="Quantidade Disponível" [(ngModel)]="product.quantity"></ion-input>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
@@ -57,24 +80,25 @@
     <ion-card-header><ion-card-title>Opções de envio</ion-card-title></ion-card-header>
     <ion-card-content>
       <ion-list>
-      <ion-radio-group value="sending-methods">
-        <ion-item><ion-radio value="mail">Correio</ion-radio></ion-item>
-        <ion-item><ion-radio value="carrier">Transportadora</ion-radio></ion-item>
-      </ion-radio-group>
-    </ion-list>
+        <ion-radio-group value="sending-methods">
+          <ion-item><ion-radio value="mail">Correio</ion-radio></ion-item>
+          <ion-item><ion-radio value="carrier">Transportadora</ion-radio></ion-item>
+        </ion-radio-group>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header><ion-card-title>Fotos do produto</ion-card-title></ion-card-header>
     <ion-item>
-      <ion-button label="ADICIONAR IMAGENS">Adicionar Imagens</ion-button>
+      <div class="button-salve-img">
+        <ion-button label="ADICIONAR IMAGENS" color="dark">Adicionar Imagens</ion-button>
+      </div>
     </ion-item>
   </ion-card>
 
   <ion-card>
-      <ion-button label="Salvar">Salvar</ion-button>
-      <ion-button label="Cancelar">Cancelar</ion-button>
+    <ion-button label="Salvar" color="dark">Salvar</ion-button>
+    <ion-button label="Cancelar" color="danger">Cancelar</ion-button>
   </ion-card>
 </ion-content>
-
