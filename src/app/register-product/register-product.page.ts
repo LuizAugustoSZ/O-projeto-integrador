@@ -5,6 +5,7 @@ import {IonicModule} from '@ionic/angular';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { CategoryService } from '../service/category.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ProductService } from '../service/product.service';
 
@@ -33,7 +34,7 @@ export class RegisterProductPage implements OnInit {
     price: '',
     quantity: '',
     sendingMethods: [],
-    images: '',
+    images: [] as string[],
     category: ''
   }
 
@@ -43,7 +44,8 @@ export class RegisterProductPage implements OnInit {
   
   constructor(
     private categoryService: CategoryService,
-    private productService: ProductService) { }
+    private productService: ProductService
+    ) { }
 
    async ngOnInit() {
     this.categories = await this.categoryService.getCategories();
@@ -51,6 +53,50 @@ export class RegisterProductPage implements OnInit {
 
 
     }
+
+    async pickFiles() {
+      const result = await FilePicker.pickFiles({
+        
+        types: ['image/png'],
+      });
+      console.log(result);
+      this.product.images.push(file.path);
+      
+    }
+
+
+    pickPhotoAssets(){
+
+    }
+    
+    async takePhotoCamera(){
+
+      const image = await Camera.getPhoto({
+        quality: 80,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera
+      });
+
+      const fileName = `photo_${Date.now()}.jpeg`
+
+      await Filesystem.writeFile({
+        path: fileName,
+        data: image.base64String!,
+        directory: Directory.Data
+      });
+
+
+      const fileUri = (await Filesystem.getUri({
+        path: fileName,
+        directory: Directory.Data
+      })).uri;
+    
+      this.product.images.push(fileUri);
+
+      
+
+    }
+    
 
     async saveProduct(){
       try {
@@ -63,7 +109,7 @@ export class RegisterProductPage implements OnInit {
         price: '',
         quantity: '',
         sendingMethods: [],
-        images: '',
+        images: [] as string[],
         category: ''
         };
 
