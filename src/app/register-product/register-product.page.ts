@@ -59,13 +59,12 @@ export class RegisterProductPage implements OnInit {
         
         types: ['image/png'],
       });
-      console.log(result);
-      this.product.images.push(file.path);
-      
+
+      return result;
     }
 
-
     pickPhotoAssets(){
+      this.pickFiles()
 
     }
     
