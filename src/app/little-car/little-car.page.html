@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CARRINHO</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let item of carrinho">
+      <ion-thumbnail slot="start">
+        <img [src]="item.imagem"/>
+      </ion-thumbnail>
+
+      <ion-label>
+        <h2>{{ item.nome }}</h2>
+        <p>{{ item.descricao }}</p>
+        <h3>R$ {{ item.preco | number:'1.2-2' }}</h3>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button (click)="diminuirQtd(item)" fill="outline" size="small">-</ion-button>
+        <ion-label>{{ item.qtd }}</ion-label>
+        <ion-button (click)="aumentarQtd(item)" fill="outline" size="small">+</ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Subtotal</ion-label>
+      <ion-note slot="end">R$ {{ subtotal | number:'1.2-2' }}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>Frete</ion-label>
+      <ion-note slot="end">R$ {{ frete | number:'1.2-2' }}</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>Total</ion-label>
+      <ion-note slot="end"><b>R$ {{ total | number:'1.2-2' }}</b></ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-input placeholder="Cupom de desconto" [(ngModel)]="cupom"></ion-input>
+    <ion-button (click)="aplicarCupom()" color="dark">Aplicar</ion-button>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color="dark" (click)="fecharPedido()">
+      FECHAR PEDIDO
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
