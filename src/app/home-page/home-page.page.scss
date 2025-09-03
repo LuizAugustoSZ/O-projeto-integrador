@@ -22,12 +22,16 @@ swiper-container {
     height: 200px; /* altura do carrossel */
   }
   
-  swiper-slide ion-img {
+swiper-slide ion-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
   }
+
+swiper-slide p {
+    margin-top: 8px
+}
 
 .text-ligning {
     display: flex;
