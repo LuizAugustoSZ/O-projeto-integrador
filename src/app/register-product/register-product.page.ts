@@ -23,8 +23,6 @@ import { ProductService } from '../service/product.service';
 
 export class RegisterProductPage implements OnInit {
 
-
-
   categories: any[] = [];
   
   product = {
@@ -36,10 +34,6 @@ export class RegisterProductPage implements OnInit {
     images: '',
     category: ''
   }
-
-
-
-
   
   constructor(
     private categoryService: CategoryService,
@@ -48,7 +42,6 @@ export class RegisterProductPage implements OnInit {
    async ngOnInit() {
     this.categories = await this.categoryService.getCategories();
     console.log('Categories in page:', this.categories);
-
 
     }
 

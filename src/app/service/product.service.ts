@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, push, set } from '@angular/fire/database';
-
+import { Database, ref, push, set, get, child } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +7,33 @@ import { Database, ref, push, set } from '@angular/fire/database';
 export class ProductService {
   constructor(private db: Database) {}
 
-   async saveProduct(product: any){
-      const productsRef = ref(this.db, 'products');
-      const newProductRef = push(productsRef); 
-       await set(newProductRef, {
+  async saveProduct(product: any) {
+    const productsRef = ref(this.db, 'products');
+    const newProductRef = push(productsRef);
+    await set(newProductRef, {
       ...product,
       createdAt: Date.now()
     });
-      return newProductRef.key; 
+    return newProductRef.key;
+  }
+
+  async getProducts(): Promise<any[]> {
+    const productsRef = ref(this.db, 'products');
+    try {
+      const snapshot = await get(productsRef);
+      if (snapshot.exists()) {
+        const productsData = snapshot.val();
+        return Object.keys(productsData).map(key => ({
+          id: key,
+          ...productsData[key]
+        }));
+      } else {
+        console.log("No data available");
+        return [];
+      }
+    } catch (error) {
+      console.error(error);
+      return [];
     }
-  
+  }
 }

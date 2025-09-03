@@ -1,20 +1,31 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Produtos à Venda</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?a</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Carregando produtos...</p>
   </div>
+  
+  <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
+    <p>Nenhum produto cadastrado ainda.</p>
+  </div>
+
+  <ion-list *ngIf="!isLoading && products.length > 0">
+    <ion-card *ngFor="let product of products">
+      <img [src]="product.images" *ngIf="product.images">
+      <ion-card-header>
+        <ion-card-title>{{ product.name }}</ion-card-title>
+        <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ product.description }}</p>
+        <p><strong>Preço:</strong> R$ {{ product.price }}</p>
+        <p><strong>Quantidade:</strong> {{ product.quantity }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>
