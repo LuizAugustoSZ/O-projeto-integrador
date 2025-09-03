@@ -10,21 +10,19 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, Ion
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonList, IonItem, IonThumbnail, IonFooter, IonNote, IonLabel]
 })
-export class LittleCarPage implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class LittleCarPage {
 
   carrinho = [
-    { nome: 'Boneco de Pelucia Lagrugru', descricao: 'LABUBU', preco: 999.99, qtd: 1, imagem: 'assets/icon/labubu.png'},
-    { nome: 'Garrafa de Agua Olivia Rodrigo', descricao: 'STANLEY', preco: 300.90, qtd: 1, imagem: 'assets/icon/stanley.png'},
-    { nome: 'Deu a Louca na Chapeuzinho Vermelho vl.1', descricao: 'DVD', preco: 150.00, qtd: 1, imagem: 'assets/icon/filme.png'}
+    { nome: 'Boneco de Pelúcia Lagrugru', descricao: 'LABUBU', preco: 999.99, qtd: 1, imagem: 'assets/icon/labubu.png' },
+    { nome: 'Garrafa de Água Olivia Rodrigo', descricao: 'STANLEY', preco: 300.90, qtd: 1, imagem: 'assets/icon/stanley.png' },
+    { nome: 'Deu a Louca na Chapeuzinho Vermelho vl.1', descricao: 'DVD', preco: 150.00, qtd: 1, imagem: 'assets/icon/filme.png' }
   ];
 
-  frete = 50.00;
+  freteOriginal = 50.00;
+  frete = this.freteOriginal; 
   cupom: string = '';
+  cupomAplicado: boolean = false;
 
   get subtotal() {
     return this.carrinho.reduce((acc, item) => acc + (item.preco * item.qtd), 0);
@@ -44,9 +42,9 @@ export class LittleCarPage implements OnInit {
 
   aplicarCupom() {
     if (this.cupom.toLowerCase() === 'desconto10') {
-      this.frete = 0;
+      this.frete = 0; 
       alert('Cupom aplicado com sucesso!');
-    }else {
+    } else {
       alert('Cupom inválido!');
     }
   }
@@ -55,4 +53,8 @@ export class LittleCarPage implements OnInit {
     alert('Pedido finalizado!');
   }
 
+  removerItem(index: number) {
+    this.carrinho.splice(index, 1);
+  }
+  
 }
