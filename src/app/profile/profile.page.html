@@ -1,0 +1,63 @@
+<ion-content>
+  <div class="profile-container">
+
+    <h2>Olá, {{ userName }}</h2>
+
+    <div class="section">
+      <h3>Profile</h3>
+      <div class="row">
+        <div>
+          <p class="name">{{ userName }}</p>
+          <p class="email">{{ userEmail }}</p>
+        </div>
+        <button class="edit-btn" (click)="editProfile()">Edit</button>
+      </div>
+
+      <div class="row">
+        <p class="password">********</p>
+        <button class="edit-btn" (click)="editPassword()">Edit</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Endereço</h3>
+      <a class="link" (click)="addAddress()">+ Adicionar endereço</a>
+    </div>
+
+    <div class="section">
+      <h3>Metodo de pagamento</h3>
+      <a class="link" (click)="addPayment()">+ adicionar metodo de pagamento</a>
+    </div>
+  </div>
+
+  <ion-list-header class="favorites-header">
+    <ion-label>Meus produtos</ion-label>
+  </ion-list-header>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="6" *ngFor="let produto of produtosFavoritos">
+        <ion-card>
+          <ion-img [src]="produto.foto"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{ produto.nome }}</ion-card-title>
+            <ion-card-subtitle>{{ produto.descricao }}</ion-card-subtitle>
+          </ion-card-header>
+          
+          <ion-card-content>
+            <div class="rating">
+              <ion-icon name="star" *ngFor="let star of [1, 2, 3, 4]"></ion-icon>
+              <ion-icon name="star-half"></ion-icon>
+              <span>{{ produto.avaliacao }} ({{ produto.vendas }})</span>
+            </div>
+            
+            <p class="tamanho">Tamanho: {{ produto.tamanho }}</p>
+            <p class="valor">{{ produto.valor | currency:'BRL':'symbol' }}</p>
+
+            <ion-button expand="block" fill="solid" color="danger" (click)="removerProduto(produto.id)">Remover</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
