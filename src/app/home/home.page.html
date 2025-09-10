@@ -25,7 +25,7 @@
       <swiper-slide *ngFor="let product of products">
         <ion-card class="product-card">
 
-          <ion-img class="product-image" [src]="product.images ? product.images : '../assets/icon/placeholder.png'">
+          <ion-img class="product-image" [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'">
           </ion-img>
 
           <ion-card-content>

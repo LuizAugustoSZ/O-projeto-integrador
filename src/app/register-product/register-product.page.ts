@@ -48,18 +48,24 @@ export class RegisterProductPage implements OnInit {
   }
 
   async pickFiles() {
-    const result = await FilePicker.pickFiles({
-
-      types: ['image/png', 'image/jpeg'],
-      readData: true // garante que venha base64
-    });
-
-    if (result.files.length > 0) {
-      result.files.forEach(file => {
-        if (file.data) {
-          this.product.images.push(`data:image/jpeg;base64,${file.data}`);
-        }
+    try {
+      const result = await FilePicker.pickFiles({
+        types: ['image/png', 'image/jpeg'],
+        readData: true // garante que venha Base64
       });
+
+      if (result.files.length > 0) {
+        result.files.forEach(file => {
+          if (file.data) {
+            // Detecta o tipo da imagem dinamicamente
+            const mimeType = file.mimeType || 'image/jpeg';
+            // Adiciona a imagem ao array para exibição e para salvar no banco
+            this.product.images.push(`data:${mimeType};base64,${file.data}`);
+          }
+        });
+      }
+    } catch (err) {
+      console.log('Erro ao selecionar arquivos:', err);
     }
   }
 
