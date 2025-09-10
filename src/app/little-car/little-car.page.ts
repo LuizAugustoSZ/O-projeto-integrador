@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { littleCar } from '../service/littlercar.service';
-
-// Importe e adicione os ícones aqui
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
