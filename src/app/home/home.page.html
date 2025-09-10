@@ -1,10 +1,52 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Home Page </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content [fullscreen]="true">
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/home"> Home </ion-item>
+      <ion-item routerLink="/products"> Produtos </ion-item>
+      <ion-item routerLink="/offers"> Ofertas </ion-item>
+      <ion-item routerLink="/account"> Minha Conta </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+     <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+  <div class="promo-bar">
+    <p>CUPOM PRIMEIRA COMPRA - DESCONTO EXCLUSIVO!</p>
+  </div>
+
+   <div class="hero-banner">
+      <img src="../assets/icon/banner.jpg" alt="Banner Principal">
+   </div>
+
+  <div class="section-header">
+    <h2>Bestsellers</h2>
+    <a href="">Ver tudo →</a>
+  </div>
+
   <div *ngIf="isLoading" class="loading-container">
     <ion-spinner></ion-spinner>
     <p>Carregando produtos...</p>
@@ -14,27 +56,40 @@
     <p>Nenhum produto cadastrado ainda.</p>
   </div>
 
-  <div class="section-header">
-    <h2 class="section-title">Bestsellers</h2>
-    <a class="view-all" href="">Ver tudo →</a>
-  </div>
-
-  <div class="space-product">
-    <swiper-container slides-per-view="3" space-between="4">
-
-      <swiper-slide *ngFor="let product of products">
-        <ion-card class="product-card">
-
-          <ion-img class="product-image" [src]="product.images ? product.images : '../assets/icon/placeholder.png'">
-          </ion-img>
-
+  <div class="carousel" *ngIf="!isLoading && products.length > 0">
+    <div class="carousel-track">
+      <div class="carousel-item" *ngFor="let product of products">
+        <ion-card>
+          <ion-img [src]="product.images ? product.images : '../assets/icon/placeholder.png'"></ion-img>
           <ion-card-content>
-            <h3 class="product-title">{{ product.name }}</h3>
-            <p class="product-category">{{ product.category }}</p>
-            <p class="product-price">R$ {{ product.price }}</p>
-            <p class="product-quantity">Qtd: {{ product.quantity }}</p>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.category }}</p>
+            <p>R$ {{ product.price }}</p>
+            <p>Quantidade: {{ product.quantity }}</p>
           </ion-card-content>
         </ion-card>
-      </swiper-slide>
-    </swiper-container>
+      </div>
+    </div>
   </div>
+
+  <div class="section-header">
+    <h2> Ofertas </h2>
+    <a href="">Ver tudo →</a>
+  </div>
+
+  <div class="carousel" *ngIf="!isLoading && products.length > 0">
+    <div class="carousel-track">
+      <div class="carousel-item" *ngFor="let product of products">
+        <ion-card>
+          <ion-img [src]="product.images ? product.images : '../assets/icon/placeholder.png'"></ion-img>
+          <ion-card-content>
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.category }}</p>
+            <p>R$ {{ product.price }}</p>
+            <p>Quantidade: {{ product.quantity }}</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</ion-content>

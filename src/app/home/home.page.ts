@@ -3,13 +3,9 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ProductService } from '../service/product.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { register } from 'swiper/element/bundle';
-import { IonicSlides } from '@ionic/angular';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
-register ();
+import { addIcons } from 'ionicons';
+import { cartOutline,searchOutline } from 'ionicons/icons';
 
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -21,17 +17,13 @@ register ();
 })
 export class HomePage implements OnInit {
 
-  swiperModules = [IonicSlides];
-
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400
-  };
-
   products: any[] = [];
   isLoading = true;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) { 
+
+      addIcons({ cartOutline,searchOutline });
+  }
 
   async ngOnInit() {
     await this.loadProducts();

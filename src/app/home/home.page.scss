@@ -1,9 +1,20 @@
+ion-toolbar ion-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* espaço entre lupa e carrinho */
+}
+
+ion-toolbar ion-title {
+  flex: 1;
+  text-align: center; /* centraliza o título */
+}
+
 .product-card {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   text-align: center;
-  margin: 8px;
+  margin: 1px;
   width: 140px; 
 }
 
@@ -44,14 +55,130 @@
   margin-top: 10px;
 }
 
-.section-title {
+.section-title{
+  color: white;
+  display: block;
   font-size: 18px;
   font-weight: bold;
 }
 
 .view-all {
   font-size: 14px;
-  color: #007aff;
   text-decoration: none;
   font-weight: 500;
+}
+
+.promo-bar {
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.promo-bar p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: slide 12s linear infinite;
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.hero-banner {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+.view-all {
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 10px 5px 10px; /* margem superior e inferior menores */
+}
+
+.carousel {
+  overflow-x: auto;
+  padding: 10px 20px 10px 10px; /* padding superior menor */
+}
+
+.section-header h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.loading-container,
+.no-products-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 5px; /* diminui espaçamento entre os cards */
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 200px; /* largura fixa de todos os cards */
+}
+
+.carousel-item ion-card {
+  width: 100%;       /* ocupa toda a largura do carousel-item */
+  height: 300px;     /* altura fixa igual para todos */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* organiza o conteúdo igualmente */
+  margin: 0;         /* remove margem extra */
+}
+
+.carousel-item ion-card ion-img {
+  width: 100%;
+  height: 180px;     /* altura da imagem */
+  object-fit: cover;
+}
+
+.carousel-item ion-card ion-card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
 }
