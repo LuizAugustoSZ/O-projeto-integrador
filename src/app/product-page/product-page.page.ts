@@ -16,7 +16,7 @@ export class ProductPagePage {
     nome: 'Canetas para Pintar Bobbie Goods, Touch 168 Cores',
     descricao: 'Kit profissional com 168 cores vivas',
     preco: 150.00,
-    imagem: 'assets/imgs/canetas.png',
+    imagem: 'assets/icon/stanley.png',
     nota: 4.5,
     avaliacoes: 1117
   };
