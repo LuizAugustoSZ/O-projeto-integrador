@@ -92,10 +92,17 @@
     <ion-card-header><ion-card-title>Fotos do produto</ion-card-title></ion-card-header>
     <ion-item>
       <div class="button-salve-img">
-        <ion-button label="ADICIONAR IMAGENS" color="dark">Adicionar Imagens</ion-button>
+        <ion-button label="ADICIONAR IMAGENS" color="dark" (click)="pickFiles()">Adicionar Imagens da galeria</ion-button>
+        <ion-button click="takePhotoCamera" (click)="takePhotoCamera()">Tirar fotos com a câmera</ion-button>
       </div>
     </ion-item>
+
+    <ion-item *ngIf="product.images.length > 0">
+      <img *ngFor="let img of product.images"
+      [src]="img">
+    </ion-item>
   </ion-card>
+
 
   <ion-card>
     <ion-button label="Salvar" color="dark" (click)="saveProduct()">Salvar</ion-button>
