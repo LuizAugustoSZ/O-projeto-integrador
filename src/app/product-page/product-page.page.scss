@@ -1,0 +1,40 @@
+ion-img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+ion-card {
+    margin: 10px;
+}
+
+.avaliacao {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.avaliacao ion-icon {
+    color: #FFD700; /* cor dourada das estrelas */
+}
+
+.preco {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.quantidade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.quantidade span {
+    font-weight: bold;
+}
