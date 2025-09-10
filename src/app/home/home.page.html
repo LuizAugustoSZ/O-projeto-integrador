@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Produtos à Venda</ion-title>
+    <ion-title> Home Page </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,23 +9,32 @@
     <ion-spinner></ion-spinner>
     <p>Carregando produtos...</p>
   </div>
-  
+
   <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
     <p>Nenhum produto cadastrado ainda.</p>
   </div>
 
-  <ion-list *ngIf="!isLoading && products.length > 0">
-    <ion-card *ngFor="let product of products">
-      <img [src]="product.images" *ngIf="product.images">
-      <ion-card-header>
-        <ion-card-title>{{ product.name }}</ion-card-title>
-        <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>{{ product.description }}</p>
-        <p><strong>Preço:</strong> R$ {{ product.price }}</p>
-        <p><strong>Quantidade:</strong> {{ product.quantity }}</p>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
-</ion-content>
+  <div class="section-header">
+    <h2 class="section-title">Bestsellers</h2>
+    <a class="view-all" href="">Ver tudo →</a>
+  </div>
+
+  <div class="space-product">
+    <swiper-container slides-per-view="3" space-between="4">
+
+      <swiper-slide *ngFor="let product of products">
+        <ion-card class="product-card">
+
+          <ion-img class="product-image" [src]="product.images ? product.images : '../assets/icon/placeholder.png'">
+          </ion-img>
+
+          <ion-card-content>
+            <h3 class="product-title">{{ product.name }}</h3>
+            <p class="product-category">{{ product.category }}</p>
+            <p class="product-price">R$ {{ product.price }}</p>
+            <p class="product-quantity">Qtd: {{ product.quantity }}</p>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+  </div>
