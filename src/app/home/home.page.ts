@@ -49,6 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
     private router: Router
   ) { }
 
+
   async ngOnInit() {
     await this.loadProducts();
 
