@@ -5,6 +5,7 @@ import { ProductService } from '../service/product.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { IonicSlides } from '@ionic/angular';
+import { Router, RouterLink } from '@angular/router';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -17,7 +18,7 @@ register ();
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule]
+  imports: [CommonModule, IonicModule, RouterLink]
 })
 export class HomePage implements OnInit {
 
@@ -31,7 +32,10 @@ export class HomePage implements OnInit {
   products: any[] = [];
   isLoading = true;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private router: Router
+  ) { }
 
   async ngOnInit() {
     await this.loadProducts();
@@ -48,4 +52,8 @@ export class HomePage implements OnInit {
       this.isLoading = false;
     }
   }
+
+  // viewProductDetails(productId: string) {
+  //   this.router.navigate(['/product-page', productId]);
+  // }
 }

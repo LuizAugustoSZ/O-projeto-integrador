@@ -1,47 +1,74 @@
+// src/app/product-page/product-page.page.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonIcon, IonBadge, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFooter, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../service/product.service';
+import { addIcons } from 'ionicons';
+import { star, starHalf, starOutline, cartOutline } from 'ionicons/icons';
+
+addIcons({ star, starHalf, starOutline, cartOutline });
 
 @Component({
-  selector: 'app-product-page',
-  templateUrl: './product-page.page.html',
-  styleUrls: ['./product-page.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, CommonModule, FormsModule, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonIcon, IonBadge, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFooter, IonToolbar]
+  selector: 'app-product-page',
+  templateUrl: './product-page.page.html',
+  styleUrls: ['./product-page.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ProductPagePage {
+export class ProductPage implements OnInit {
+  productId: string | null = null;
+  product: any; 
+  qtd: number = 1;
+  qtdCarrinho: number = 0;
+  estrelas: string[] = ['star-outline', 'star-outline', 'star-outline', 'star-outline', 'star-outline'];
 
-  produto = {
-    nome: 'Canetas para Pintar Bobbie Goods, Touch 168 Cores',
-    descricao: 'Kit profissional com 168 cores vivas',
-    preco: 150.00,
-    imagem: 'assets/icon/stanley.png',
-    nota: 4.5,
-    avaliacoes: 1117
-  };
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService
+  ) {}
 
-  qtd: number = 1;
-  qtdCarrinho: number = 0;
+  async ngOnInit() {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    
+    if (this.productId) {
+      this.product = await this.productService.getProductById(this.productId);
+      
+      if (this.product && this.product.nota) {
+        this.updateStars(this.product.nota);
+      }
+    }
+  }
 
-  get estrelas() {
-    const estrelasCheias = Math.floor(this.produto.nota);
-    const estrelas = Array(estrelasCheias).fill('star');
-    if (this.produto.nota % 1 !== 0) estrelas.push('star-half');
-    while (estrelas.length < 5) estrelas.push('star-outline');
-    return estrelas;
-  }
+  updateStars(rating: number) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
 
-  aumentarQtd() {
-    this.qtd++;
-  }
+    for (let i = 0; i < this.estrelas.length; i++) {
+      if (i < fullStars) {
+        this.estrelas[i] = 'star';
+      } else if (i === fullStars && hasHalfStar) {
+        this.estrelas[i] = 'star-half';
+      } else {
+        this.estrelas[i] = 'star-outline';
+      }
+    }
+  }
 
-  diminuirQtd() {
-    if (this.qtd > 1) this.qtd--;
-  }
+  diminuirQtd() {
+    if (this.qtd > 1) {
+      this.qtd--;
+    }
+  }
 
-  adicionarCarrinho() {
-    this.qtdCarrinho += this.qtd;
-    alert(`${this.qtd} item(ns) adicionados ao carrinho!`);
-  }
+  aumentarQtd() {
+    this.qtd++;
+  }
+
+  adicionarCarrinho() {
+    console.log(`Adicionado ${this.qtd} de ${this.product.nome} ao carrinho.`);
+    this.qtdCarrinho += this.qtd;
+  }
 }

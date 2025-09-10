@@ -1,51 +1,57 @@
+<!-- src/app/product-page/product-page.page.html -->
+
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
 
-    <ion-searchbar placeholder="Buscar produtos"></ion-searchbar>
+    <ion-searchbar placeholder="Buscar products"></ion-searchbar>
 
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="produto.imagem"/>
+  <div *ngIf="product">
+    <ion-img [src]="product.images"/>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ produto.nome }}</ion-card-title>
-      <ion-card-subtitle>{{ produto.descricao }}</ion-card-subtitle>
-    </ion-card-header>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ product.name }}</ion-card-title>
+        <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+      </ion-card-header>
 
-    <ion-card-content>
-      <div class="avaliacao">
-        <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
-        <span>{{ produto.nota }} ({{ produto.avaliacoes }} avaliações)</span>
-      </div>
+      <ion-card-content>
+      <ion-card-subtitle>{{ product.description }}</ion-card-subtitle>
+        <div class="avaliacao">
+          <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
+          <span>{{ product.nota }} ({{ product.avaliacoes }} avaliações)</span>
+        </div>
 
-      <h2 class="preco">R$ {{ produto.preco | number:'1.2-2' }}</h2>
+        <h2 class="preco">R$ {{ product.price | number:'1.2-2' }}</h2>
+        <ion-card-subtitle>Em estoque : {{ product.quantity }} unidade</ion-card-subtitle>
 
-      <div class="quantidade">
-        <ion-button fill="outline" size="small" (click)="diminuirQtd()">-</ion-button>
-        <span>{{ qtd }}</span>
-        <ion-button fill="outline" size="small" (click)="aumentarQtd()">+</ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+        <div class="quantidade">
+          <ion-button fill="outline" size="small" (click)="diminuirQtd()">-</ion-button>
+          <span>{{ product.quantity }}</span>
+          <ion-button fill="outline" size="small" (click)="aumentarQtd()">+</ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-button expand="block" color="dark" (click)="adicionarCarrinho()">
-      <ion-icon slot="start" name="cart-outline"></ion-icon>
-      Carrinho
-    </ion-button>
-  </ion-toolbar>
+  <ion-toolbar>
+    <ion-button expand="block" color="dark" (click)="adicionarCarrinho()">
+      <ion-icon slot="start" name="cart-outline"></ion-icon>
+      Carrinho
+    </ion-button>
+  </ion-toolbar>
 </ion-footer>

@@ -5,6 +5,12 @@
   text-align: center;
   margin: 8px;
   width: 140px; 
+    .product-link {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .product-image {
