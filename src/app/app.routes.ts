@@ -17,9 +17,14 @@ export const routes: Routes = [
   {
     path: 'register-user',
     loadComponent: () => import('./register-user/register-user.page').then( m => m.RegisterUserPage)
-  },  {
+  },
+  {
     path: 'register-product',
     loadComponent: () => import('./register-product/register-product.page').then( m => m.RegisterProductPage)
+  },
+  {
+    path: 'payment',
+    loadComponent: () => import('./payment/payment.page').then( m => m.PaymentPage)
   },
   {
     path: 'little-car',
@@ -28,10 +33,5 @@ export const routes: Routes = [
   {
     path: 'product-page',
     loadComponent: () => import('./product-page/product-page.page').then( m => m.ProductPagePage)
-  },
-  {
-    path: 'payments',
-    loadComponent: () => import('./payments/payments.page').then( m => m.PaymentsPage)
-  },
-
+  }
 ];

@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+  
+    <h2>Payment</h2>
+
+    <ion-item>
+      <ion-label position="stacked">Cupom de desconto</ion-label>
+      <ion-input [(ngModel)]="promoCode"></ion-input>
+      <ion-button slot="end" (click)="aplicarCupom()">Aplicar</ion-button>
+    </ion-item>
+
+    <h3>Método de pagamento</h3>
+    <ion-card>
+      <ion-radio-group [(ngModel)]="metodoPagamento">
+
+        <ion-item>
+          <ion-radio slot="start" value="credito"></ion-radio>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">MM AA</ion-label>
+          <ion-input type="month"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">CVV</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Nome do cartao</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-checkbox [(ngModel)]="salvarCartao"></ion-checkbox>
+        <ion-label>Salvar informações</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-radio slot="start" value="google"></ion-radio>
+          <ion-label>Google Pay</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-radio slot="start" value="paypal"></ion-radio>
+          <ion-label>PayPal</ion-label>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-card>
+
+    <ion-button expand="block" color="dark" (click)="continuar()">
+      Continue para revisar a compra
+    </ion-button>
+</ion-content>
