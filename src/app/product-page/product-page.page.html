@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-searchbar placeholder="Buscar produtos"></ion-searchbar>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img [src]="produto.imagem"/>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ produto.nome }}</ion-card-title>
+      <ion-card-subtitle>{{ produto.descricao }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="avaliacao">
+        <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
+        <span>{{ produto.nota }} ({{ produto.avaliacoes }} avaliações)</span>
+      </div>
+
+      <h2 class="preco">R$ {{ produto.preco | number:'1.2-2' }}</h2>
+
+      <div class="quantidade">
+        <ion-button fill="outline" size="small" (click)="diminuirQtd()">-</ion-button>
+        <span>{{ qtd }}</span>
+        <ion-button fill="outline" size="small" (click)="aumentarQtd()">+</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color="dark" (click)="adicionarCarrinho()">
+      <ion-icon slot="start" name="cart-outline"></ion-icon>
+      Carrinho
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
