@@ -1,7 +1,7 @@
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #3880ff); // Cor de fundo da toolbar
-    color: var(--ion-color-primary-contrast, #ffffff); // Cor do texto da toolbar
+    --background: var(--ion-color-primary, #3880ff);
+    color: var(--ion-color-primary-contrast, #ffffff);
     ion-title {
       color: var(--ion-color-primary-contrast, #ffffff);
     }
@@ -14,7 +14,7 @@ ion-header {
 }
 
 ion-content {
-  --background: var(--ion-color-light, #f4f5f8); // Cor de fundo da content
+  --background: var(--ion-color-light, #f4f5f8);
 
   .empty-cart-message {
     display: flex;
@@ -25,7 +25,7 @@ ion-content {
     text-align: center;
 
     ion-icon {
-      font-size: 5em; // Ícone grande
+      font-size: 5em;
       color: var(--ion-color-medium, #92949c);
       margin-bottom: 10px;
     }
@@ -50,18 +50,18 @@ ion-content {
 
   .cart-item {
     margin-bottom: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Sombra para destacar cada item
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    background: var(--ion-color-light-contrast, #ffffff); // Fundo branco
+    background: var(--ion-color-light-contrast, #ffffff);
     
     ion-thumbnail {
-      --size: 80px; // Tamanho da imagem do produto
+      --size: 80px;
       border-radius: 8px;
-      overflow: hidden; // Garante que a imagem se ajuste ao raio
+      overflow: hidden;
       margin-inline-end: 10px;
 
       img {
-        object-fit: cover; // Preenche o thumbnail
+        object-fit: cover;
       }
     }
 
@@ -85,20 +85,20 @@ ion-content {
     .quantity-controls {
       display: flex;
       align-items: center;
-      margin-top: 5px; // Espaço acima dos controles de quantidade
+      margin-top: 5px;
 
       ion-button {
         --padding-start: 0;
         --padding-end: 0;
-        height: 30px; // Ajusta altura dos botões de + e -
-        width: 30px; // Ajusta largura
-        font-size: 1.2em; // Tamanho do ícone
+        height: 30px;
+        width: 30px;
+        font-size: 1.2em;
       }
 
       .item-quantity {
         font-weight: bold;
         margin: 0 10px;
-        min-width: 25px; // Garante espaço para números maiores
+        min-width: 25px;
         text-align: center;
       }
     }
@@ -107,7 +107,7 @@ ion-content {
       ion-button {
         --padding-start: 0;
         --padding-end: 0;
-        font-size: 1.4em; // Ícone da lixeira maior
+        font-size: 1.4em;
       }
     }
   }
@@ -146,7 +146,7 @@ ion-content {
 
     .checkout-button {
       margin-top: 20px;
-      --background: var(--ion-color-success, #2dd36f); // Botão de finalizar com cor verde
+      --background: var(--ion-color-success, #2dd36f);
       --color: var(--ion-color-success-contrast, #ffffff);
       font-weight: bold;
     }

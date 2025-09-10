@@ -21,13 +21,13 @@
       <h2>Seu carrinho está vazio!</h2>
       <p>Adicione alguns produtos para começar a comprar.</p>
     </ion-text>
-    <ion-button expand="block" routerLink="/home">Continuar Comprando</ion-button>
+    <ion-button expand="block" (click)="goHome()">Continuar Comprando</ion-button>
   </div>
 
   <ion-list *ngIf="cartItems.length > 0">
     <ion-item *ngFor="let item of cartItems; let i = index" class="cart-item">
       <ion-thumbnail slot="start">
-        <img [src]="item.images || 'assets/placeholder.png'" alt="Imagem do produto">
+        <img [src]="item.images" alt="Imagem do produto">
       </ion-thumbnail>
 
       <ion-label>

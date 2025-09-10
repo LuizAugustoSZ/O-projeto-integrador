@@ -81,4 +81,5 @@ export class ProductPage implements OnInit, OnDestroy {
     goToCart() {
     this.router.navigateByUrl('/little-car');
   }
+
 }

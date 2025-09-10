@@ -5,6 +5,7 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
@@ -23,7 +24,8 @@ export class LittleCarPage implements OnInit, OnDestroy {
 
   constructor(
     private littleCar: littleCar,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,10 @@ export class LittleCarPage implements OnInit, OnDestroy {
 
   goBack() {
     this.navCtrl.back();
+  }
+
+  goHome() {
+    this.router.navigateByUrl('/home');
   }
 
   removeFromCart(index: number) {
