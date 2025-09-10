@@ -24,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'little-car',
-    loadComponent: () => import('./little-car/little-car.page').then( m => m.LittleCarPage)
+    loadComponent: () => import('./little-car/little-car.page').then(m => m.LittleCarPage)
   },
   {
     path: 'product-page',

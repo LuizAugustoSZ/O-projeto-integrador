@@ -1,40 +1,103 @@
-ion-img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: contain;
-    margin-bottom: 10px;
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #3880ff);
+    color: var(--ion-color-primary-contrast, #ffffff);
+    ion-title {
+      color: var(--ion-color-primary-contrast, #ffffff);
+    }
+    ion-buttons {
+      ion-button {
+        color: var(--ion-color-primary-contrast, #ffffff);
+      }
+    }
+  }
 }
 
-ion-card {
-    margin: 10px;
+ion-content {
+  --background: var(--ion-color-light, #f4f5f8);
+
+  ion-card {
+    margin: 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    ion-card-header {
+      padding-bottom: 0;
+      ion-card-subtitle {
+        color: var(--ion-color-medium, #92949c);
+        font-weight: bold;
+      }
+      ion-card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: var(--ion-color-dark, #222428);
+      }
+    }
+  }
 }
 
-.avaliacao {
+.product-info-stars {
+  .stars {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 8px;
-    font-size: 14px;
+    ion-icon {
+      color: var(--ion-color-warning, #ffc409);
+      margin-inline-end: 2px;
+    }
+    ion-text {
+      margin-left: 5px;
+      color: var(--ion-color-medium, #92949c);
+    }
+  }
 }
 
-.avaliacao ion-icon {
-    color: #FFD700; /* cor dourada das estrelas */
-}
+.product-info-details {
+  margin-top: 10px;
 
-.preco {
-    font-size: 20px;
+  .description {
+    font-size: 1em;
+    color: var(--ion-color-dark, #222428);
+    line-height: 1.4;
+  }
+  .price {
+    font-size: 1.8em;
     font-weight: bold;
-    margin: 10px 0;
-}
-
-.quantidade {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
+    color: var(--ion-color-success, #2dd36f);
     margin-top: 10px;
+  }
+  .stock-info {
+    font-size: 0.9em;
+    color: var(--ion-color-medium, #92949c);
+    font-weight: 500;
+  }
 }
 
-.quantidade span {
+.quantity-controls {
+  margin-top: 15px;
+  .item-quantity {
     font-weight: bold;
+    font-size: 1.2em;
+    min-width: 30px;
+    text-align: center;
+  }
+}
+
+ion-footer {
+  ion-toolbar {
+    --background: var(--ion-color-dark, #222428);
+    ion-button {
+      font-weight: bold;
+      font-size: 1.1em;
+      --background: var(--ion-color-dark, #222428);
+      color: var(--ion-color-light, #f4f5f8);
+    }
+  }
 }

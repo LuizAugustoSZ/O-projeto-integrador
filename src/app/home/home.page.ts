@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ProductService } from '../service/product.service';
@@ -10,7 +10,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-register ();
+import { littleCar } from '../service/littlercar.service';
+import { Subscription } from 'rxjs';
+import { addIcons } from 'ionicons';
+import { cartOutline } from 'ionicons/icons';
+
+register();
+
+addIcons({ cartOutline });
 
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -20,13 +27,17 @@ register ();
   standalone: true,
   imports: [CommonModule, IonicModule, RouterLink]
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
 
   swiperModules = [IonicSlides];
+  qtdCarrinho: number = 0;
+  private cartSubscription!: Subscription;
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400
+    speed: 400,
+    slidesPerView: 2.2,
+    spaceBetween: 10
   };
 
   products: any[] = [];
@@ -34,11 +45,22 @@ export class HomePage implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private littleCar: littleCar,
     private router: Router
   ) { }
 
   async ngOnInit() {
     await this.loadProducts();
+
+    this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
+      this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
   async loadProducts() {
@@ -52,8 +74,4 @@ export class HomePage implements OnInit {
       this.isLoading = false;
     }
   }
-
-  // viewProductDetails(productId: string) {
-  //   this.router.navigate(['/product-page', productId]);
-  // }
 }

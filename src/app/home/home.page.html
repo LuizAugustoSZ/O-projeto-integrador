@@ -1,42 +1,40 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Home Page </ion-title>
+    <ion-title>Home Page</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/little-car">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="isLoading" class="loading-container">
-    <ion-spinner></ion-spinner>
-    <p>Carregando produtos...</p>
+  <div class="header-section ion-padding">
+    <h2>Bestsellers</h2>
+    <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
   </div>
 
-  <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
-    <p>Nenhum produto cadastrado ainda.</p>
-  </div>
-
-  <div class="section-header">
-    <h2 class="section-title">Bestsellers</h2>
-    <a class="view-all" href="">Ver tudo →</a>
-  </div>
-
-  <div class="space-product">
-    <swiper-container slides-per-view="3" space-between="4">
-
-      <swiper-slide *ngFor="let product of products">
-        <a [routerLink]="['/product-page', product.id]">
-          <ion-card class="product-card">
-            <ion-img class="product-image" [src]="product.images ? product.images : '../assets/icon/placeholder.png'">
-            </ion-img>
-
-            <ion-card-content>
-              <h3 class="product-title">{{ product.name }}</h3>
-              <p class="product-category">{{ product.category }}</p>
-              <p class="product-price">R$ {{ product.price }}</p>
-              <p class="product-quantity">Qtd: {{ product.quantity }}</p>
-            </ion-card-content>
-          </ion-card>
-        </a>
-      </swiper-slide>
-    </swiper-container>
-  </div>
+  <swiper-container [options]="slideOpts" class="product-slider">
+    <swiper-slide *ngFor="let product of products">
+      <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
+        <img [src]="product.images"/>
+        <ion-card-content>
+          <ion-text class="product-name">
+            <h3>{{ product.name }}</h3>
+          </ion-text>
+          <ion-text class="product-category">
+            <p>{{ product.category }}</p>
+          </ion-text>
+          <ion-text class="product-price">
+            <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+          </ion-text>
+          <ion-text class="product-qtd">
+            <p>Qtd: {{ product.stock }}</p>
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
 </ion-content>
