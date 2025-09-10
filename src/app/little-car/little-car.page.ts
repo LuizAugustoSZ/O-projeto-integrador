@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, NavController } from '@ionic/angular';
+import { IonicModule, NavController, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service'; // Importe seu serviço de autenticação
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
@@ -25,7 +26,9 @@ export class LittleCarPage implements OnInit, OnDestroy {
   constructor(
     private littleCar: littleCar,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private authService: AuthService, // Injete o serviço de autenticação
+    private alertController: AlertController // Injete o AlertController para exibir o modal
   ) { }
 
   ngOnInit() {
@@ -73,5 +76,35 @@ export class LittleCarPage implements OnInit, OnDestroy {
 
   clearCart() {
     this.littleCar.clearCart();
+  }
+
+  async proceedToCheckout() {
+    // Verifica se o usuário está logado usando o serviço de autenticação
+    if (this.authService.isLoggedIn()) {
+      // Se estiver logado, navega para a página de pagamento
+      this.router.navigate(['/payments']);
+    } else {
+      // Se não estiver logado, exibe um modal
+      const alert = await this.alertController.create({
+        header: 'Aviso!',
+        message: 'Você precisa estar logado para finalizar o pedido.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+          },
+          {
+            text: 'Fazer Login',
+            handler: () => {
+              // Redireciona para a página de login
+              this.router.navigate(['/login-user']);
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
   }
 }

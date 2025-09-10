@@ -12,12 +12,13 @@ import 'swiper/css/pagination';
 
 import { littleCar } from '../service/littlercar.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../service/auth.service';
 import { addIcons } from 'ionicons';
-import { cartOutline } from 'ionicons/icons';
+import { cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline } from 'ionicons/icons';
 
 register();
 
-addIcons({ cartOutline });
+addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline });
 
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -28,10 +29,10 @@ addIcons({ cartOutline });
   imports: [CommonModule, IonicModule, RouterLink]
 })
 export class HomePage implements OnInit, OnDestroy {
-
   swiperModules = [IonicSlides];
   qtdCarrinho: number = 0;
   private cartSubscription!: Subscription;
+  isLoggedIn: boolean = false;
 
   slideOpts = {
     initialSlide: 0,
@@ -46,11 +47,12 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private littleCar: littleCar,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
-
   async ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn();
     await this.loadProducts();
 
     this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
@@ -74,5 +76,15 @@ export class HomePage implements OnInit, OnDestroy {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('/login-user', { replaceUrl: true });
+  }
+
+  searchProducts() {
+    console.log("Botão de busca clicado");
   }
 }

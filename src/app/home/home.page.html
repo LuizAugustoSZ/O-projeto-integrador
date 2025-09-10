@@ -10,6 +10,11 @@
       <ion-item routerLink="/products"> Produtos </ion-item>
       <ion-item routerLink="/offers"> Ofertas </ion-item>
       <ion-item routerLink="/account"> Minha Conta </ion-item>
+
+      <ion-item (click)="logout()" *ngIf="isLoggedIn">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <ion-label>Sair</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -24,7 +29,11 @@
       <ion-title>Home Page</ion-title>
 
       <ion-buttons slot="end">
-        <ion-button >
+        <ion-button routerLink="/login-user" *ngIf="!isLoggedIn">
+          <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="searchProducts()">
           <ion-icon slot="icon-only" name="search-outline"></ion-icon>
         </ion-button>
         <ion-button routerLink="/little-car">
