@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { CategoryService } from '../service/category.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
@@ -25,7 +25,7 @@ import { ProductService } from '../service/product.service';
 export class RegisterProductPage implements OnInit {
 
   categories: any[] = [];
-  
+
   product = {
     name: '',
     description: '',
@@ -35,67 +35,72 @@ export class RegisterProductPage implements OnInit {
     images: [] as string[],
     category: ''
   }
-  
+
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService
-    ) { }
+  ) { }
 
-   async ngOnInit() {
+  async ngOnInit() {
     this.categories = await this.categoryService.getCategories();
     console.log('Categories in page:', this.categories);
 
-    }
+  }
 
-    async pickFiles() {
-      const result = await FilePicker.pickFiles({
-        
-        types: ['image/png'],
+  async pickFiles() {
+    const result = await FilePicker.pickFiles({
+
+      types: ['image/png', 'image/jpeg'],
+      readData: true // garante que venha base64
+    });
+
+    if (result.files.length > 0) {
+      result.files.forEach(file => {
+        if (file.data) {
+          this.product.images.push(`data:image/jpeg;base64,${file.data}`);
+        }
       });
-
-      return result;
     }
+  }
 
-    pickPhotoAssets(){
-      this.pickFiles()
+  pickPhotoAssets() {
+    this.pickFiles()
 
-    }
-    
-    async takePhotoCamera(){
+  }
 
-      const image = await Camera.getPhoto({
-        quality: 80,
-        resultType: CameraResultType.Base64,
-        source: CameraSource.Camera
-      });
+  async takePhotoCamera() {
 
-      const fileName = `photo_${Date.now()}.jpeg`
+    const image = await Camera.getPhoto({
+      quality: 80,
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Camera
+    });
 
-      await Filesystem.writeFile({
-        path: fileName,
-        data: image.base64String!,
-        directory: Directory.Data
-      });
+    const fileName = `photo_${Date.now()}.jpeg`
+
+    await Filesystem.writeFile({
+      path: fileName,
+      data: image.base64String!,
+      directory: Directory.Data
+    });
 
 
-      const fileUri = (await Filesystem.getUri({
-        path: fileName,
-        directory: Directory.Data
-      })).uri;
-    
-      this.product.images.push(fileUri);
+    const fileUri = (await Filesystem.getUri({
+      path: fileName,
+      directory: Directory.Data
+    })).uri;
 
-      
+    this.product.images.push(`data:image/jpeg;base64,${image.base64String}`);
 
-    }
-    
+  }
 
-    async saveProduct(){
-      try {
-        const productId = await this.productService.saveProduct(this.product)
-        console.log('product saved with id:', productId)
 
-        this.product = {
+  async saveProduct() {
+    try {
+      const productId = await this.productService.saveProduct(this.product)
+      console.log('product saved with id:', productId)
+
+      this.product = {
         name: '',
         description: '',
         price: '',
@@ -103,10 +108,10 @@ export class RegisterProductPage implements OnInit {
         sendingMethods: [],
         images: [] as string[],
         category: ''
-        };
+      };
 
-      } catch (err){
-        console.log('error saving product', err);
-      }
+    } catch (err) {
+      console.log('error saving product', err);
     }
   }
+}

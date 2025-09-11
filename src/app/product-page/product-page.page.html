@@ -1,13 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-
-    <ion-searchbar placeholder="Buscar produtos"></ion-searchbar>
-
+    <ion-title>Detalhes do Produto</ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="goToCart()">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
         <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
       </ion-button>
@@ -16,36 +14,56 @@
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="produto.imagem"/>
-
-  <ion-card>
+  <ion-card *ngIf="product">
+    <img [src]="product.images">
     <ion-card-header>
-      <ion-card-title>{{ produto.nome }}</ion-card-title>
-      <ion-card-subtitle>{{ produto.descricao }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+      <ion-card-title>{{ product.name }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <div class="avaliacao">
-        <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
-        <span>{{ produto.nota }} ({{ produto.avaliacoes }} avaliações)</span>
+      <div class="product-info-stars">
+        <div class="stars">
+          <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
+          <ion-text>({{ product.nota }} avaliações)</ion-text>
+        </div>
       </div>
 
-      <h2 class="preco">R$ {{ produto.preco | number:'1.2-2' }}</h2>
-
-      <div class="quantidade">
-        <ion-button fill="outline" size="small" (click)="diminuirQtd()">-</ion-button>
-        <span>{{ qtd }}</span>
-        <ion-button fill="outline" size="small" (click)="aumentarQtd()">+</ion-button>
+      <div class="product-info-details">
+        <p class="description">{{ product.description }}</p>
+        <p class="price">R$ {{ product.price | number:'1.2-2' }}</p>
+        <p class="stock-info">EM ESTOQUE: {{ product.stock }} UNIDADE</p>
       </div>
+
+      <ion-grid class="quantity-controls">
+        <ion-row class="ion-align-items-center">
+          <ion-col size="auto">
+            <ion-text>Quantidade:</ion-text>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-button fill="clear" (click)="qtd = qtd > 1 ? qtd - 1 : 1">
+              <ion-icon name="remove-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-text class="item-quantity">{{ qtd }}</ion-text>
+          </ion-col>
+          <ion-col class="ion-text-center">
+            <ion-button fill="clear" (click)="qtd = qtd + 1">
+              <ion-icon name="add-circle-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
-</ion-content>
 
-<ion-footer>
-  <ion-toolbar>
-    <ion-button expand="block" color="dark" (click)="adicionarCarrinho()">
-      <ion-icon slot="start" name="cart-outline"></ion-icon>
-      Carrinho
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button expand="block" class="add-to-cart-button" (click)="adicionarCarrinho()">
+        <ion-icon slot="start" name="cart-outline"></ion-icon>
+        Adicionar ao Carrinho
+      </ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>

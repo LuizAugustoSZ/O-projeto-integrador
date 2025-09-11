@@ -1,47 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonIcon, IonBadge, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFooter, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../service/product.service';
+import { littleCar } from '../service/littlercar.service';
+import { addIcons } from 'ionicons';
+import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
+import { Subscription } from 'rxjs';
+
+addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline });
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, CommonModule, FormsModule, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonIcon, IonBadge, IonImg, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFooter, IonToolbar]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ProductPagePage {
-
-  produto = {
-    nome: 'Canetas para Pintar Bobbie Goods, Touch 168 Cores',
-    descricao: 'Kit profissional com 168 cores vivas',
-    preco: 150.00,
-    imagem: 'assets/icon/stanley.png',
-    nota: 4.5,
-    avaliacoes: 1117
-  };
-
+export class ProductPage implements OnInit, OnDestroy {
+  productId: string | null = null;
+  product: any; 
   qtd: number = 1;
   qtdCarrinho: number = 0;
+  estrelas: string[] = ['star-outline', 'star-outline', 'star-outline', 'star-outline', 'star-outline'];
+  private cartSubscription!: Subscription;
 
-  get estrelas() {
-    const estrelasCheias = Math.floor(this.produto.nota);
-    const estrelas = Array(estrelasCheias).fill('star');
-    if (this.produto.nota % 1 !== 0) estrelas.push('star-half');
-    while (estrelas.length < 5) estrelas.push('star-outline');
-    return estrelas;
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private littleCar: littleCar,
+    private router: Router
+  ) {}
+
+  async ngOnInit() {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    
+    if (this.productId) {
+      this.product = await this.productService.getProductById(this.productId);
+      
+      if (this.product && this.product.nota) {
+        this.updateStars(this.product.nota);
+      }
+    }
+
+    this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
+      this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
+    });
   }
 
-  aumentarQtd() {
-    this.qtd++;
+  ngOnDestroy() {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 
-  diminuirQtd() {
-    if (this.qtd > 1) this.qtd--;
+  updateStars(rating: number) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < this.estrelas.length; i++) {
+      if (i < fullStars) {
+        this.estrelas[i] = 'star';
+      } else if (i === fullStars && hasHalfStar) {
+        this.estrelas[i] = 'star-half';
+      } else {
+        this.estrelas[i] = 'star-outline';
+      }
+    }
   }
 
   adicionarCarrinho() {
-    this.qtdCarrinho += this.qtd;
-    alert(`${this.qtd} item(ns) adicionados ao carrinho!`);
+    if (this.product) {
+      this.littleCar.addToCart(this.product, this.qtd);
+      console.log(`Adicionado ${this.qtd} de ${this.product.name} ao carrinho.`);
+    }
   }
+
+    goToCart() {
+    this.router.navigateByUrl('/little-car');
+  }
+
 }
