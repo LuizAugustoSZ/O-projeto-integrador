@@ -9,7 +9,6 @@ import { addIcons } from 'ionicons';
 import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 
-// Registre os ícones que serão usados na página
 addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline });
 
 @Component({

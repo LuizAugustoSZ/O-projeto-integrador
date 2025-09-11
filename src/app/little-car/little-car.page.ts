@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
-import { AuthService } from '../service/auth.service'; // Importe seu serviço de autenticação
+import { AuthService } from '../service/auth.service';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
@@ -27,8 +27,8 @@ export class LittleCarPage implements OnInit, OnDestroy {
     private littleCar: littleCar,
     private navCtrl: NavController,
     private router: Router,
-    private authService: AuthService, // Injete o serviço de autenticação
-    private alertController: AlertController // Injete o AlertController para exibir o modal
+    private authService: AuthService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -79,12 +79,9 @@ export class LittleCarPage implements OnInit, OnDestroy {
   }
 
   async proceedToCheckout() {
-    // Verifica se o usuário está logado usando o serviço de autenticação
     if (this.authService.isLoggedIn()) {
-      // Se estiver logado, navega para a página de pagamento
-      this.router.navigate(['/payments']);
+      this.router.navigate(['/payment']);
     } else {
-      // Se não estiver logado, exibe um modal
       const alert = await this.alertController.create({
         header: 'Aviso!',
         message: 'Você precisa estar logado para finalizar o pedido.',
@@ -97,7 +94,6 @@ export class LittleCarPage implements OnInit, OnDestroy {
           {
             text: 'Fazer Login',
             handler: () => {
-              // Redireciona para a página de login
               this.router.navigate(['/login-user']);
             }
           }

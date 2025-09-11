@@ -1,12 +1,12 @@
 ion-toolbar ion-buttons {
   display: flex;
   align-items: center;
-  gap: 10px; /* espaço entre lupa e carrinho */
+  gap: 10px;
 }
 
 ion-toolbar ion-title {
   flex: 1;
-  text-align: center; /* centraliza o título */
+  text-align: center;
 }
 
 .promo-bar {
@@ -65,13 +65,12 @@ ion-toolbar ion-title {
   font-size: 0.9em;
 }
 
-/* Novo container para a lista de produtos */
 .product-scroll {
-  white-space: nowrap; /* Impede que os itens quebrem a linha */
+  white-space: nowrap;
 }
 
 .product-list {
-  display: flex; /* Alinha os cards lado a lado */
+  display: flex;
   padding: 10px;
 }
 
@@ -81,8 +80,8 @@ ion-toolbar ion-title {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 120px; 
-  margin-right: 10px; /* Espaço entre os cards */
-  flex-shrink: 0; /* Impede que os cards encolham */
+  margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .product-card:last-child {
@@ -123,11 +122,6 @@ ion-toolbar ion-title {
   margin: 5px 0 0;
 }
 
-.product-qtd p {
-  font-size: 0.7em; 
-  color: #666;
-  margin: 0;
-}
 
 .loading-container,
 .no-products-container {
