@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { littleCar } from '../service/littlercar.service';
@@ -30,7 +30,8 @@ export class ProductPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private productService: ProductService,
     private littleCar: littleCar,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController
   ) {}
 
   async ngOnInit() {
@@ -45,7 +46,8 @@ export class ProductPage implements OnInit, OnDestroy {
     }
 
     this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
-      this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
+      const cartItem = cartItems.find(item => item.id === this.productId);
+      this.qtdCarrinho = cartItem ? cartItem.qtd : 0;
     });
   }
 
@@ -70,15 +72,48 @@ export class ProductPage implements OnInit, OnDestroy {
     }
   }
 
-  adicionarCarrinho() {
+  async adicionarCarrinho() {
     if (this.product) {
-      this.littleCar.addToCart(this.product, this.qtd);
-      console.log(`Adicionado ${this.qtd} de ${this.product.name} ao carrinho.`);
+      const newQuantity = this.qtdCarrinho + this.qtd;
+      if (newQuantity <= this.product.quantity) {
+        this.littleCar.addToCart(this.product, this.qtd);
+        const toast = await this.toastController.create({
+          message: `Adicionado ${this.qtd} unidade(s) de ${this.product.name} ao carrinho.`,
+          duration: 2000,
+          position: 'bottom'
+        });
+        toast.present();
+      } else {
+        const toast = await this.toastController.create({
+          message: `Você já tem ${this.qtdCarrinho} no carrinho. Estoque disponível: ${this.product.quantity}.`,
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      }
     }
   }
 
-    goToCart() {
-    this.router.navigateByUrl('/little-car');
+  aumentarQtd() {
+    const maxQuantity = this.product.quantity - this.qtdCarrinho;
+    if (this.qtd < maxQuantity) {
+      this.qtd++;
+    } else {
+      this.toastController.create({
+        message: 'Você atingiu a quantidade máxima em estoque.',
+        duration: 2000,
+        position: 'bottom'
+      }).then(toast => toast.present());
+    }
   }
 
+  diminuirQtd() {
+    if (this.qtd > 1) {
+      this.qtd--;
+    }
+  }
+
+  goToCart() {
+    this.router.navigateByUrl('/little-car');
+  }
 }

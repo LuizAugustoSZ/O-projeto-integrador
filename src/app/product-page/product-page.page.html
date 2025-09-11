@@ -32,7 +32,7 @@
       <div class="product-info-details">
         <p class="description">{{ product.description }}</p>
         <p class="price">R$ {{ product.price | number:'1.2-2' }}</p>
-        <p class="stock-info">EM ESTOQUE: {{ product.stock }} UNIDADE</p>
+        <p class="stock-info">EM ESTOQUE: {{ product.quantity - qtdCarrinho }} UNIDADES</p>
       </div>
 
       <ion-grid class="quantity-controls">
@@ -41,7 +41,7 @@
             <ion-text>Quantidade:</ion-text>
           </ion-col>
           <ion-col class="ion-text-center">
-            <ion-button fill="clear" (click)="qtd = qtd > 1 ? qtd - 1 : 1">
+            <ion-button fill="clear" (click)="diminuirQtd()">
               <ion-icon name="remove-circle-outline"></ion-icon>
             </ion-button>
           </ion-col>
@@ -49,7 +49,7 @@
             <ion-text class="item-quantity">{{ qtd }}</ion-text>
           </ion-col>
           <ion-col class="ion-text-center">
-            <ion-button fill="clear" (click)="qtd = qtd + 1">
+            <ion-button fill="clear" (click)="aumentarQtd()">
               <ion-icon name="add-circle-outline"></ion-icon>
             </ion-button>
           </ion-col>
@@ -60,7 +60,12 @@
 
   <ion-footer>
     <ion-toolbar>
-      <ion-button expand="block" class="add-to-cart-button" (click)="adicionarCarrinho()">
+      <ion-button 
+        expand="block" 
+        class="add-to-cart-button" 
+        (click)="adicionarCarrinho()"
+        [disabled]="qtd === 0 || (product.quantity - qtdCarrinho) === 0"
+      >
         <ion-icon slot="start" name="cart-outline"></ion-icon>
         Adicionar ao Carrinho
       </ion-button>

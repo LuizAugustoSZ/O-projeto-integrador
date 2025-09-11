@@ -1,4 +1,3 @@
-// src/app/service/product.service.ts
 import { Injectable } from '@angular/core';
 import { Database, ref, push, set, get, child } from '@angular/fire/database';
 

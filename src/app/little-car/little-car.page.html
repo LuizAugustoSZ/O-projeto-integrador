@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="goBack()">
@@ -34,11 +34,11 @@
         <h3>{{ item.name }}</h3>
         <p>R$ {{ item.price | number:'1.2-2' }}</p>
         <div class="quantity-controls">
-          <ion-button fill="clear" size="small" (click)="updateQuantity(item, item.qtd - 1)">
+          <ion-button fill="clear" size="small" (click)="decreaseQuantity(item)">
             <ion-icon name="remove-circle-outline"></ion-icon>
           </ion-button>
           <ion-text class="item-quantity">{{ item.qtd }}</ion-text>
-          <ion-button fill="clear" size="small" (click)="updateQuantity(item, item.qtd + 1)">
+          <ion-button fill="clear" size="small" (click)="increaseQuantity(item)">
             <ion-icon name="add-circle-outline"></ion-icon>
           </ion-button>
         </div>

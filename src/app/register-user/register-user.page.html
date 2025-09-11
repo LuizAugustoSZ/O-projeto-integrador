@@ -8,75 +8,83 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
-  <div class="body-design">
-
-    <div class='img-design'>
-      <ion-img src="../assets/icon/logo camelo.png" alt="Logo da empresa">
-      </ion-img>
-    </div>
-
-    <div class="titulo-login">
-      <h1> Cadastro de Usuário </h1>
-    </div>
-  
-  <div *ngIf="registrationStep === 1" class="step-1">
-    <ion-list lines="full" class="ion-no-margin">
-      <ion-item>
-        <ion-input type="name" fill="solid" label="Digite seu nome" labelPlacement="floating" errorText="Invalid email"
-          [(ngModel)]="name"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Invalid email"
-          [(ngModel)]="email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="password" fill="solid" label="Senha" labelPlacement="floating" errorText="Invalid email"
-          [(ngModel)]="password"></ion-input>
-      </ion-item>
-    </ion-list>
+  <ion-card class="login-card"> 
+    <ion-img src="../assets/icon/logo camelo.png" alt="Logo da empresa" class="login-logo"></ion-img>
     
-    <ion-button expand="block" class="ion-padding-top" (click)="nextStep()" color="dark">Continuar</ion-button>
-    <div class="ion-text-center ion-padding-top">
-      <ion-text class="ion-text-center ion-margin-top">
-        <p>Já tem uma conta? <a routerLink="/login-user">Faça o login!</a></p>
-      </ion-text>
-    </div>
-  </div>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Cadastro de Usuário</ion-card-title>
+      <ion-card-subtitle class="ion-text-center">Crie sua conta</ion-card-subtitle>
+    </ion-card-header>
 
+    <ion-card-content>
+      <div *ngIf="registrationStep === 1">
+        <ion-list lines="none">
+          <ion-item>
+            <div class="input-container">
+              <ion-input type="text" fill="solid" label="Nome Completo" label-placement="floating" placeholder="Seu nome" [(ngModel)]="name" (ionChange)="validateName()"></ion-input>
+              <p *ngIf="nameError" class="error-message">{{ nameError }}</p>
+            </div>
+          </ion-item>
 
-  <div *ngIf="registrationStep === 2">
-    <ion-list lines="full" class="ion-no-margin">
-      <ion-item>
-        <ion-input label="CEP" [(ngModel)]="cep" placeholder="00000-000" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
-        <ion-button slot="end" (click)="buscarCep()" color="dark">Buscar CEP</ion-button>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Rua" [(ngModel)]="rua" placeholder="Rua, Avenida, etc." [disabled]="true"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Bairro" [(ngModel)]="bairro" placeholder="Seu bairro" [disabled]="true"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Cidade" [(ngModel)]="cidade" placeholder="Sua cidade" [disabled]="true"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Estado" [(ngModel)]="estado" placeholder="Seu estado (UF)" [disabled]="true"></ion-input>
-      </ion-item>
-    </ion-list>
+          <ion-item>
+            <div class="input-container">
+              <ion-input type="email" fill="solid" label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
+              <p *ngIf="emailError" class="error-message">{{ emailError }}</p>
+            </div>
+          </ion-item>
 
-    <ion-row class="ion-padding-top">
-      <ion-col>
-        <ion-button expand="block" fill="outline" (click)="prevStep()" color="dark">
-          Voltar
+          <ion-item>
+            <div class="input-container">
+              <ion-input type="password" fill="solid" label="Senha" label-placement="floating" placeholder="Sua senha" [(ngModel)]="password" (ionChange)="validatePassword()"></ion-input>
+              <p *ngIf="passwordError" class="error-message">{{ passwordError }}</p>
+            </div>
+          </ion-item>
+        </ion-list>
+        
+        <ion-button expand="block" class="ion-margin-top" (click)="nextStep()">
+          Continuar
         </ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button expand="block" (click)="register()" color="dark">
-          Cadastrar
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </div>
-</div>
+        <div class="ion-text-center ion-margin-top">
+          <p>Já tem uma conta? <a routerLink="/login-user">Faça o login!</a></p>
+        </div>
+      </div>
+
+      <div *ngIf="registrationStep === 2">
+        <ion-list lines="none">
+          <ion-item>
+            <div class="input-container">
+              <ion-input label="CEP" fill="solid" label-placement="floating" placeholder="00000-000" [(ngModel)]="cep" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
+              <p *ngIf="cepError" class="error-message">{{ cepError }}</p>
+            </div>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input label="Rua" fill="solid" label-placement="floating" placeholder="Rua, Avenida, etc." [(ngModel)]="rua" [disabled]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Bairro" fill="solid" label-placement="floating" placeholder="Seu bairro" [(ngModel)]="bairro" [disabled]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Cidade" fill="solid" label-placement="floating" placeholder="Sua cidade" [(ngModel)]="cidade" [disabled]="true"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Estado" fill="solid" label-placement="floating" placeholder="Seu estado (UF)" [(ngModel)]="estado" [disabled]="true"></ion-input>
+          </ion-item>
+        </ion-list>
+        
+        <ion-row class="ion-margin-top">
+          <ion-col>
+            <ion-button expand="block" fill="outline" (click)="prevStep()">
+              Voltar
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="block" (click)="register()">
+              Cadastrar
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
