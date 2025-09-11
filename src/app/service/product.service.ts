@@ -1,3 +1,4 @@
+// src/app/service/product.service.ts
 import { Injectable } from '@angular/core';
 import { Database, ref, push, set, get, child } from '@angular/fire/database';
 
@@ -34,6 +35,22 @@ export class ProductService {
     } catch (error) {
       console.error(error);
       return [];
+    }
+  }
+
+  async getProductById(id: string): Promise<any> {
+    const productRef = child(ref(this.db, 'products'), id);
+    try {
+      const snapshot = await get(productRef);
+      if (snapshot.exists()) {
+        return { id: snapshot.key, ...snapshot.val() };
+      } else {
+        console.log("No such product!");
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
     }
   }
 }

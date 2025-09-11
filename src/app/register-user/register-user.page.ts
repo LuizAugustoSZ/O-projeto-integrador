@@ -26,6 +26,12 @@ export class RegisterUserPage {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+  }
+
   nextStep() {
     if (!this.name || !this.email || !this.password) {
       alert('Por favor, preencha todos os campos (Nome, E-mail, Senha).');
