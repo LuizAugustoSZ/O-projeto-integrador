@@ -65,13 +65,13 @@ ion-toolbar ion-title {
   font-size: 0.9em;
 }
 
-.product-scroll {
-  white-space: nowrap;
+/* Estilos para o Swiper */
+swiper-container {
+  padding: 10px;
 }
 
-.product-list {
-  display: flex;
-  padding: 10px;
+swiper-slide {
+  width: 120px;
 }
 
 .product-card {
@@ -79,13 +79,7 @@ ion-toolbar ion-title {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 120px; 
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-.product-card:last-child {
-  margin-right: 0;
+  width: 100%;
 }
 
 .product-card img {

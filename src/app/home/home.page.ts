@@ -21,72 +21,67 @@ register();
 addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline });
 
 @Component({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [CommonModule, IonicModule, RouterLink]
 })
 export class HomePage implements OnInit, OnDestroy {
-  swiperModules = [IonicSlides];
-  qtdCarrinho: number = 0;
-  private cartSubscription!: Subscription;
-  isLoggedIn: boolean = false;
+  swiperModules = [IonicSlides];
+  qtdCarrinho: number = 0;
+  private cartSubscription!: Subscription;
+  isLoggedIn: boolean = false;
 
-  slideOpts = {
-    initialSlide: 0,
-    speed: 400,
-    slidesPerView: 2.2,
-    spaceBetween: 10
-  };
+  // slideOpts não é mais necessário aqui, a configuração está no HTML.
 
-  products: any[] = [];
-  isLoading = true;
+  products: any[] = [];
+  isLoading = true;
 
-  constructor(
-    private productService: ProductService,
-    private littleCar: littleCar,
-    private router: Router,
-    private authService: AuthService
-  ) { }
+  constructor(
+    private productService: ProductService,
+    private littleCar: littleCar,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
-  async ngOnInit() {
-    this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
-      this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
-    });
-  }
+  async ngOnInit() {
+    this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
+      this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
+    });
+  }
   
-  async ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.isLoggedIn = this.authService.isLoggedIn();
     await this.loadProducts();
-  }
+  }
 
-  ngOnDestroy() {
-    if (this.cartSubscription) {
-      this.cartSubscription.unsubscribe();
-    }
-  }
+  ngOnDestroy() {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
+  }
 
-  async loadProducts() {
-    this.isLoading = true;
-    try {
-      this.products = await this.productService.getProducts();
-      console.log('Products loaded:', this.products);
-    } catch (err) {
-      console.error('Error loading products', err);
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  async loadProducts() {
+    this.isLoading = true;
+    try {
+      this.products = await this.productService.getProducts();
+      console.log('Products loaded:', this.products);
+    } catch (err) {
+      console.error('Error loading products', err);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 
-  logout() {
-    this.authService.logout();
-    this.isLoggedIn = false;
-    this.router.navigateByUrl('/login-user', { replaceUrl: true });
-  }
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('/login-user', { replaceUrl: true });
+  }
 
-  searchProducts() {
-    console.log("Botão de busca clicado");
-  }
+  searchProducts() {
+    console.log("Botão de busca clicado");
+  }
 }

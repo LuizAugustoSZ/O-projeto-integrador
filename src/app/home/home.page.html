@@ -73,9 +73,9 @@
       <p>Nenhum produto cadastrado ainda.</p>
     </div>
 
-    <ion-scroll scrollX="true" class="product-scroll" *ngIf="!isLoading && products.length > 0">
-      <div class="product-list">
-        <ion-card [routerLink]="['/product-page', product.id]" class="product-card" *ngFor="let product of products">
+    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
+      <swiper-slide *ngFor="let product of products">
+        <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
           <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">
@@ -89,17 +89,17 @@
             </ion-text>
           </ion-card-content>
         </ion-card>
-      </div>
-    </ion-scroll>
+      </swiper-slide>
+    </swiper-container>
 
     <div class="header-section ion-padding">
       <h2>Ofertas</h2>
       <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
     </div>
 
-    <ion-scroll scrollX="true" class="product-scroll" *ngIf="!isLoading && products.length > 0">
-      <div class="product-list">
-        <ion-card [routerLink]="['/product-page', product.id]" class="product-card" *ngFor="let product of products">
+    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
+      <swiper-slide *ngFor="let product of products">
+        <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
           <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">
@@ -113,7 +113,7 @@
             </ion-text>
           </ion-card-content>
         </ion-card>
-      </div>
-    </ion-scroll>
+      </swiper-slide>
+    </swiper-container>
   </ion-content>
 </div>
