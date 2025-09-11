@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from '../service/auth.service';
   standalone: true,
   templateUrl: './register-user.page.html',
   styleUrls: ['./register-user.page.scss'],
-  imports: [IonicModule, FormsModule, CommonModule]
+  imports: [IonicModule, FormsModule, CommonModule, RouterLink]
 })
 export class RegisterUserPage {
   name = '';
