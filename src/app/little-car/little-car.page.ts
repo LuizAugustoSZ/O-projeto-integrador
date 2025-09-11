@@ -1,60 +1,106 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons, IonIcon, IonList, IonItem, IonThumbnail, IonFooter, IonNote, IonLabel } from '@ionic/angular/standalone';
+import { IonicModule, NavController, AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { littleCar } from '../service/littlercar.service';
+import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
+
+addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
 
 @Component({
   selector: 'app-little-car',
   templateUrl: './little-car.page.html',
   styleUrls: ['./little-car.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonButtons, IonIcon, IonList, IonItem, IonThumbnail, IonFooter, IonNote, IonLabel]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
+export class LittleCarPage implements OnInit, OnDestroy {
+  cartItems: any[] = [];
+  frete: number = 50.00;
+  private cartSubscription!: Subscription;
 
-export class LittleCarPage {
+  constructor(
+    private littleCar: littleCar,
+    private navCtrl: NavController,
+    private router: Router,
+    private authService: AuthService,
+    private alertController: AlertController
+  ) { }
 
-  carrinho = [
-    { nome: 'Boneco de Pelúcia Lagrugru', descricao: 'LABUBU', preco: 999.99, qtd: 1, imagem: 'assets/icon/labubu.png' },
-    { nome: 'Garrafa de Água Olivia Rodrigo', descricao: 'STANLEY', preco: 300.90, qtd: 1, imagem: 'assets/icon/stanley.png' },
-    { nome: 'Deu a Louca na Chapeuzinho Vermelho vl.1', descricao: 'DVD', preco: 150.00, qtd: 1, imagem: 'assets/icon/filme.png' }
-  ];
-
-  freteOriginal = 50.00;
-  frete = this.freteOriginal; 
-  cupom: string = '';
-  cupomAplicado: boolean = false;
-
-  get subtotal() {
-    return this.carrinho.reduce((acc, item) => acc + (item.preco * item.qtd), 0);
+  ngOnInit() {
+    this.cartSubscription = this.littleCar.cart$.subscribe(items => {
+      this.cartItems = items;
+    });
   }
 
-  get total() {
-    return this.subtotal + this.frete;
-  }
-
-  aumentarQtd(item: any) {
-    item.qtd++;
-  }
-
-  diminuirQtd(item: any) {
-    if (item.qtd > 1) item.qtd--;
-  }
-
-  aplicarCupom() {
-    if (this.cupom.toLowerCase() === 'desconto10') {
-      this.frete = 0; 
-      alert('Cupom aplicado com sucesso!');
-    } else {
-      alert('Cupom inválido!');
+  ngOnDestroy() {
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
     }
   }
 
-  fecharPedido() {
-    alert('Pedido finalizado!');
+  goBack() {
+    this.navCtrl.back();
   }
 
-  removerItem(index: number) {
-    this.carrinho.splice(index, 1);
+  goHome() {
+    this.router.navigateByUrl('/home');
   }
-  
+
+  removeFromCart(index: number) {
+    this.littleCar.removeFromCart(index);
+  }
+
+  updateQuantity(item: any, quantity: number) {
+    if (quantity <= 0) {
+      const index = this.cartItems.findIndex(i => i.id === item.id);
+      if (index !== -1) {
+        this.littleCar.removeFromCart(index);
+      }
+    } else {
+      this.littleCar.updateQuantity(item, quantity);
+    }
+  }
+
+  calculateSubtotal(): number {
+    return this.cartItems.reduce((total, item) => total + (item.price * item.qtd), 0);
+  }
+
+  calculateTotal(): number {
+    return this.calculateSubtotal() + this.frete;
+  }
+
+  clearCart() {
+    this.littleCar.clearCart();
+  }
+
+  async proceedToCheckout() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/payment']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Aviso!',
+        message: 'Você precisa estar logado para finalizar o pedido.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+          },
+          {
+            text: 'Fazer Login',
+            handler: () => {
+              this.router.navigate(['/login-user']);
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,17 +12,21 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./login-user.page.scss'],
   imports: [IonicModule, FormsModule, CommonModule, RouterLink]
 })
-export class LoginUserPage {
+export class LoginUserPage implements OnInit {
   email = '';
   password = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+    }
+  }
+
   async login() {
     try {
       await this.authService.login(this.email, this.password);
-      alert('Login realizado com sucesso!');
-      // Redireciona para a página principal ou outra página após o login
       this.router.navigate(['/home']);
     } catch (error: any) {
       alert('Erro ao fazer login: ' + error.message);

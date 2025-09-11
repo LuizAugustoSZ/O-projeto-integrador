@@ -1,40 +1,112 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> Home Page </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/home"> Home </ion-item>
+      <ion-item routerLink="/products"> Produtos </ion-item>
+      <ion-item routerLink="/offers"> Ofertas </ion-item>
+      <ion-item routerLink="/profile"> Minha Conta </ion-item>
 
-<ion-content [fullscreen]="true">
-  <div *ngIf="isLoading" class="loading-container">
-    <ion-spinner></ion-spinner>
-    <p>Carregando produtos...</p>
-  </div>
+      <ion-item (click)="logout()" *ngIf="isLoggedIn">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        <ion-label>Sair</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-  <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
-    <p>Nenhum produto cadastrado ainda.</p>
-  </div>
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
 
-  <div class="section-header">
-    <h2 class="section-title">Bestsellers</h2>
-    <a class="view-all" href="">Ver tudo →</a>
-  </div>
 
-  <div class="space-product">
-    <swiper-container slides-per-view="3" space-between="4">
+      <ion-buttons slot="end">
+        <ion-button routerLink="/login-user" *ngIf="!isLoggedIn">
+          <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+        </ion-button>
 
-      <swiper-slide *ngFor="let product of products">
-        <ion-card class="product-card">
+        <ion-button (click)="searchProducts()">
+          <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+        </ion-button>
+        <ion-button routerLink="/little-car">
+          <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+          <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-          <ion-img class="product-image" [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'">
-          </ion-img>
+  <ion-content [fullscreen]="true">
+    <div class="promo-bar">
+      <p>CUPOM PRIMEIRA COMPRA - DESCONTO EXCLUSIVO!</p>
+    </div>
 
+    <div class="hero-banner">
+      <img src="../assets/icon/banner.jpg" alt="Banner Principal" />
+    </div>
+
+    <div class="header-section ion-padding">
+      <h2>Bestsellers</h2>
+      <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner></ion-spinner>
+      <p>Carregando produtos...</p>
+    </div>
+
+    <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
+      <p>Nenhum produto cadastrado ainda.</p>
+    </div>
+
+    <ion-scroll scrollX="true" class="product-scroll" *ngIf="!isLoading && products.length > 0">
+      <div class="product-list">
+        <ion-card [routerLink]="['/product-page', product.id]" class="product-card" *ngFor="let product of products">
+          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
           <ion-card-content>
-            <h3 class="product-title">{{ product.name }}</h3>
-            <p class="product-category">{{ product.category }}</p>
-            <p class="product-price">R$ {{ product.price }}</p>
-            <p class="product-quantity">Qtd: {{ product.quantity }}</p>
+            <ion-text class="product-name">
+              <h3>{{ product.name }}</h3>
+            </ion-text>
+            <ion-text class="product-category">
+              <p>{{ product.category }}</p>
+            </ion-text>
+            <ion-text class="product-price">
+              <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+            </ion-text>
           </ion-card-content>
         </ion-card>
-      </swiper-slide>
-    </swiper-container>
-  </div>
+      </div>
+    </ion-scroll>
+
+    <div class="header-section ion-padding">
+      <h2>Ofertas</h2>
+      <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
+    </div>
+
+    <ion-scroll scrollX="true" class="product-scroll" *ngIf="!isLoading && products.length > 0">
+      <div class="product-list">
+        <ion-card [routerLink]="['/product-page', product.id]" class="product-card" *ngFor="let product of products">
+          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
+          <ion-card-content>
+            <ion-text class="product-name">
+              <h3>{{ product.name }}</h3>
+            </ion-text>
+            <ion-text class="product-category">
+              <p>{{ product.category }}</p>
+            </ion-text>
+            <ion-text class="product-price">
+              <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-scroll>
+  </ion-content>
+</div>

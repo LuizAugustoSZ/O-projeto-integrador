@@ -23,15 +23,21 @@ export const routes: Routes = [
     loadComponent: () => import('./register-product/register-product.page').then( m => m.RegisterProductPage)
   },
   {
-    path: 'payment',
-    loadComponent: () => import('./payment/payment.page').then( m => m.PaymentPage)
-  },
-  {
     path: 'little-car',
-    loadComponent: () => import('./little-car/little-car.page').then( m => m.LittleCarPage)
+    loadComponent: () => import('./little-car/little-car.page').then(m => m.LittleCarPage)
   },
   {
     path: 'product-page',
-    loadComponent: () => import('./product-page/product-page.page').then( m => m.ProductPagePage)
-  }
+    loadComponent: () => import('./product-page/product-page.page').then( m => m.ProductPage)
+  },
+  {
+      path: 'product-page/:id',
+    loadComponent: () => import('./product-page/product-page.page').then(m => m.ProductPage)
+  },
+  
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' }
+
+
 ];
+
