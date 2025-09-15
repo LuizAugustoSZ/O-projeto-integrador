@@ -121,8 +121,6 @@ export class PaymentPage implements OnInit {
     }
 
     try {
-      // Salva o pedido no Realtime Database
-      // O erro estava aqui. A linha foi ajustada para não depender de __app_id.
       const orderRef = push(ref(this.db, `users/${userId}/orders`));
       await set(orderRef, {
         date: new Date().toISOString(),
@@ -131,11 +129,11 @@ export class PaymentPage implements OnInit {
           id: item.id,
           name: item.name,
           price: item.price,
-          quantity: item.qtd
+          quantity: item.qtd,
+          images: item.images || ''
         }))
       });
 
-      // Atualiza o estoque de cada produto no Realtime Database
       for (const item of this.cartItems) {
         const productRef = child(ref(this.db, 'products'), item.id);
         const snapshot = await get(productRef);

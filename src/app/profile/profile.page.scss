@@ -1,63 +1,86 @@
 .profile-header {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: var(--ion-color-light);
-    
-    .profile-pic-container {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 10px;
-    
-    ion-avatar {
-      width: 100px;
-      height: 100px;
-      border: 3px solid var(--ion-color-primary);
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .edit-icon {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      background: var(--ion-color-light);
-      border-radius: 50%;
-      padding: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: var(--ion-color-light);
+  
+  .profile-pic-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 10px;
+      
+      ion-avatar {
+          width: 100px;
+          height: 100px;
+          border: 3px solid var(--ion-color-primary);
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .edit-icon {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background: var(--ion-color-light);
+          border-radius: 50%;
+          padding: 5px;
+          color: var(--ion-color-dark);
+          font-size: 20px;
+          border: 1px solid var(--ion-color-medium);
+      }
+  }
+  
+  h2 {
+      font-size: 1.5rem;
+      font-weight: bold;
       color: var(--ion-color-dark);
-      font-size: 20px;
-      border: 1px solid var(--ion-color-medium);
-    }
-    
-    }
-    
-    h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--ion-color-dark);
-    }
-    }
-    
-    ion-list-header {
-    --background: var(--ion-color-light);
-    font-weight: bold;
-    font-size: 1.1rem;
-    }
-    
-    ion-item {
-    --border-radius: 10px;
-    --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-    margin: 10px 0;
-    transition: transform 0.2s ease-in-out;
-    
-    &:hover {
-    transform: translateY(-2px);
-    }
-    
-    ion-label {
-    h3 {
-    font-weight: bold;
-    }
-    p {
-    color: var(--ion-color-medium);
-    }
-    }
-    }
+  }
+}
+  
+ion-list-header {
+  --background: var(--ion-color-light);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+  
+ion-item {
+  --border-radius: 10px;
+  --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  margin: 10px 0;
+  
+  ion-label {
+      h3 {
+          font-weight: bold;
+      }
+      p {
+          color: var(--ion-color-medium);
+      }
+  }
+}
+
+.order-container {
+  background: var(--ion-background-color, #fff);
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.order-header {
+  --background: transparent;
+  padding-bottom: 0;
+}
+
+.item-list-details {
+  padding-left: 16px;
+  padding-right: 16px;
+  
+  ion-item.product-item {
+      --background: transparent;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      
+      ion-thumbnail {
+          --size: 60px;
+          min-width: 60px;
+          margin-right: 10px;
+      }
+  }
+}

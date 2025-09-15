@@ -30,24 +30,29 @@
   </ion-list-header>
 
   <ion-list *ngIf="orders.length > 0; else noOrders">
-    <ion-item *ngFor="let order of orders" class="ion-margin-bottom">
-      <ion-icon slot="start" name="receipt-outline"></ion-icon>
-      <ion-label>
-        <h3>Pedido #{{ order.id }}</h3>
-        <p>Data: {{ order.date }}</p>
-        <p>Total: <strong>R$ {{ order.total | number:'1.2-2' }}</strong></p>
-      </ion-label>
-      <ion-list slot="end" class="ion-no-padding" lines="none">
-        <ion-item *ngFor="let item of order.items" class="ion-no-padding">
-          <ion-thumbnail slot="start" *ngIf="item.image">
-            <img [src]="item.image" />
+    <div *ngFor="let order of orders" class="order-container ion-margin-bottom">
+      <ion-item class="order-header" lines="none">
+        <ion-icon slot="start" name="receipt-outline"></ion-icon>
+        <ion-label>
+          <h3>Pedido #{{ order.id }}</h3>
+          <p>Data: {{ order.date }}</p>
+          <p>Total: <strong>R$ {{ order.total | number:'1.2-2' }}</strong></p>
+        </ion-label>
+      </ion-item>
+      <ion-list class="item-list-details" lines="full">
+        <ion-item *ngFor="let item of order.items" class="product-item">
+          <ion-thumbnail slot="start">
+            <img [src]="item.images" *ngIf="item.images" />
           </ion-thumbnail>
-          <ion-label>{{ item.name }} (x{{ item.quantity }})</ion-label>
+          <ion-label>
+            <h3>{{ item.name }}</h3>
+            <p>Quantidade: {{ item.quantity }}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
-    </ion-item>
+    </div>
   </ion-list>
-
+  
   <ng-template #noOrders>
     <ion-item>
       <ion-label class="ion-text-center ion-text-wrap">Nenhum pedido encontrado. Faça sua primeira compra!</ion-label>
