@@ -1,67 +1,55 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonListHeader, IonLabel, IonGrid, IonRow, IonCol, IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { IonicModule, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { addIcons } from 'ionicons';
+import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline } from 'ionicons/icons';
+
+addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline });
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonListHeader, IonLabel, IonGrid, IonRow, IonCol, IonCard, IonImg, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonButton ]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ProfilePage implements OnInit {
+  userEmail: string | null = '';
 
-  userName: string = 'Amanda Silverio';
-  userEmail: string = 'blablabla@gmail.com';
-
-  editProfile() {
-    alert('Editar perfil clicado!');
-  }
-
-  editPassword() {
-    alert('Editar senha clicado!');
-  }
-
-  addAddress() {
-    alert('Adicionar novo endereço clicado!');
-  }
-
-  addPayment() {
-    alert('Adicionar método de pagamento clicado!');
-  }
-
-  produtosFavoritos: any[] = [
-    {
-      id: 1,
-      nome: 'Natural Moisturizing Factors + HA',
-      descricao: 'Supports Skin Barrier',
-      foto: 'assets/icon/stanley.png',
-      avaliacao: 4.3,
-      vendas: 1534,
-      tamanho: '100ml',
-      valor: 59.90
-    },
-    {
-      id: 2,
-      nome: 'Gel de Limpeza Facial',
-      descricao: 'Limpeza profunda e hidratação',
-      foto: 'assets/icon/stanley.png', 
-      avaliacao: 4.5,
-      vendas: 876,
-      tamanho: '150ml',
-      valor: 45.50
-    }
+  orders = [
+    { id: 1, date: '10/09/2024', total: 150.00, items: ['Produto A', 'Produto B'] },
+    { id: 2, date: '05/09/2024', total: 85.50, items: ['Produto C'] },
+    { id: 3, date: '01/09/2024', total: 300.25, items: ['Produto D', 'Produto E', 'Produto F'] }
   ];
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
+    this.userEmail = this.authService.getCurrentUserEmail();
   }
 
-  removerProduto(id: number) {
-    this.produtosFavoritos = this.produtosFavoritos.filter(produto => produto.id !== id);
-    console.log(`Produto com ID ${id} removido.`);
+  goBack() {
+    this.navCtrl.back();
   }
 
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/login-user', { replaceUrl: true });
+  }
+
+  editProfile() {
+    console.log('Editando perfil...');
+  }
 }
+
+
+// http://googleusercontent.com/immersive_entry_chip/0
+
+// http://googleusercontent.com/immersive_entry_chip/1

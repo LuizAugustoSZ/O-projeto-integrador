@@ -34,6 +34,14 @@ export const routes: Routes = [
       path: 'product-page/:id',
     loadComponent: () => import('./product-page/product-page.page').then(m => m.ProductPage)
   },
+  {
+      path: 'profile',
+    loadComponent: () => import('./profile/profile.page').then( m => m.ProfilePage)
+  },
+  {
+    path: 'payment',
+  loadComponent: () => import('./payment/payment.page').then( m => m.PaymentPage)
+},
   
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' }

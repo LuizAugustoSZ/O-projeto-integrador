@@ -61,4 +61,8 @@ export class AuthService {
       throw error;
     }
   }
+
+  getCurrentUserEmail(): string | null {
+    return this.auth.currentUser?.email || null;
+  }
 }
