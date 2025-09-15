@@ -2,11 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { CategoryService } from '../service/category.service';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ProductService } from '../service/product.service';
+import { addIcons } from 'ionicons';
+import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
+
+addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso no HTML
 
 @Component({
   selector: 'app-register-product',
@@ -37,7 +42,6 @@ export class RegisterProductPage implements OnInit {
 
   async ngOnInit() {
     this.categories = await this.categoryService.getCategories();
-    console.log('Categories in page:', this.categories);
   }
 
   async pickFiles() {
@@ -62,11 +66,9 @@ export class RegisterProductPage implements OnInit {
 
   pickPhotoAssets() {
     this.pickFiles()
-
   }
 
   async takePhotoCamera() {
-
     const image = await Camera.getPhoto({
       quality: 80,
       resultType: CameraResultType.Base64,
@@ -81,16 +83,13 @@ export class RegisterProductPage implements OnInit {
       directory: Directory.Data
     });
 
-
     const fileUri = (await Filesystem.getUri({
       path: fileName,
       directory: Directory.Data
     })).uri;
 
     this.product.images.push(`data:image/jpeg;base64,${image.base64String}`);
-
   }
-
 
   async saveProduct() {
     try {
@@ -106,7 +105,6 @@ export class RegisterProductPage implements OnInit {
         images: [] as string[],
         category: ''
       };
-
     } catch (err) {
       console.log('error saving product', err);
     }
