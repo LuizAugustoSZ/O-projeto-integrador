@@ -1,9 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Meu Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/login-user" *ngIf="!isLoggedIn">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="searchProducts()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/little-car">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,9 +38,19 @@
   </div>
   
   <ion-list-header>
+    <ion-label>Seja um anunciante</ion-label>
+  </ion-list-header>
+  <ion-list>
+    <ion-item button="true" routerLink="/register-product">
+      <ion-icon name="add-circle-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>Anunciar produto</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list-header>
     <ion-label>Meus Pedidos</ion-label>
   </ion-list-header>
-
+  
   <ion-list *ngIf="orders.length > 0; else noOrders">
     <div *ngFor="let order of orders" class="order-container ion-margin-bottom">
       <ion-item class="order-header" lines="none">
@@ -52,17 +74,11 @@
       </ion-list>
     </div>
   </ion-list>
-  
+
   <ng-template #noOrders>
     <ion-item>
       <ion-label class="ion-text-center ion-text-wrap">Nenhum pedido encontrado. Faça sua primeira compra!</ion-label>
     </ion-item>
   </ng-template>
   
-  <div class="ion-padding">
-    <ion-button expand="block" color="danger" (click)="logout()">
-      <ion-icon name="log-out-outline" slot="start"></ion-icon>
-      Sair da Conta
-    </ion-button>
-  </div>
 </ion-content>
