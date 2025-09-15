@@ -5,9 +5,10 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { addIcons } from 'ionicons';
-import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline } from 'ionicons/icons';
+import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline } from 'ionicons/icons';
+import { Database, ref, onValue } from '@angular/fire/database';
 
-addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline });
+addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline });
 
 @Component({
   selector: 'app-profile',
@@ -18,25 +19,61 @@ addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, 
 })
 export class ProfilePage implements OnInit {
   userEmail: string | null = '';
-
-  orders = [
-    { id: 1, date: '10/09/2024', total: 150.00, items: ['Produto A', 'Produto B'] },
-    { id: 2, date: '05/09/2024', total: 85.50, items: ['Produto C'] },
-    { id: 3, date: '01/09/2024', total: 300.25, items: ['Produto D', 'Produto E', 'Produto F'] }
-  ];
-
+  userName: string | null = '';
+  orders: any[] = [];
+  userId: string | null = null;
+  
   constructor(
     private authService: AuthService,
     private router: Router,
-    private navCtrl: NavController
-  ) { }
+    private navCtrl: NavController,
+    private db: Database
+  ) {}
 
   ngOnInit() {
     this.userEmail = this.authService.getCurrentUserEmail();
+    this.userId = this.authService.getCurrentUserUid();
+    
+    if (this.userId) {
+      this.fetchUserProfile();
+      this.fetchUserOrders();
+    } else {
+      console.error('Usuário não autenticado. Redirecionando para a página de login.');
+      this.router.navigateByUrl('/login-user', { replaceUrl: true });
+    }
   }
 
-  goBack() {
-    this.navCtrl.back();
+  fetchUserProfile() {
+    const userRef = ref(this.db, `users/${this.userId}/profile`);
+    onValue(userRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const profileData = snapshot.val();
+        this.userName = profileData.name;
+      }
+    });
+  }
+
+  fetchUserOrders() {
+    const ordersRef = ref(this.db, `users/${this.userId}/orders`);
+    
+    onValue(ordersRef, (snapshot) => {
+      this.orders = [];
+      if (snapshot.exists()) {
+        const ordersData = snapshot.val();
+        Object.keys(ordersData).forEach((key) => {
+          const order = ordersData[key];
+          this.orders.push({
+            id: key,
+            date: new Date(order.date).toLocaleDateString(),
+            total: order.total,
+            items: order.items || []
+          });
+        });
+      }
+      this.orders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    }, (error) => {
+      console.error('Erro ao buscar pedidos:', error);
+    });
   }
 
   logout() {
@@ -47,9 +84,8 @@ export class ProfilePage implements OnInit {
   editProfile() {
     console.log('Editando perfil...');
   }
+
+  goBack() {
+    this.navCtrl.back();
+  }
 }
-
-
-// http://googleusercontent.com/immersive_entry_chip/0
-
-// http://googleusercontent.com/immersive_entry_chip/1

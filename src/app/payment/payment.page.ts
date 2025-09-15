@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ToastController, NavController, AlertController } from '@ionic/angular';
+import { IonicModule, ToastController, NavController, AlertController, LoadingController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { cardOutline, cashOutline, checkmarkCircleOutline, arrowBackOutline } from 'ionicons/icons';
 import { PaymentService } from '../service/payment';
 import { littleCar } from '../service/littlercar.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { Database, ref, push, set, get, child, update } from '@angular/fire/database';
 
 addIcons({ cardOutline, cashOutline, checkmarkCircleOutline, arrowBackOutline });
 
@@ -18,26 +20,30 @@ addIcons({ cardOutline, cashOutline, checkmarkCircleOutline, arrowBackOutline })
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class PaymentPage implements OnInit {
-  paymentStep = 1;
-  totalAmount: number = 0;
-  cartItems: any[] = [];
-  frete: number = 50.00;
-  selectedPaymentMethod: 'credit-card' | 'pix' = 'credit-card';
-
+  paymentStep: number = 1;
+  selectedPaymentMethod: 'card' | 'pix' = 'card';
+  paymentConfirmed: boolean = false;
+  
   cardHolder: string = '';
   cardNumber: string = '';
   expiryDate: string = '';
   cvc: string = '';
+  pixKey: string = 'E1398863-8F4A-4819-B3F7-3F3E57388C88';
+  totalAmount: number = 0;
 
-  pixKey: string = '00020126330014br.gov.bcb.pix0111999999999995204000053039865802BR5913FULANO DE TAL6008BRASILIA62070503***63045E1B';
+  cartItems: any[] = [];
+  frete: number = 50.00;
 
   constructor(
     private littleCar: littleCar,
     private paymentService: PaymentService,
     private toastController: ToastController,
+    private router: Router,
     private navCtrl: NavController,
+    private authService: AuthService,
     private alertController: AlertController,
-    private router: Router
+    private loadingController: LoadingController,
+    private db: Database
   ) { }
 
   ngOnInit() {
@@ -45,18 +51,12 @@ export class PaymentPage implements OnInit {
     this.totalAmount = this.calculateTotal();
   }
 
-  goBack() {
-    if (this.paymentStep > 1) {
-      this.paymentStep--;
-    } else {
-      this.navCtrl.back();
-    }
+  nextStep() {
+    this.paymentStep++;
   }
 
-  nextStep() {
-    if (this.paymentStep < 3) {
-      this.paymentStep++;
-    }
+  prevStep() {
+    this.paymentStep--;
   }
 
   calculateSubtotal(): number {
@@ -68,37 +68,112 @@ export class PaymentPage implements OnInit {
   }
 
   async processPayment() {
-    const loading = await this.toastController.create({
+    const loading = await this.loadingController.create({
       message: 'Processando pagamento...',
-      duration: 3000,
-      position: 'bottom'
+      spinner: 'crescent'
     });
     await loading.present();
 
-    let result;
-    if (this.selectedPaymentMethod === 'credit-card') {
-      result = await this.paymentService.processPayment(this.totalAmount);
-    } else {
-      result = { success: true, message: 'Pagamento via PIX simulado com sucesso!' };
+    const totalAmount = this.calculateTotal();
+
+    try {
+      const result = await this.paymentService.processPayment(totalAmount);
+      await loading.dismiss();
+
+      if (result.success) {
+        await this.saveOrderAndReduceStock();
+        this.paymentConfirmed = true;
+        this.paymentStep = 3;
+        const toast = await this.toastController.create({
+          message: 'Pagamento confirmado! Redirecionando para seu perfil.',
+          duration: 3000,
+          color: 'success',
+          position: 'bottom'
+        });
+        await toast.present();
+        setTimeout(() => {
+          this.router.navigate(['/profile']);
+        }, 3000);
+      } else {
+        const alert = await this.alertController.create({
+          header: 'Erro no Pagamento',
+          message: result.message,
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    } catch (error) {
+      await loading.dismiss();
+      const alert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Ocorreu um erro ao processar o pagamento. Tente novamente.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
+
+  async saveOrderAndReduceStock() {
+    const userId = this.authService.getCurrentUserUid();
+    if (!userId) {
+      console.error('Usuário não autenticado.');
+      return;
     }
 
-    await loading.dismiss();
+    try {
+      // Salva o pedido no Realtime Database
+      // O erro estava aqui. A linha foi ajustada para não depender de __app_id.
+      const orderRef = push(ref(this.db, `users/${userId}/orders`));
+      await set(orderRef, {
+        date: new Date().toISOString(),
+        total: this.calculateTotal(),
+        items: this.cartItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.qtd
+        }))
+      });
 
-    if (result.success) {
+      // Atualiza o estoque de cada produto no Realtime Database
+      for (const item of this.cartItems) {
+        const productRef = child(ref(this.db, 'products'), item.id);
+        const snapshot = await get(productRef);
+
+        if (!snapshot.exists()) {
+          console.error(`Aviso: O produto com o ID ${item.id} não foi encontrado.`);
+          continue;
+        }
+
+        const productData = snapshot.val();
+        const currentQuantity = productData.quantity;
+        const newQuantity = currentQuantity - item.qtd;
+
+        if (newQuantity < 0) {
+          throw new Error(`Estoque insuficiente para o produto: ${item.name}.`);
+        }
+        
+        await update(productRef, { quantity: newQuantity });
+      }
+
       this.littleCar.clearCart();
-      this.paymentStep = 3;
-    }
 
-    const toast = await this.toastController.create({
-      message: result.message,
-      duration: 3000,
-      color: result.success ? 'success' : 'danger',
-      position: 'bottom'
-    });
-    await toast.present();
+    } catch (error) {
+      console.error('Erro ao salvar o pedido ou reduzir o estoque:', error);
+      const alert = await this.alertController.create({
+        header: 'Erro na Compra',
+        message: `Ocorreu um problema ao finalizar seu pedido. ${error instanceof Error ? error.message : ''}`,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
   goToHome() {
-    this.router.navigate(['/home'], { replaceUrl: true });
+    this.router.navigate(['/home']);
   }
 }

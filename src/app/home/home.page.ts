@@ -34,8 +34,6 @@ export class HomePage implements OnInit, OnDestroy {
   private cartSubscription!: Subscription;
   isLoggedIn: boolean = false;
 
-  // slideOpts não é mais necessário aqui, a configuração está no HTML.
-
   products: any[] = [];
   isLoading = true;
 
@@ -66,10 +64,12 @@ export class HomePage implements OnInit, OnDestroy {
   async loadProducts() {
     this.isLoading = true;
     try {
-      this.products = await this.productService.getProducts();
-      console.log('Products loaded:', this.products);
+      const allProducts = await this.productService.getProducts();
+      // Filtra os produtos para exibir apenas aqueles com estoque maior que 0
+      this.products = allProducts.filter(product => product.quantity > 0);
+      console.log('Produtos carregados e filtrados:', this.products);
     } catch (err) {
-      console.error('Error loading products', err);
+      console.error('Erro ao carregar produtos', err);
     } finally {
       this.isLoading = false;
     }
