@@ -8,6 +8,9 @@ import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { register } from 'swiper/element/bundle';
+register();
 
 addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline });
 
@@ -16,7 +19,9 @@ addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCir
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class ProductPage implements OnInit, OnDestroy {
   productId: string | null = null;

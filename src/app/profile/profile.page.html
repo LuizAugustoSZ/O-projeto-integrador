@@ -64,7 +64,7 @@
       <ion-list class="item-list-details" lines="full">
         <ion-item *ngFor="let item of order.items" class="product-item">
           <ion-thumbnail slot="start">
-            <img [src]="item.images" *ngIf="item.images" />
+            <img [src]="item.images[0]" *ngIf="item.images" />
           </ion-thumbnail>
           <ion-label>
             <h3>{{ item.name }}</h3>

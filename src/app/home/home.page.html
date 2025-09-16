@@ -75,7 +75,7 @@
     <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
       <swiper-slide *ngFor="let product of products">
         <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
-          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
+          <img [src]="product.images && product.images.length > 0 ? product.images[0] : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">
               <h3>{{ product.name }}</h3>

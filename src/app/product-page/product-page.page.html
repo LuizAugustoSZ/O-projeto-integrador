@@ -15,11 +15,17 @@
 
 <ion-content>
   <ion-card *ngIf="product">
-    <img [src]="product?.images"> 
+    <!-- <img [src]="product.images && product.images.length > 0 ? product.images[0] : '../assets/icon/placeholder.png'" />
     <ion-card-header>
       <ion-card-subtitle>{{ product?.category }}</ion-card-subtitle>
       <ion-card-title>{{ product?.name }}</ion-card-title>
-    </ion-card-header>
+    </ion-card-header> -->
+
+    <swiper-container [loop]="true" [pagination]="true" [autoplay]="{ delay: 4000 }">
+      <swiper-slide *ngFor="let image of product?.images">
+        <img [src]="image" />
+      </swiper-slide>
+    </swiper-container>
 
     <ion-card-content>
       <div class="product-info-stars">
