@@ -27,7 +27,7 @@
   <ion-list *ngIf="cartItems.length > 0">
     <ion-item *ngFor="let item of cartItems; let i = index" class="cart-item">
       <ion-thumbnail slot="start">
-        <img [src]="item.images" alt="Imagem do produto">
+        <img [src]="item.images[0]" alt="Imagem do produto">
       </ion-thumbnail>
 
       <ion-label>
