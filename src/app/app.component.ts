@@ -6,9 +6,21 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './service/auth.service';
 import { littleCar } from './service/littlercar.service';
 import { addIcons } from 'ionicons';
-import { logInOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
+import { 
+  logInOutline, 
+  logOutOutline, 
+  personCircleOutline,
+  homeOutline, // Importe o novo ícone
+  pricetagsOutline // Importe o novo ícone
+} from 'ionicons/icons';
 
-addIcons({ logInOutline, logOutOutline, personCircleOutline });
+addIcons({ 
+  logInOutline, 
+  logOutOutline, 
+  personCircleOutline,
+  homeOutline,
+  pricetagsOutline
+});
 
 @Component({
   selector: 'app-root',
