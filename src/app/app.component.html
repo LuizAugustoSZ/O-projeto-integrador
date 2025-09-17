@@ -7,16 +7,18 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item routerLink="/home"> Home </ion-item>
-        <ion-item routerLink="/products"> Produtos </ion-item>
-        <ion-item routerLink="/offers"> Ofertas </ion-item>
+        <ion-item routerLink="/home"> 
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-item routerLink="/products"> 
+          <ion-label>Produtos</ion-label>
+        </ion-item>
+
         <ion-item [routerLink]="isLoggedIn ? '/profile' : '/login-user'"> 
-          Minha Conta 
+          <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+          <ion-label>{{ isLoggedIn ? 'Minha Conta' : 'Entrar / Cadastrar' }}</ion-label>
         </ion-item>
-        <ion-item routerLink="/login-user" *ngIf="!isLoggedIn">
-          <ion-icon slot="start" name="log-in-outline"></ion-icon>
-          <ion-label>Entrar / Cadastrar</ion-label>
-        </ion-item>
+
         <ion-item (click)="logout()" *ngIf="isLoggedIn">
           <ion-icon slot="start" name="log-out-outline"></ion-icon>
           <ion-label>Sair</ion-label>

@@ -6,9 +6,9 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './service/auth.service';
 import { littleCar } from './service/littlercar.service';
 import { addIcons } from 'ionicons';
-import { logInOutline, logOutOutline } from 'ionicons/icons';
+import { logInOutline, logOutOutline, personCircleOutline } from 'ionicons/icons';
 
-addIcons({ logInOutline, logOutOutline });
+addIcons({ logInOutline, logOutOutline, personCircleOutline });
 
 @Component({
   selector: 'app-root',
