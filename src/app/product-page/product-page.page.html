@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -15,12 +15,6 @@
 
 <ion-content>
   <ion-card *ngIf="product">
-    <!-- <img [src]="product.images && product.images.length > 0 ? product.images[0] : '../assets/icon/placeholder.png'" />
-    <ion-card-header>
-      <ion-card-subtitle>{{ product?.category }}</ion-card-subtitle>
-      <ion-card-title>{{ product?.name }}</ion-card-title>
-    </ion-card-header> -->
-
     <swiper-container [loop]="true" [pagination]="true" [autoplay]="{ delay: 4000 }">
       <swiper-slide *ngFor="let image of product?.images">
         <img [src]="image" />
@@ -71,6 +65,7 @@
         class="add-to-cart-button" 
         (click)="adicionarCarrinho()"
         [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0"
+        color="primary"
       >
         <ion-icon slot="start" name="cart-outline"></ion-icon>
         Adicionar ao Carrinho
