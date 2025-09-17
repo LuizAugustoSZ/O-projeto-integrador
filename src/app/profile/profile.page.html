@@ -52,7 +52,7 @@
   </ion-list-header>
   
   <ion-list *ngIf="orders.length > 0; else noOrders">
-    <div *ngFor="let order of orders" class="order-container ion-margin-bottom">
+    <div *ngFor="let order of orders.reverse()" class="order-container ion-margin-bottom">
       <ion-item class="order-header" lines="none">
         <ion-icon slot="start" name="receipt-outline"></ion-icon>
         <ion-label>
@@ -80,5 +80,4 @@
       <ion-label class="ion-text-center ion-text-wrap">Nenhum pedido encontrado. Faça sua primeira compra!</ion-label>
     </ion-item>
   </ng-template>
-  
 </ion-content>
