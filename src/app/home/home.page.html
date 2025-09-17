@@ -90,5 +90,30 @@
         </ion-card>
       </swiper-slide>
     </swiper-container>
+
+    <div class="header-section ion-padding">
+      <h2>Ofertas</h2>
+      <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
+    </div>
+
+    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
+      <swiper-slide *ngFor="let product of products">
+        <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
+          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
+          <ion-card-content>
+            <ion-text class="product-name">
+              <h3>{{ product.name }}</h3>
+            </ion-text>
+            <ion-text class="product-category">
+              <p>{{ product.category }}</p>
+            </ion-text>
+            <ion-text class="product-price">
+              <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+    
   </ion-content>
 </div>

@@ -24,14 +24,16 @@
             <ion-label position="floating">Descrição do Produto</ion-label>
             <ion-textarea auto-grow="true" [(ngModel)]="product.description"></ion-textarea>
           </ion-item>
+
           <ion-item>
             <ion-label>Categoria</ion-label>
-            <ion-select [(ngModel)]="product.category">
+            <ion-select [(ngModel)]="product.categories" multiple="true">
               <ion-select-option *ngFor="let i of categories" [value]="i.name">
                 {{ i.name }}
               </ion-select-option>
             </ion-select>
           </ion-item>
+          
         </ion-list>
       </ion-card-content>
     </ion-card>

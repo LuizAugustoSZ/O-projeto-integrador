@@ -32,7 +32,7 @@ export class RegisterProductPage implements OnInit {
     quantity: '',
     sendingMethods: [],
     images: [] as string[],
-    category: ''
+    categories: [] as string[]
   }
 
   constructor(
@@ -103,7 +103,7 @@ export class RegisterProductPage implements OnInit {
         quantity: '',
         sendingMethods: [],
         images: [] as string[],
-        category: ''
+        categories: [] as string[]
       };
     } catch (err) {
       console.log('error saving product', err);
