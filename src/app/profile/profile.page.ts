@@ -7,11 +7,11 @@ import { Subscription, Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
-import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline } from 'ionicons/icons';
+import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline, homeOutline } from 'ionicons/icons'; // Adicione homeOutline aqui
 import { Database, ref, onValue } from '@angular/fire/database';
 import { User } from '@angular/fire/auth';
 
-addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline });
+addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline, homeOutline }); // Adicione homeOutline aqui também
 
 @Component({
   selector: 'app-profile',
