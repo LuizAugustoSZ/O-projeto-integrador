@@ -12,23 +12,23 @@
     <ion-img src="../assets/icon/logo camelo.png" alt="Logo da empresa" class="login-logo"></ion-img>
     
     <ion-card-header>
-      <ion-card-title class="ion-text-center">Login</ion-card-title>
-      <ion-card-subtitle class="ion-text-center">Bem-vindo(a) de volta!</ion-card-subtitle>
       <p class="login-description ion-text-center">Acesse sua conta para continuar suas compras e gerenciar seus pedidos.</p>
+      <ion-card-subtitle class="ion-text-center">Bem-vindo(a) de volta!</ion-card-subtitle>
+      <ion-card-title class="ion-text-center">Login</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
       <ion-list lines="none">
         <ion-item>
           <div class="input-container">
-            <ion-input type="email" fill="solid" label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
+            <ion-input type="email" label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
             <p *ngIf="emailError" class="error-message">{{ emailError }}</p>
           </div>
         </ion-item>
 
         <ion-item>
           <div class="input-container">
-            <ion-input type="password" fill="solid" label="Senha" label-placement="floating" placeholder="Sua senha" [(ngModel)]="password" (ionChange)="validatePassword()"></ion-input>
+            <ion-input type="password" label="Senha" label-placement="floating" placeholder="Sua senha" [(ngModel)]="password" (ionChange)="validatePassword()"></ion-input>
             <p *ngIf="passwordError" class="error-message">{{ passwordError }}</p>
           </div>
         </ion-item>

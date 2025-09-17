@@ -16,7 +16,6 @@ export class LoginUserPage implements OnInit {
   email = '';
   password = '';
 
-  // Variáveis de erro para exibir as mensagens
   emailError: string | null = null;
   passwordError: string | null = null;
   loginError: string | null = null;
@@ -29,25 +28,23 @@ export class LoginUserPage implements OnInit {
     }
   }
 
-  // Funções de validação em tempo real
   validateEmail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     this.emailError = !emailRegex.test(this.email) ? 'Por favor, insira um e-mail válido.' : null;
-    this.loginError = null; // Limpa o erro de login se o usuário começar a digitar
+    this.loginError = null;
   }
 
   validatePassword() {
     this.passwordError = this.password.length < 6 ? 'A senha deve ter pelo menos 6 caracteres.' : null;
-    this.loginError = null; // Limpa o erro de login se o usuário começar a digitar
+    this.loginError = null;
   }
 
   async login() {
-    // Validação inicial antes de tentar o login
     this.validateEmail();
     this.validatePassword();
 
     if (this.emailError || this.passwordError) {
-      return; // Impede o login se houver erros nos campos
+      return;
     }
 
     try {
@@ -55,11 +52,10 @@ export class LoginUserPage implements OnInit {
       this.router.navigate(['/home']);
       
     } catch (error: any) {
-      this.loginError = this.getErrorMessage(error.code); // Define a mensagem de erro
+      this.loginError = this.getErrorMessage(error.code);
     }
   }
 
-  // Mapeia códigos de erro do Firebase para mensagens amigáveis
   private getErrorMessage(errorCode: string): string {
     switch (errorCode) {
       case 'auth/invalid-email':
