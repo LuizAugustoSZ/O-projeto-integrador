@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { addIcons } from 'ionicons';
 import { cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline } from 'ionicons/icons';
+import { CategoryService } from '../service/category.service';
 
 register();
 
@@ -28,6 +29,8 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   standalone: true,
   imports: [CommonModule, IonicModule, RouterLink]
 })
+
+
 export class HomePage implements OnInit, OnDestroy {
   swiperModules = [IonicSlides];
   qtdCarrinho: number = 0;
@@ -35,9 +38,11 @@ export class HomePage implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
   products: any[] = [];
+  categories: any[] = [];
   isLoading = true;
 
   constructor(
+    private categoryService: CategoryService,
     private productService: ProductService,
     private littleCar: littleCar,
     private router: Router,
@@ -53,6 +58,8 @@ export class HomePage implements OnInit, OnDestroy {
   async ionViewWillEnter() {
     this.isLoggedIn = this.authService.isLoggedIn();
     await this.loadProducts();
+
+     await this.loadCategories();
   }
 
   ngOnDestroy() {
@@ -73,6 +80,12 @@ export class HomePage implements OnInit, OnDestroy {
     } finally {
       this.isLoading = false;
     }
+  }
+
+
+  async loadCategories(){
+    const allCategories = await this.categoryService.getCategories();
+    this.categories = allCategories;
   }
 
   logout() {

@@ -91,29 +91,37 @@
       </swiper-slide>
     </swiper-container>
 
+    <!-- navegue por categorias -->
+
     <div class="header-section ion-padding">
-      <h2>Ofertas</h2>
+      <h2>Navegue por Categorias</h2>
       <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
     </div>
 
-    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
-      <swiper-slide *ngFor="let product of products">
-        <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
-          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner></ion-spinner>
+      <p>Carregando produtos...</p>
+    </div>
+
+    <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
+      <p>Nenhum produto cadastrado ainda.</p>
+    </div>
+
+    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && categories.length > 0">
+      <swiper-slide *ngFor="let category of categories">
+        <ion-card [routerLink]="['/category-page', category.id]" class="category-card">
           <ion-card-content>
             <ion-text class="product-name">
-              <h3>{{ product.name }}</h3>
+              <h3>{{ category.name }}</h3>
             </ion-text>
             <ion-text class="product-category">
-              <p>{{ product.category }}</p>
-            </ion-text>
-            <ion-text class="product-price">
-              <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+              <p>{{ category.description }}</p>
             </ion-text>
           </ion-card-content>
         </ion-card>
       </swiper-slide>
     </swiper-container>
-    
+
+
   </ion-content>
 </div>
