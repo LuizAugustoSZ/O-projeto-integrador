@@ -44,7 +44,11 @@ export const routes: Routes = [
 },
   
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: 'home' },  {
+    path: 'search-results',
+    loadComponent: () => import('./search-results/search-results.page').then( m => m.SearchResultsPage)
+  }
+
 
 
 ];

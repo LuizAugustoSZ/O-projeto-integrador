@@ -34,9 +34,12 @@
       </ion-buttons>
 
       <ion-buttons slot="end">         
-        <ion-button (click)="searchProducts()">
+        <!-- <ion-button (click)="searchProducts()">
           <ion-icon slot="icon-only" name="search-outline"></ion-icon>
-        </ion-button>
+        </ion-button> -->
+
+        <ion-searchbar #searchBar placeholder="Pesquisar"  (ionInput)="onSearchChange($event)"></ion-searchbar>
+
         <ion-button routerLink="/little-car">
           <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
           <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>

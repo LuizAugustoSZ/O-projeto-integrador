@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ProductService } from '../service/product.service';
@@ -96,6 +96,15 @@ export class HomePage implements OnInit, OnDestroy {
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigateByUrl('/login-user', { replaceUrl: true });
+  }
+
+  onSearchChange(event: any) {
+    if (event.key === 'Enter') {
+      const query = event.target.value;
+      if (query && query.trim() !== '') {
+        this.router.navigate(['/search-results', query]);
+      }
+    }
   }
 
   searchProducts() {
