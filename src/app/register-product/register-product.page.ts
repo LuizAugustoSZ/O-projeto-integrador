@@ -10,6 +10,8 @@ import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ProductService } from '../service/product.service';
 import { addIcons } from 'ionicons';
 import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
+import { Router } from '@angular/router'; // Importe o Router
+
 
 addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso no HTML
 
@@ -37,11 +39,16 @@ export class RegisterProductPage implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) { }
 
   async ngOnInit() {
     this.categories = await this.categoryService.getCategories();
+  }
+
+  goHome() {
+    this.router.navigateByUrl('/home');
   }
 
   async pickFiles() {
@@ -92,9 +99,15 @@ export class RegisterProductPage implements OnInit {
   }
 
   async saveProduct() {
-    try {
+
+    if(!this.product.name || !this.product.description || !this.product.price || !this.product.quantity ||  this.product.images.length === 0 || this.product.categories.length === 0){
+      window.alert("PREENCHA TODOS OS CAMPOS!")
+    }else{
+
+      window.alert('produto salvo com sucesso!')
+
       const productId = await this.productService.saveProduct(this.product)
-      console.log('product saved with id:', productId)
+      
 
       this.product = {
         name: '',
@@ -104,9 +117,12 @@ export class RegisterProductPage implements OnInit {
         sendingMethods: [],
         images: [] as string[],
         categories: [] as string[]
-      };
-    } catch (err) {
-      console.log('error saving product', err);
+
+      }
+
+      this.goHome()
+
+      
     }
   }
 }
