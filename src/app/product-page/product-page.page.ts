@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
@@ -19,7 +19,7 @@ addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCir
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
