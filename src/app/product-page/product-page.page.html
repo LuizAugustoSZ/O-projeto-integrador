@@ -32,7 +32,11 @@
       <div class="product-info-details">
         <p class="description">{{ product?.description }}</p>
         <p class="price">R$ {{ product?.price | number:'1.2-2' }}</p>
-        <p class="stock-info">EM ESTOQUE: {{ product?.quantity - qtdCarrinho }} UNIDADES</p>
+        <p class="stock-info" *ngIf="(product?.quantity - qtdCarrinho) <= 100">
+          <span [ngClass]="{'low-stock': (product?.quantity - qtdCarrinho) <= 10}">
+            EM ESTOQUE: {{ product?.quantity - qtdCarrinho }} UNIDADES
+          </span>
+        </p>
       </div>
 
       <ion-grid class="quantity-controls">

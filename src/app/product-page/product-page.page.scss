@@ -70,6 +70,12 @@ ion-content {
     color: var(--ion-color-medium, #92949c);
     font-weight: 500;
   }
+  
+  // Adiciona a nova classe para estoque baixo
+  .low-stock {
+    color: var(--ion-color-danger, #eb445a);
+    font-weight: bold;
+  }
 }
 
 .quantity-controls {
