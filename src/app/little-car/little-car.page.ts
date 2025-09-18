@@ -10,6 +10,8 @@ import { AuthService } from '../service/auth.service';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 
+
+
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
 
 @Component({
