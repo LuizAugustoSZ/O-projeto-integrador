@@ -54,6 +54,13 @@ ion-content {
 .product-info-details {
   margin-top: 10px;
 
+  .name {
+    font-size: 1.5em; 
+    font-weight: 700; 
+    color: var(--ion-color-dark, #222428); 
+    margin-bottom: 5px;
+  }
+
   .description {
     font-size: 1em;
     color: var(--ion-color-dark, #222428);

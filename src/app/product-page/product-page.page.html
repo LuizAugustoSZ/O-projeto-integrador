@@ -22,14 +22,16 @@
     </swiper-container>
 
     <ion-card-content>
-      <div class="product-info-stars">
-        <div class="stars">
-          <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
-          <ion-text>({{ product?.nota }} avaliações)</ion-text>
-        </div>
-      </div>
-
       <div class="product-info-details">
+        <div class="product-info-stars">
+          <div class="stars">
+            <ion-icon *ngFor="let star of estrelas" [name]="star"></ion-icon>
+            <ion-text>{{ product?.nota }}</ion-text>
+          </div>
+        </div>
+        <br>
+        <p class="name">{{ product?.name }}</p>
+        
         <p class="description">{{ product?.description }}</p>
         <p class="price">R$ {{ product?.price | number:'1.2-2' }}</p>
         <p class="stock-info" *ngIf="(product?.quantity - qtdCarrinho) <= 100">
