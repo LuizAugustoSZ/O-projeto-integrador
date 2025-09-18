@@ -33,7 +33,7 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
 
-      <ion-buttons slot="end">        
+      <ion-buttons slot="end">         
         <ion-button (click)="searchProducts()">
           <ion-icon slot="icon-only" name="search-outline"></ion-icon>
         </ion-button>
@@ -58,7 +58,7 @@
     </div>
 
     <div class="header-section ion-padding">
-      <h2>Bestsellers</h2>
+      <h2>Todos os Produtos</h2>
       <a routerLink="/all-products" class="view-all-link">Ver tudo &rarr;</a>
     </div>
 
@@ -67,14 +67,14 @@
       <p>Carregando produtos...</p>
     </div>
 
-    <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
+    <div *ngIf="!isLoading && allProducts.length === 0" class="no-products-container">
       <p>Nenhum produto cadastrado ainda.</p>
     </div>
 
-    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && products.length > 0">
-      <swiper-slide *ngFor="let product of products">
+    <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && allProducts.length > 0">
+      <swiper-slide *ngFor="let product of allProducts">
         <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
-          <img [src]="product.images ? product.images : '../assets/icon/placeholder.png'" />
+          <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">
               <h3>{{ product.name }}</h3>
@@ -89,8 +89,32 @@
         </ion-card>
       </swiper-slide>
     </swiper-container>
+    
+    <div class="header-section ion-padding" *ngIf="!isLoading && lowStockProducts.length > 0">
+      <h2>Últimas Unidades!</h2>
+      <a routerLink="/last-units" class="view-all-link">Ver tudo &rarr;</a>
+    </div>
 
-    <!-- navegue por categorias -->
+    <div *ngIf="!isLoading && lowStockProducts.length > 0">
+      <swiper-container [loop]="false" [slidesPerView]="2.2" [spaceBetween]="10">
+        <swiper-slide *ngFor="let product of lowStockProducts">
+          <ion-card [routerLink]="['/product-page', product.id]" class="product-card">
+            <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
+            <ion-card-content>
+              <ion-text class="product-name">
+                <h3>{{ product.name }}</h3>
+              </ion-text>
+              <ion-text class="product-category">
+                <p>{{ product.category }}</p>
+              </ion-text>
+              <ion-text class="product-price">
+                <h4>R$ {{ product.price | number:'1.2-2' }}</h4>
+              </ion-text>
+            </ion-card-content>
+          </ion-card>
+        </swiper-slide>
+      </swiper-container>
+    </div>
 
     <div class="header-section ion-padding">
       <h2>Navegue por Categorias</h2>
@@ -102,7 +126,7 @@
       <p>Carregando produtos...</p>
     </div>
 
-    <div *ngIf="!isLoading && products.length === 0" class="no-products-container">
+    <div *ngIf="!isLoading && categories.length === 0" class="no-products-container">
       <p>Nenhum produto cadastrado ainda.</p>
     </div>
 

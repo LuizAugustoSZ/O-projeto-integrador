@@ -30,14 +30,14 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   imports: [CommonModule, IonicModule, RouterLink]
 })
 
-
 export class HomePage implements OnInit, OnDestroy {
   swiperModules = [IonicSlides];
   qtdCarrinho: number = 0;
   private cartSubscription!: Subscription;
   isLoggedIn: boolean = false;
 
-  products: any[] = [];
+  allProducts: any[] = [];
+  lowStockProducts: any[] = [];
   categories: any[] = [];
   isLoading = true;
 
@@ -58,8 +58,7 @@ export class HomePage implements OnInit, OnDestroy {
   async ionViewWillEnter() {
     this.isLoggedIn = this.authService.isLoggedIn();
     await this.loadProducts();
-
-     await this.loadCategories();
+    await this.loadCategories();
   }
 
   ngOnDestroy() {
@@ -72,16 +71,21 @@ export class HomePage implements OnInit, OnDestroy {
     this.isLoading = true;
     try {
       const allProducts = await this.productService.getProducts();
-      // Filtra os produtos para exibir apenas aqueles com estoque maior que 0
-      this.products = allProducts.filter(product => product.quantity > 0);
-      console.log('Produtos carregados e filtrados:', this.products);
+
+      const availableProducts = allProducts.filter(product => product.quantity > 0);
+
+      this.allProducts = availableProducts.sort((a, b) => b.id.localeCompare(a.id));
+      
+      this.lowStockProducts = this.allProducts.filter(product => product.quantity > 0 && product.quantity <= 10);
+      
+      console.log('Todos os Produtos carregados e ordenados:', this.allProducts);
+      console.log('Produtos de Últimas Unidades:', this.lowStockProducts);
     } catch (err) {
       console.error('Erro ao carregar produtos', err);
     } finally {
       this.isLoading = false;
     }
   }
-
 
   async loadCategories(){
     const allCategories = await this.categoryService.getCategories();
