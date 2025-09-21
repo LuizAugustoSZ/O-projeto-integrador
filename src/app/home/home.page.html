@@ -33,12 +33,14 @@
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
 
-      <ion-buttons slot="end">         
-        <!-- <ion-button (click)="searchProducts()">
-          <ion-icon slot="icon-only" name="search-outline"></ion-icon>
-        </ion-button> -->
-
-        <ion-searchbar #searchBar placeholder="Pesquisar"  (ionInput)="onSearchChange($event)"></ion-searchbar>
+      <ion-buttons slot="end">      
+        <ion-input
+         placeholder="Pesquisar..."
+        [(ngModel)]="searchProductsQuery"
+        (keyup.enter)="searchProducts()"
+        ></ion-input>
+        
+        
 
         <ion-button routerLink="/little-car">
           <ion-icon slot="icon-only" name="cart-outline"></ion-icon>

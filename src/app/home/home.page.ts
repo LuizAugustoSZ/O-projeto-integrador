@@ -9,6 +9,7 @@ import { Router, RouterLink } from '@angular/router';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { FormsModule } from '@angular/forms';
 
 import { littleCar } from '../service/littlercar.service';
 import { Subscription } from 'rxjs';
@@ -27,7 +28,7 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink]
+  imports: [CommonModule, IonicModule, RouterLink, FormsModule]
 })
 
 export class HomePage implements OnInit, OnDestroy {
@@ -40,6 +41,7 @@ export class HomePage implements OnInit, OnDestroy {
   lowStockProducts: any[] = [];
   categories: any[] = [];
   isLoading = true;
+  searchProductsQuery: string = ''
 
   constructor(
     private categoryService: CategoryService,
@@ -99,15 +101,17 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   onSearchChange(event: any) {
-    if (event.key === 'Enter') {
-      const query = event.target.value;
-      if (query && query.trim() !== '') {
-        this.router.navigate(['/search-results', query]);
-      }
-    }
+  this.searchProductsQuery = event.detail.value; // captura o valor
+}
+
+  async searchProducts(){
+    const query = this.searchProductsQuery.trim();
+    if (query) {
+        this.router.navigate(['/search-results'], { queryParams: { q: query } });
+
+  } else {
+    window.alert('Digite algo para pesquisar!');
+  }
   }
 
-  searchProducts() {
-    console.log("Botão de busca clicado");
-  }
 }

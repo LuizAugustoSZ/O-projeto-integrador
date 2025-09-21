@@ -1,13 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>search-results</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Resultados da Busca</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">search-results</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Carregando...</p>
+  </div>
+
+  <div *ngIf="!isLoading && filteredProducts.length === 0">
+    <p>Nenhum produto encontrado.</p>
+  </div>
+
+  <ion-list *ngIf="!isLoading && filteredProducts.length > 0">
+    <ion-item *ngFor="let product of filteredProducts" [routerLink]="['/product-page', product.id]">
+      <ion-thumbnail slot="start">
+        <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'">
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.category }}</p>
+        <strong>R$ {{ product.price | number:'1.2-2' }}</strong>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
