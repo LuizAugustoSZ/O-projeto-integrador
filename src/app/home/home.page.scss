@@ -1,3 +1,10 @@
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #3880ff);
+    color: var(--ion-color-primary-contrast, #ffffff);
+  }
+}
+
 ion-toolbar ion-buttons {
   display: flex;
   align-items: center;
@@ -65,7 +72,6 @@ ion-toolbar ion-title {
   font-size: 0.9em;
 }
 
-/* Estilos para o Swiper */
 swiper-container {
   padding: 10px;
 }

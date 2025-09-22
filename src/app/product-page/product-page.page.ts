@@ -31,6 +31,7 @@ export class ProductPage implements OnInit, OnDestroy {
   estrelas: string[] = ['star-outline', 'star-outline', 'star-outline', 'star-outline', 'star-outline'];
   private cartSubscription!: Subscription;
   isLoggedIn: boolean = false;
+  searchProductsQuery: string = ''
 
   constructor(
     private route: ActivatedRoute,
@@ -126,4 +127,19 @@ export class ProductPage implements OnInit, OnDestroy {
   toggleDescription() {
     this.isExpanded = !this.isExpanded;
   }
+
+  onSearchChange(event: any) {
+    this.searchProductsQuery = event.detail.value; 
+  }
+  
+    async searchProducts(){
+      const query = this.searchProductsQuery.trim();
+      if (query) {
+          this.router.navigate(['/search-results'], { queryParams: { q: query } });
+  
+    } else {
+      window.alert('Digite algo para pesquisar!');
+    }
+    }
+  
 }
