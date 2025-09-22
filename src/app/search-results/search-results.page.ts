@@ -6,7 +6,7 @@ import { ProductService } from '../service/product.service';
 import { AuthService } from '../service/auth.service';
 import { littleCar } from '../service/littlercar.service';
 import { Subscription } from 'rxjs';
-import { FormsModule } from '@angular/forms'; // Adicione este import
+import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline } from 'ionicons/icons';
 
@@ -17,12 +17,12 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   templateUrl: './search-results.page.html',
   styleUrls: ['./search-results.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink, DecimalPipe, FormsModule], // Adicione FormsModule
+  imports: [CommonModule, IonicModule, RouterLink, DecimalPipe, FormsModule], 
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SearchResultsPage implements OnInit, OnDestroy {
   query: string = '';
-  searchProductsQuery: string = ''; // Nova variável para a barra de pesquisa
+  searchProductsQuery: string = ''; 
   allProducts: any[] = [];
   filteredProducts: any[] = [];
   isLoading = true;
@@ -45,7 +45,7 @@ export class SearchResultsPage implements OnInit, OnDestroy {
 
     this.route.queryParams.subscribe(async params => {
       this.query = params['q'] || '';
-      this.searchProductsQuery = this.query; // Sincroniza a barra de pesquisa com o parâmetro da URL
+      this.searchProductsQuery = this.query;
       await this.loadAndFilterProducts();
     });
   }
