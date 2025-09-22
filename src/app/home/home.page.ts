@@ -101,7 +101,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   onSearchChange(event: any) {
-  this.searchProductsQuery = event.detail.value; // captura o valor
+  this.searchProductsQuery = event.detail.value; 
 }
 
   async searchProducts(){
