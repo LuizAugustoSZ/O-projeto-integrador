@@ -1,11 +1,11 @@
-<ion-header>
-  <ion-toolbar color="primary">
+<ion-header [translucent]="true">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home"></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Detalhes do Produto</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="goToCart()">
+      <ion-button routerLink="/little-car">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
         <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
       </ion-button>
@@ -34,8 +34,20 @@
         </div>
         <br>
         <p class="name">{{ product?.name }}</p>
+
+        <div class="description-container" [class.expanded]="isExpanded">
+          <p class="description">{{ product?.description }}</p>
+        </div>
+        <ion-button 
+          fill="clear" 
+          size="small" 
+          class="read-more-button" 
+          *ngIf="product?.description && product?.description.length > 150"
+          (click)="toggleDescription()"
+        >
+          {{ isExpanded ? 'Ler Menos' : 'Ler Mais' }}
+        </ion-button>
         
-        <p class="description">{{ product?.description }}</p>
         <p class="price">R$ {{ product?.price | number:'1.2-2' }}</p>
         <p class="stock-info" *ngIf="(product?.quantity - qtdCarrinho) <= 100">
           <span [ngClass]="{'low-stock': (product?.quantity - qtdCarrinho) <= 10}">
@@ -66,19 +78,19 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-button 
-        expand="block" 
-        class="add-to-cart-button" 
-        (click)="adicionarCarrinho()"
-        [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0"
-        color="primary"
-      >
-        <ion-icon slot="start" name="cart-outline"></ion-icon>
-        Adicionar ao Carrinho
-      </ion-button>
-    </ion-toolbar>
-  </ion-footer>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button
+      expand="block"
+      class="add-to-cart-button"
+      (click)="adicionarCarrinho()"
+      [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0"
+      color="primary"
+    >
+      <ion-icon slot="start" name="cart-outline"></ion-icon>
+      Adicionar ao Carrinho
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

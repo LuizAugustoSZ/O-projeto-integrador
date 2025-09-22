@@ -6,13 +6,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
-import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline } from 'ionicons/icons';
+import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline, homeOutline } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 register();
 
-addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline });
+addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline, homeOutline });
 
 @Component({
   selector: 'app-product-page',
@@ -21,15 +21,16 @@ addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCir
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterLink],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
 })
 export class ProductPage implements OnInit, OnDestroy {
   productId: string | null = null;
-  product: any; 
+  product: any;
   qtd: number = 1;
   qtdCarrinho: number = 0;
+  isExpanded: boolean = false;
   estrelas: string[] = ['star-outline', 'star-outline', 'star-outline', 'star-outline', 'star-outline'];
   private cartSubscription!: Subscription;
+  isLoggedIn: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,10 +42,10 @@ export class ProductPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id');
-    
+
     if (this.productId) {
       this.product = await this.productService.getProductById(this.productId);
-      
+
       if (this.product && this.product.nota) {
         this.updateStars(this.product.nota);
       }
@@ -120,5 +121,9 @@ export class ProductPage implements OnInit, OnDestroy {
 
   goToCart() {
     this.router.navigateByUrl('/little-car');
+  }
+
+  toggleDescription() {
+    this.isExpanded = !this.isExpanded;
   }
 }
