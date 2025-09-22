@@ -3,13 +3,10 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Meu Perfil</ion-title>
+    <ion-title>Seu perfil</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/login-user" *ngIf="!isLoggedIn">
         <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="searchProducts()">
-        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
       </ion-button>
       <ion-button routerLink="/little-car">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>

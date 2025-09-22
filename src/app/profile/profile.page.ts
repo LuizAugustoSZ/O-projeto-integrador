@@ -113,8 +113,4 @@ export class ProfilePage implements OnInit, OnDestroy {
   goBack() {
     this.navCtrl.back();
   }
-
-  searchProducts() {
-    console.log('Botão de busca clicado.');
-  }
 }

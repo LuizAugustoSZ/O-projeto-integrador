@@ -1,3 +1,10 @@
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-primary, #3880ff);
+    color: var(--ion-color-primary-contrast, #ffffff);
+  }
+}
+
 .profile-header {
   padding-top: 20px;
   padding-bottom: 20px;
