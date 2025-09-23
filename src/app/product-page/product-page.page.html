@@ -97,7 +97,6 @@
       class="add-to-cart-button"
       (click)="adicionarCarrinho()"
       [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0"
-      color="primary"
     >
       <ion-icon slot="start" name="cart-outline"></ion-icon>
       Adicionar ao Carrinho
