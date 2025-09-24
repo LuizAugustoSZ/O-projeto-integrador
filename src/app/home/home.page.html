@@ -80,7 +80,7 @@
 
   <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && categories.length > 0">
     <swiper-slide *ngFor="let category of categories">
-      <ion-card [routerLink]="['./tabs/category-page', category.id]" class="category-card : ignore-clicks">
+      <ion-card [routerLink]="['./tabs/category-page', category.id]" class="category-card">
         <ion-card-content>
           <ion-text class="product-name">
             <h3>{{ category.name }}</h3>
