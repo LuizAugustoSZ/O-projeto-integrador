@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ToastController } from '@ionic/angular';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
 import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
@@ -10,6 +10,7 @@ import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircl
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { HeaderComponent } from '../header/header.component';
 register();
 
 addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline, homeOutline });
@@ -19,7 +20,7 @@ addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCir
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink],
+  imports: [IonicModule, CommonModule, FormsModule, HeaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductPage implements OnInit, OnDestroy {

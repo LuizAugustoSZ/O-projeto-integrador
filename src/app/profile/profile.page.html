@@ -1,24 +1,3 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Seu perfil</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/login-user" *ngIf="!isLoggedIn">
-        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-      </ion-button>
-      <ion-button routerLink="/little-car">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-        <ion-badge color="danger" *ngIf="qtdCarrinho > 0">{{ qtdCarrinho }}</ion-badge>
-      </ion-button>
-      <ion-button routerLink="/home">
-        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <div class="profile-header ion-text-center ion-padding-top">
     <div class="profile-pic-container">

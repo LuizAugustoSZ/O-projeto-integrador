@@ -5,20 +5,21 @@ import { ProductService } from '../service/product.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { IonicSlides } from '@ionic/angular';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { FormsModule } from '@angular/forms';
-
 import { littleCar } from '../service/littlercar.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
-import { addIcons } from 'ionicons';
-import { cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline } from 'ionicons/icons';
 import { CategoryService } from '../service/category.service';
+import { HeaderComponent } from '../header/header.component';
 
 register();
+
+import { addIcons } from 'ionicons';
+import { cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline } from 'ionicons/icons';
 
 addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuOutline, logInOutline });
 
@@ -28,7 +29,7 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink, FormsModule]
+  imports: [CommonModule, IonicModule, FormsModule, HeaderComponent]
 })
 
 export class HomePage implements OnInit, OnDestroy {
@@ -41,7 +42,6 @@ export class HomePage implements OnInit, OnDestroy {
   lowStockProducts: any[] = [];
   categories: any[] = [];
   isLoading = true;
-  searchProductsQuery: string = ''
 
   constructor(
     private categoryService: CategoryService,
@@ -97,21 +97,6 @@ export class HomePage implements OnInit, OnDestroy {
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
-    this.router.navigateByUrl('/login-user', { replaceUrl: true });
+    this.router.navigateByUrl('tabs/login-user', { replaceUrl: true });
   }
-
-  onSearchChange(event: any) {
-  this.searchProductsQuery = event.detail.value; 
-}
-
-  async searchProducts(){
-    const query = this.searchProductsQuery.trim();
-    if (query) {
-        this.router.navigate(['/search-results'], { queryParams: { q: query } });
-
-  } else {
-    window.alert('Digite algo para pesquisar!');
-  }
-  }
-
 }
