@@ -24,7 +24,7 @@ export class LoginUserPage implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['tabs/home']);
     }
   }
 
@@ -49,7 +49,7 @@ export class LoginUserPage implements OnInit {
 
     try {
       await this.authService.login(this.email, this.password);
-      this.router.navigate(['/home']);
+      this.router.navigate(['tabs/home']);
       
     } catch (error: any) {
       this.loginError = this.getErrorMessage(error.code);

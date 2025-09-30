@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
-
-
-
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
 
 @Component({
@@ -52,7 +49,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
   }
 
   goHome() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('tabs/home');
   }
 
   removeFromCart(index: number) {
@@ -128,7 +125,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
           {
             text: 'Fazer Login',
             handler: () => {
-              this.router.navigate(['/login-user']);
+              this.router.navigate(['tabs/login-user']);
             }
           }
         ]

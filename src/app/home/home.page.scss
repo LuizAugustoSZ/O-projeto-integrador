@@ -1,21 +1,3 @@
-ion-header {
-  ion-toolbar {
-    --background: var(--ion-color-primary);
-    color: var(--ion-color-primary-contrast);
-  }
-}
-
-ion-toolbar ion-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-ion-toolbar ion-title {
-  flex: 1;
-  text-align: center;
-}
-
 .promo-bar {
   background: #000;
   color: #fff;
@@ -27,12 +9,6 @@ ion-toolbar ion-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.promo-bar p {
-  display: inline-block;
-  padding-left: 100%;
-  animation: slide 12s linear infinite;
 }
 
 @keyframes slide {
@@ -66,18 +42,10 @@ ion-toolbar ion-title {
 }
 
 .header-section .view-all-link {
-  color: var(--ion-color-primary, orange);
+  color: var(--ion-color-primary, orange); 
   text-decoration: none;
   font-weight: bold;
   font-size: 0.9em;
-}
-
-swiper-container {
-  padding: 10px;
-}
-
-swiper-slide {
-  width: 120px;
 }
 
 .product-card {
@@ -122,7 +90,6 @@ swiper-slide {
   margin: 5px 0 0;
 }
 
-
 .loading-container,
 .no-products-container {
   display: flex;
@@ -136,21 +103,5 @@ ion-content {
   --background: var(--ion-color-light, #f4f5f8);
 }
 
-.search-item {
-  width: 100%;
-  --background: var(--ion-color-light, #f4f5f8);
-  --border-radius: 20px;
-  --inner-padding-end: 0;
-  --min-height: 38px;
-  margin: 0 8px;
-}
-
-.search-item ion-icon {
-  color: var(--ion-color-medium);
-  font-size: 1.2em;
-  padding-right: 5px;
-}
-
-.search-item ion-input {
-  --placeholder-color: var(--ion-color-medium);
-}
+.ignore-clicks {
+  pointer-events: none;
