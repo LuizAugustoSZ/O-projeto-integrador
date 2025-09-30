@@ -11,6 +11,8 @@ import { ProductService } from '../service/product.service';
 import { addIcons } from 'ionicons';
 import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
 import { Router } from '@angular/router'; // Importe o Router
+import { AuthService } from '../service/auth.service'; // importe
+
 
 
 addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso no HTML
@@ -100,8 +102,16 @@ export class RegisterProductPage implements OnInit {
 
   async saveProduct() {
 
-    if(!this.product.name || !this.product.description || !this.product.price || !this.product.quantity ||  this.product.images.length === 0 || this.product.categories.length === 0){
+    if(
+      !this.product.name ||
+      !this.product.description ||
+      !this.product.price || 
+      !this.product.quantity ||  
+      this.product.images.length === 0 || 
+      this.product.categories.length === 0
+      ){
       window.alert("PREENCHA TODOS OS CAMPOS!")
+      
     }else{
 
       window.alert('produto salvo com sucesso!')
