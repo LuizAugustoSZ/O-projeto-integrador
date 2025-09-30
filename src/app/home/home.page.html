@@ -19,9 +19,11 @@
     <p>Nenhum produto cadastrado ainda.</p>
   </div>
 
+  <!-- [routerLink]="['./tabs/product-page', product.id]"  -->
+
   <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && allProducts.length > 0">
     <swiper-slide *ngFor="let product of allProducts">
-      <ion-card [routerLink]="['./tabs/product-page', product.id]" class="product-card">
+      <ion-card  (click)="goToProduct(product.id)" class="product-card">
         <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
         <ion-card-content>
           <ion-text class="product-name">

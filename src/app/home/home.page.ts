@@ -99,4 +99,8 @@ export class HomePage implements OnInit, OnDestroy {
     this.isLoggedIn = false;
     this.router.navigateByUrl('tabs/login-user', { replaceUrl: true });
   }
+
+  goToProduct(id: string) {
+  this.router.navigate(['/tabs/product-page', id]);
+}
 }
