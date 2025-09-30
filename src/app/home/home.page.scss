@@ -85,7 +85,7 @@
 
 .product-price h4 {
   font-size: 1em; 
-  font-weight: bold;
+  font-weight: bold;  
   color: var(--ion-color-primary, orange);
   margin: 5px 0 0;
 }
@@ -105,4 +105,3 @@ ion-content {
 
 .ignore-clicks {
   pointer-events: none;
-}
