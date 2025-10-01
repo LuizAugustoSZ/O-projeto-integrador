@@ -1,20 +1,95 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Mais</ion-title>
+<ion-header class="header-yellow" [translucent]="true">
+  <ion-toolbar class="header-toolbar">
+    <ion-title class="ion-text-center">Minha conta</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isAuthReady" class="ion-padding ion-text-center">
+  <ion-spinner name="crescent" color="dark"></ion-spinner>
+  <p>Verificando acesso...</p>
+</ion-content>
+
+<ion-content [fullscreen]="true" *ngIf="userId && isAuthReady" class="logged-in-content">
+  
+  <div class="profile-section ion-padding">
+    <div class="user-info" (click)="goToProfile()"> <ion-avatar class="user-avatar">
+        <img [src]="'https://i.pravatar.cc/150?u=' + userEmail" alt="Foto de Perfil" *ngIf="userEmail" />
+      </ion-avatar>
+      <div class="name-container">
+        <h2>{{ userName || 'Usuário' }}</h2>
+        <p>{{ userEmail || 'Meu perfil' }} <ion-icon name="chevron-forward-outline"></ion-icon></p> 
+      </div>
+    </div>
+    <ion-button fill="clear" color="medium" size="small" (click)="editProfile()">
+      <ion-icon name="settings-outline" slot="start"></ion-icon>
+      EDITAR PERFIL
+    </ion-button>
+  </div>
+  
+  <ion-list-header>
+    <ion-label>Navegação Rápida</ion-label>
+  </ion-list-header>
   <ion-list lines="none" class="main-menu">
-    <ion-item button *ngFor="let item of menuItems" (click)="handleNavigation(item.action)">
+    <ion-item button *ngFor="let item of mainNavigationItems" (click)="handleNavigation(item.action)">
       <ion-icon [name]="item.icon" slot="start" color="dark"></ion-icon>
       <ion-label>{{ item.label }}</ion-label>
     </ion-item>
   </ion-list>
 
+  <ion-list-header class="announcer-header">
+    <ion-label>Seja um anunciante</ion-label>
+  </ion-list-header>
+  <ion-list lines="none" class="main-menu ion-no-margin">
+    <ion-item button (click)="handleNavigation('register_product')">
+      <ion-icon name="add-circle-outline" slot="start" color="dark"></ion-icon>
+      <ion-label>Anunciar produto</ion-label>
+    </ion-item>
+  </ion-list>
+
   <div class="ion-padding-top ion-padding-horizontal">
-    <ion-button expand="block" fill="danger" color="medium" (click)="logout()">
-      <ion-icon name="log-out-outline" slot="start"></ion-icon>Sair</ion-button>
+    <ion-button expand="block" fill="clear" color="medium" (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Sair
+    </ion-button>
   </div>
+</ion-content>
+
+<ion-content [fullscreen]="true" *ngIf="!userId && isAuthReady" class="logged-out-content">
+
+  <div class="profile-section ion-padding">
+    <div class="user-info" (click)="loginOrRegister()"> 
+      <ion-avatar class="user-avatar">
+        <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
+      </ion-avatar>
+      <div class="name-container">
+        <h2>Visitante</h2>
+        <p>Entrar ou Cadastrar <ion-icon name="chevron-forward-outline"></ion-icon></p>
+      </div>
+    </div>
+    <ion-button fill="clear" color="primary" size="small" (click)="loginOrRegister()">
+      <ion-icon name="log-in-outline" slot="start"></ion-icon>
+      ACESSAR CONTA
+    </ion-button>
+  </div>
+
+  <ion-list-header>
+    <ion-label>Navegação Rápida</ion-label>
+  </ion-list-header>
+  <ion-list lines="none" class="main-menu">
+    <ion-item button *ngFor="let item of mainNavigationItems" (click)="handleNavigation(item.action)">
+      <ion-icon [name]="item.icon" slot="start" color="dark"></ion-icon>
+      <ion-label>{{ item.label }}</ion-label>
+    </ion-item>
+  </ion-list>
   
+  <ion-list-header class="announcer-header">
+    <ion-label>Seja um anunciante</ion-label>
+  </ion-list-header>
+  <ion-list lines="none" class="main-menu ion-no-margin">
+    <ion-item button (click)="handleNavigation('register_product')">
+      <ion-icon name="add-circle-outline" slot="start" color="dark"></ion-icon>
+      <ion-label>Anunciar produto</ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

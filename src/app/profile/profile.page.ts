@@ -1,84 +1,62 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-import { Router, RouterLink } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
-import { littleCar } from '../service/littlercar.service';
-import { addIcons } from 'ionicons';
-import { personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline, homeOutline } from 'ionicons/icons'; // Adicione homeOutline aqui
 import { Database, ref, onValue } from '@angular/fire/database';
 import { User } from '@angular/fire/auth';
 
-addIcons({ personCircleOutline, settingsOutline, receiptOutline, logOutOutline, cameraOutline, pricetagOutline, searchOutline, cartOutline, logInOutline, homeOutline }); // Adicione homeOutline aqui também
+import { addIcons } from 'ionicons';
+import {
+  chevronForwardOutline
+} from 'ionicons/icons';
+
+addIcons({
+  chevronForwardOutline
+});
+
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule, DecimalPipe] 
 })
 export class ProfilePage implements OnInit, OnDestroy {
-  userEmail: string | null = '';
-  userName: string | null = '';
-  orders: any[] = [];
   userId: string | null = null;
-  
-  isLoggedIn: boolean = false; 
-  qtdCarrinho: number = 0;
-  private cartSubscription!: Subscription;
-  private authSubscription!: Subscription;
+  orders: any[] = [];
 
+  private authSubscription!: Subscription;
+  
   constructor(
-    private authService: AuthService,
-    private router: Router,
     private navCtrl: NavController,
-    private db: Database,
-    private littleCar: littleCar 
-  ) {}
+    private router: Router,
+    private authService: AuthService,
+    private db: Database
+  ) { }
 
   ngOnInit() {
-    this.userEmail = this.authService.getCurrentUserEmail();
-    this.userId = this.authService.getCurrentUserUid();
-
     this.authSubscription = this.authService.user.subscribe((user: User | null) => {
-      this.isLoggedIn = !!user;
+      this.userId = user?.uid || null;
+      if (this.userId) {
+        this.fetchUserOrders();
+      } else {
+        this.router.navigateByUrl('/login-user', { replaceUrl: true });
+      }
     });
-
-    if (this.userId) {
-      this.fetchUserProfile();
-      this.fetchUserOrders();
-      this.cartSubscription = this.littleCar.cart$.subscribe(items => {
-        this.qtdCarrinho = items.length;
-      });
-    } else {
-      console.error('Usuário não autenticado. Redirecionando para a página de login.');
-      this.router.navigateByUrl('/login-user', { replaceUrl: true });
-    }
   }
 
   ngOnDestroy() {
-    if (this.cartSubscription) {
-      this.cartSubscription.unsubscribe();
-    }
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
   }
 
-  fetchUserProfile() {
-    const userRef = ref(this.db, `users/${this.userId}/profile`);
-    onValue(userRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const profileData = snapshot.val();
-        this.userName = profileData.name;
-      }
-    });
-  }
-
   fetchUserOrders() {
+    if (!this.userId) return;
     const ordersRef = ref(this.db, `users/${this.userId}/orders`);
     
     onValue(ordersRef, (snapshot) => {
@@ -89,28 +67,24 @@ export class ProfilePage implements OnInit, OnDestroy {
           const order = ordersData[key];
           this.orders.push({
             id: key,
-            date: new Date(order.date).toLocaleDateString(),
+            date: new Date(order.date).toLocaleDateString(), 
             total: order.total,
             items: order.items || []
           });
         });
       }
+
       this.orders.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }, (error) => {
       console.error('Erro ao buscar pedidos:', error);
     });
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/login-user', { replaceUrl: true });
-  }
-
-  editProfile() {
-    console.log('Editando perfil...');
+  getItemSubtotal(item: any): number {
+    return (item?.price || 0) * (item?.quantity || 0);
   }
 
   goBack() {
-    this.navCtrl.back();
+    this.navCtrl.navigateBack('/tabs/more');
   }
 }

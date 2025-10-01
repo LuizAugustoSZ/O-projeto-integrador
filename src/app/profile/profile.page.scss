@@ -5,53 +5,22 @@ ion-header {
   }
 }
 
-.profile-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: var(--ion-color-light);
-  
-  .profile-pic-container {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 10px;
-      
-      ion-avatar {
-          width: 100px;
-          height: 100px;
-          border: 3px solid var(--ion-color-primary);
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      }
-      
-      .edit-icon {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          background: var(--ion-color-light);
-          border-radius: 50%;
-          padding: 5px;
-          color: var(--ion-color-dark);
-          font-size: 20px;
-          border: 1px solid var(--ion-color-medium);
-      }
-  }
-  
-  h2 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--ion-color-dark);
-  }
+/* Limpa o padding superior do ion-content que era usado pelo perfil */
+ion-content {
+  --padding-top: 0;
 }
   
 ion-list-header {
   --background: var(--ion-color-light);
   font-weight: bold;
   font-size: 1.1rem;
+  padding-top: 20px;
 }
   
 ion-item {
-  --border-radius: 10px;
-  --box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-  margin: 10px 0;
+  --border-radius: 0;
+  --box-shadow: none;
+  margin: 0;
   
   ion-label {
       h3 {
@@ -68,26 +37,65 @@ ion-item {
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  margin: 10px 10px 20px 10px;
+}
+
+/* Status do pedido */
+.order-status-complete {
+    color: var(--ion-color-success, #28ba62);
+    font-weight: 500;
+    margin-top: 5px !important;
 }
 
 .order-header {
   --background: transparent;
   padding-bottom: 0;
+  --min-height: 60px;
 }
 
 .item-list-details {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0;
   
   ion-item.product-item {
       --background: transparent;
-      --padding-start: 0;
-      --inner-padding-end: 0;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --inner-padding-end: 16px; 
       
+      ion-label {
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+          .item-price, .item-subtotal {
+            font-size: 0.8rem;
+            margin-top: 4px;
+          }
+          .item-subtotal strong {
+            color: var(--ion-color-dark);
+            font-weight: 600;
+          }
+      }
+
       ion-thumbnail {
           --size: 60px;
           min-width: 60px;
           margin-right: 10px;
       }
   }
+}
+
+/* Resumo do pedido */
+.order-summary {
+    --background: var(--ion-color-light, #f4f5f8);
+    font-size: 1rem;
+    --min-height: 40px;
+
+    .total-label {
+        font-weight: 500;
+    }
+    .total-value {
+        font-weight: bold;
+        color: var(--ion-color-dark);
+        font-size: 1.1rem;
+    }
 }

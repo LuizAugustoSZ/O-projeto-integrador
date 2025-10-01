@@ -1,30 +1,22 @@
-/* Core Styles */
-:host {
-    --ion-background-color: #f5f5f5; /* Fundo cinza claro */
-  }
-  
-  /* Estilo Amarelo do Cabeçalho e do Perfil */
-  .header-yellow, .profile-section {
-    --background: #FFD819; 
-  }
-  .header-toolbar {
-    --background: #FFD819;
-    --color: #000000;
-  }
-  
-  /* Seção de Perfil */
-  .profile-section {
-    padding-top: 50px !important; 
-    padding-bottom: 20px;
-  
-    .user-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
+ion-header {
+    ion-toolbar {
+      --background: var(--ion-color-primary);
+      color: var(--ion-color-primary-contrast);
     }
   }
-  
-  .user-avatar {
+
+.profile-section {
+    padding-top: 50px !important; 
+    padding-bottom: 20px;
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+}
+
+.user-avatar {
     width: 50px;
     height: 50px;
     margin-right: 15px;
@@ -35,144 +27,112 @@
     justify-content: center;
     align-items: center;
     font-weight: bold;
-  }
-  .initials {
-    font-size: 1.2rem;
-  }
-  
-  .name-container {
+}
+
+.name-container {
     cursor: pointer;
     h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
     }
     p {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      color: #333;
-      margin: 0;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+        color: #333;
+        margin: 0;
     }
     ion-icon {
-      font-size: 0.9rem;
-      margin-left: 5px;
-      margin-top: 1px;
+        font-size: 0.9rem;
+        margin-left: 5px;
+        margin-top: 1px;
     }
-  }
-  
-  /* Banners (Meli+ e Cartão) */
-  ion-card {
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .banner-item {
-    --background: transparent;
-    padding: 10px 0;
-  }
-  
-  /* Meli+ Banner (Roxo) */
-  .meli-plus-banner {
-    background: #9300c8; /* Roxo */
-    color: #ffffff;
-    .meli-plus-icon {
-      font-size: 24px;
-      padding: 5px;
-      background: #ffffff33; 
-      border-radius: 50%;
-    }
-    .meli-plus-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #ffffff;
-      margin: 0;
-    }
-    .meli-plus-subtitle {
-      color: #ffffff;
-      font-size: 0.9rem;
-      margin: 0;
-      opacity: 0.8;
-    }
-  }
-  
-  /* Cartão Banner */
-  .card-banner {
-    background: #ffffff;
-    border-left: 5px solid #FFD819; /* Linha amarela na lateral */
-    .card-title {
-      font-weight: 500;
-      color: #333;
-      margin: 0;
-    }
-  }
-  
-  /* Lista de Navegação */
-  .main-menu {
-    margin-top: 10px;
-    background: #ffffff;
-    padding: 0;
-  
-    ion-item {
-      --inner-border-width: 0.5px 0 0.5px 0;
-      --border-color: #e6e6e6;
-      --padding-start: 16px;
-      font-size: 1rem;
-    }
-    ion-item:last-child {
-      --border-width: 0;
-    }
-    ion-icon[slot="start"] {
-      font-size: 20px;
-      min-width: 35px; 
-    }
-  }
-  
-  .new-badge {
+}
+
+
+.new-badge {
     font-size: 0.65rem;
     font-weight: bold;
     padding: 3px 8px;
     border-radius: 12px;
-    background: #2D9CDB; /* Azul para "NOVO" */
+    background: #2D9CDB; 
     color: #ffffff;
-  }
-  
-  /* Barra de Abas (Rodapé) */
-  ion-footer {
-    border-top: 1px solid #e6e6e6;
-  }
-  .tab-toolbar {
-    --background: #ffffff;
-    padding: 5px 0;
+}
+
+ion-list-header {
+    --background: #f5f5f5; 
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-top: 20px;
+}
+.announcer-header {
+    padding-top: 0;
+    margin-top: 20px;
+}
+
+ion-card {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    margin: 10px 10px 20px 10px; 
+}
+
+.order-header {
+    --background: transparent;
+    padding-bottom: 0;
+}
+
+.item-list-details {
+    padding-left: 16px;
+    padding-right: 16px;
     
-    ion-icon {
-      font-size: 20px;
-      color: #666;
+    ion-item.product-item {
+        --background: transparent;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        
+        ion-thumbnail {
+            --size: 60px;
+            min-width: 60px;
+            margin-right: 10px;
+        }
     }
-    p {
-      font-size: 0.7rem;
-      margin: 0;
-      color: #666;
-    }
-    .active-tab ion-icon, .active-tab p {
-      color: var(--ion-color-primary, #3880ff); /* Cor primária para o item ativo */
-    }
-    .cart-icon-container {
-      position: relative;
-      background: #FFD819; /* Amarelo */
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 2px auto;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      .cart-icon {
-        color: #000000 !important;
-        font-size: 24px !important;
-      }
-    }
-  }
+}
+
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px;
+    padding-bottom: 0;
+}
+
+.header-section h2 {
+    font-weight: bold;
+    color: var(--ion-color-dark, #222428);
+}
+
+.header-section .view-all-link {
+    color: var(--ion-color-primary, orange); 
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+ion-content {
+    --background: var(--ion-color-light, #f4f5f8);
+}
+
+.ignore-clicks {
+    pointer-events: none;
+}
