@@ -50,7 +50,7 @@
   <div *ngIf="!isLoading && lowStockProducts.length > 0">
     <swiper-container [loop]="false" [slidesPerView]="2.2" [spaceBetween]="10">
       <swiper-slide *ngFor="let product of lowStockProducts">
-        <ion-card [routerLink]="['./tabs/product-page', product.id]" class="product-card">
+        <ion-card  (click)="goToProduct(product.id)" class="product-card">
           <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">
