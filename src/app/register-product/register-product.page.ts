@@ -12,6 +12,13 @@ import { addIcons } from 'ionicons';
 import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
 import { Router } from '@angular/router'; // Importe o Router
 import { AuthService } from '../service/auth.service'; // importe
+import {ViewChild, ElementRef } from '@angular/core';
+import Swiper from 'swiper';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
+
+
 
 
 
@@ -22,7 +29,8 @@ addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso n
   templateUrl: './register-product.page.html',
   styleUrls: ['./register-product.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonicModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class RegisterProductPage implements OnInit {
@@ -135,4 +143,27 @@ export class RegisterProductPage implements OnInit {
       
     }
   }
+
+  @ViewChild('swiperEl', { static: true }) swiperEl!: ElementRef;
+swiper!: Swiper;
+currentStep = 0;
+
+ngAfterViewInit() {
+  this.swiper = (this.swiperEl.nativeElement as any).swiper;
+  this.swiper.on('slideChange', () => {
+    this.currentStep = this.swiper.activeIndex;
+  });
+}
+
+nextStep() {
+  if (this.currentStep < 4) {
+    this.swiper.slideNext();
+  }
+}
+
+prevStep() {
+  if (this.currentStep > 0) {
+    this.swiper.slidePrev();
+  }
+}
 }

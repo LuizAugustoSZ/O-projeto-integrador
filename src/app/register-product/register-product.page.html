@@ -9,70 +9,103 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <div class="product-form-container">
-    <ion-card class="form-card">
-      <ion-card-header>
-        <ion-card-title>Informações Básicas</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list lines="full">
-          <ion-item>
-            <ion-label position="floating">Título do Produto</ion-label>
-            <ion-input [(ngModel)]="product.name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Descrição do Produto</ion-label>
-            <ion-textarea auto-grow="true" [(ngModel)]="product.description"></ion-textarea>
-          </ion-item>
+    <swiper-container
+    slides-per-view="1"
+    allow-touch-move="false"
+    #swiperEl
+    >
+      <swiper-slide>
+        <ion-card class="form-card">
+          <ion-card-header>
+            <ion-card-title>Informações Básicas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="full">
+              <ion-item>
+                <ion-label position="floating">Título do Produto</ion-label>
+                <ion-input [(ngModel)]="product.name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Descrição do Produto</ion-label>
+                <ion-textarea auto-grow="true" [(ngModel)]="product.description"></ion-textarea>
+              </ion-item>
 
-          <ion-item>
-            <ion-label>Categoria</ion-label>
-            <ion-select [(ngModel)]="product.categories" multiple="true">
-              <ion-select-option *ngFor="let i of categories" [value]="i.name">
-                {{ i.name }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
+              <ion-item>
+                <ion-label>Categoria</ion-label>
+                <ion-select [(ngModel)]="product.categories" multiple="true">
+                  <ion-select-option *ngFor="let i of categories" [value]="i.name">
+                    {{ i.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
 
-    <ion-card class="form-card">
-      <ion-card-header>
-        <ion-card-title>Preço e Estoque</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list lines="full">
-          <ion-item>
-            <ion-input label-placement="floating" label="Preço (R$)" [(ngModel)]="product.price" type="number"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input label-placement="floating" label="Quantidade Disponível" [(ngModel)]="product.quantity" type="number"></ion-input>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
 
-    <ion-card class="form-card">
-      <ion-card-header>
-        <ion-card-title>Fotos do Produto</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="image-buttons-container">
-          <ion-button expand="full" color="dark" (click)="pickFiles()">Adicionar Imagens da Galeria</ion-button>
-          <ion-button expand="full" (click)="takePhotoCamera()">Tirar Fotos com a Câmera</ion-button>
-        </div>
-        
-        <div class="image-previews-container ion-margin-top" *ngIf="product.images.length > 0">
-          <img *ngFor="let img of product.images" [src]="img" class="preview-image" />
-        </div>
-      </ion-card-content>
-    </ion-card>
+      <swiper-slide>
+        <ion-card class="form-card">
+          <ion-card-header>
+            <ion-card-title>Preço e Estoque</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="full">
+              <ion-item>
+                <ion-input label-placement="floating" label="Preço (R$)" [(ngModel)]="product.price"
+                  type="number"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input label-placement="floating" label="Quantidade Disponível" [(ngModel)]="product.quantity"
+                  type="number"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
 
-    <div class="action-buttons-container ion-padding">
-      <ion-button expand="full" color="dark" (click)="saveProduct()">Salvar Produto</ion-button>
-      <ion-button expand="full" color="danger">Cancelar</ion-button>
-    </div>
+      <swiper-slide>
+        <ion-card class="form-card">
+          <ion-card-header>
+            <ion-card-title>Fotos do Produto</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="image-buttons-container">
+              <ion-button expand="full" color="dark" (click)="pickFiles()">Adicionar Imagens da Galeria</ion-button>
+              <ion-button expand="full" (click)="takePhotoCamera()">Tirar Fotos com a Câmera</ion-button>
+            </div>
+
+            <div class="image-previews-container ion-margin-top" *ngIf="product.images.length > 0">
+              <img *ngFor="let img of product.images" [src]="img" class="preview-image" />
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+         <div class="action-buttons-container ion-padding">
+        <ion-button expand="full" color="dark" (click)="saveProduct()">Salvar Produto</ion-button>
+        <ion-button expand="full" color="danger">Cancelar</ion-button>
+      </div>
+      </swiper-slide>
+    </swiper-container>
   </div>
 </ion-content>
+
+
+<!-- Botões fixos -->
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="prevStep()" [disabled]="currentStep === 0">Voltar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button 
+        color="success" 
+        (click)="currentStep < 4 ? nextStep() : saveProduct()"
+      >
+        {{ currentStep < 4 ? 'Próximo' : 'Salvar' }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
