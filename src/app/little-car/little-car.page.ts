@@ -7,6 +7,7 @@ import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { HeaderComponent } from '../header/header.component';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
@@ -16,7 +17,7 @@ addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, 
   templateUrl: './little-car.page.html',
   styleUrls: ['./little-car.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, HeaderComponent]
 })
 export class LittleCarPage implements OnInit, OnDestroy {
   cartItems: any[] = [];

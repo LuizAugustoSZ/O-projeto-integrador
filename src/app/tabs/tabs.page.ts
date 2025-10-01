@@ -15,7 +15,8 @@ import {
   logInOutline,
   logOutOutline,
   searchOutline,
-  reorderThreeOutline
+  reorderThreeOutline,
+  personCircle
 } from 'ionicons/icons';
 
 addIcons({
@@ -26,7 +27,8 @@ addIcons({
   logInOutline,
   logOutOutline,
   searchOutline,
-  reorderThreeOutline
+  reorderThreeOutline,
+  personCircle
 });
 
 @Component({

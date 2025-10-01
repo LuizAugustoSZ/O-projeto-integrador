@@ -36,6 +36,10 @@ export const routes: Routes = [
         loadComponent: () => import('./category-page/category-page.page').then(m => m.CategoryPage)
       },
       {
+        path: 'more',
+        loadComponent: () => import('./more/more.page').then( m => m.MorePage)
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full'
@@ -62,5 +66,6 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'tabs/home',
     pathMatch: 'full'
-  }
+  },
+
 ];
