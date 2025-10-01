@@ -1,138 +1,170 @@
-ion-header {
+/* Definindo variáveis no :root para que a cor "amarela" do seu header 
+  seja o var(--ion-color-primary) no SCSS. 
+  Ajuste a cor hexadecimal de --ion-color-primary no seu variables.scss 
+  para a cor que você deseja no header (ex: #FFA500).
+*/
+:root {
+    /* Usando a cor primária do Ionic para o header */
+    /* --ion-color-primary: #FFA500; */ 
+    /* --ion-color-primary-contrast: #FFFFFF; */
+  }
+  
+  /* ------------------------------------- */
+  /* HEADER */
+  /* ------------------------------------- */
+  ion-header {
     ion-toolbar {
-      --background: var(--ion-color-primary);
+      /* Usa a cor definida como primary no seu tema Ionic */
+      --background: var(--ion-color-primary); 
       color: var(--ion-color-primary-contrast);
+      ion-title {
+        color: var(--ion-color-primary-contrast);
+      }
     }
   }
-
-.profile-section {
-    padding-top: 50px !important; 
-    padding-bottom: 20px;
-
-    .user-info {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-}
-
-.user-avatar {
-    width: 50px;
-    height: 50px;
-    margin-right: 15px;
-    background: #000000; 
-    color: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-.name-container {
-    cursor: pointer;
-    h2 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin: 0;
-    }
-    p {
-        display: flex;
-        align-items: center;
-        font-size: 0.9rem;
-        color: #333;
-        margin: 0;
-    }
-    ion-icon {
-        font-size: 0.9rem;
-        margin-left: 5px;
-        margin-top: 1px;
-    }
-}
-
-
-.new-badge {
-    font-size: 0.65rem;
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 12px;
-    background: #2D9CDB; 
-    color: #ffffff;
-}
-
-ion-list-header {
-    --background: #f5f5f5; 
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding-top: 20px;
-}
-.announcer-header {
-    padding-top: 0;
-    margin-top: 20px;
-}
-
-ion-card {
-    margin-left: 10px;
-    margin-right: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.order-container {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    margin: 10px 10px 20px 10px; 
-}
-
-.order-header {
-    --background: transparent;
-    padding-bottom: 0;
-}
-
-.item-list-details {
-    padding-left: 16px;
-    padding-right: 16px;
-    
-    ion-item.product-item {
-        --background: transparent;
-        --padding-start: 0;
-        --inner-padding-end: 0;
-        
-        ion-thumbnail {
-            --size: 60px;
-            min-width: 60px;
-            margin-right: 10px;
+  
+  /* ------------------------------------- */
+  /* CONTEÚDO E FUNDO */
+  /* ------------------------------------- */
+  ion-content {
+    /* Fundo cinza claro para toda a página fora dos cards */
+    --background: var(--ion-color-light, #f4f5f8); 
+  }
+  
+  /* ------------------------------------- */
+  /* SEÇÃO DE PERFIL (TOPO) */
+  /* ------------------------------------- */
+  
+  .profile-section {
+      /* Removendo !important e deixando o padding-top consistente */
+      padding-top: 30px; 
+      padding-bottom: 20px;
+      background: #ffffff; /* Fundo branco para a seção de perfil */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+      
+      .user-info {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          cursor: pointer;
+      }
+  }
+  
+  .user-avatar {
+      width: 50px;
+      height: 50px;
+      margin-right: 15px;
+      background: transparent; 
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      img {
+        border-radius: 50%;
+        /* Borda sutil na cor principal ou cinza claro */
+        border: 2px solid var(--ion-color-primary, #FFA500); 
+      }
+  
+      /* Estilo para o ícone de pessoa (Visitante) */
+      ion-icon {
+          font-size: 50px; 
+          color: var(--ion-color-medium);
+      }
+  }
+  
+  .name-container {
+      cursor: pointer;
+      h2 {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0;
+          color: var(--ion-color-dark, #333); /* Título escuro */
+      }
+      p {
+          display: flex;
+          align-items: center;
+          font-size: 0.9rem;
+          color: var(--ion-color-medium, #666); /* Subtítulo cinza */
+          margin: 0;
+      }
+      ion-icon {
+          font-size: 0.9rem;
+          margin-left: 5px;
+          margin-top: 1px;
+          color: var(--ion-color-medium);
+      }
+  }
+  
+  /* Botão de Editar Perfil/Login */
+  .profile-section ion-button {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--ion-color-medium, #666); /* Cor cinza/medium */
+      
+      ion-icon {
+          font-size: 1.1rem;
+          color: var(--ion-color-medium, #666); 
+      }
+  
+      /* Botão "ACESSAR CONTA" de visitante */
+      &.ion-color-primary {
+        color: var(--ion-color-primary); 
+        ion-icon {
+          color: var(--ion-color-primary);
         }
+      }
+  }
+  
+  /* ------------------------------------- */
+  /* LISTAS DE NAVEGAÇÃO RÁPIDA E ANUNCIANTE */
+  /* ------------------------------------- */
+  
+  ion-list-header {
+      --background: var(--ion-color-light, #f4f5f8); /* Fundo cinza claro */
+      font-weight: bold;
+      font-size: 1rem; /* Ajustado para ser menor que o 1.1rem inicial */
+      padding-top: 20px;
+      padding-bottom: 5px;
+      color: var(--ion-color-dark, #333);
+  }
+  
+  .announcer-header {
+      padding-top: 20px;
+      /* Linha sutil para separar, se desejar */
+      /* border-top: 1px solid #e0e0e0; */
+  }
+  
+  .main-menu {
+      margin: 0;
+      padding: 0;
+      background: #ffffff; /* Fundo branco para os itens da lista */
+      
+      ion-item {
+          --min-height: 48px;
+          color: var(--ion-color-dark, #333); 
+          font-size: 1rem;
+  
+          ion-icon[slot="start"] {
+              font-size: 18px;
+              margin-right: 12px;
+              min-width: 20px; 
+              color: var(--ion-color-medium, #666); /* Ícones da lista cinza */
+          }
+          
+          ion-label {
+            font-weight: 500;
+          }
+      }
+  }
+  
+  /* Botão de Sair no rodapé */
+  .ion-padding-horizontal ion-button[expand="block"] {
+    --color: var(--ion-color-medium);
+    font-weight: 500;
+    margin-top: 15px;
+    
+    ion-icon {
+      color: var(--ion-color-medium);
     }
-}
-
-
-.header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 16px;
-    padding-bottom: 0;
-}
-
-.header-section h2 {
-    font-weight: bold;
-    color: var(--ion-color-dark, #222428);
-}
-
-.header-section .view-all-link {
-    color: var(--ion-color-primary, orange); 
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-ion-content {
-    --background: var(--ion-color-light, #f4f5f8);
-}
-
-.ignore-clicks {
-    pointer-events: none;
-}
+  }
