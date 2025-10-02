@@ -109,40 +109,40 @@ export class RegisterProductPage implements OnInit {
   }
 
   async saveProduct() {
+  if (
+    !this.product.name ||
+    !this.product.description ||
+    !this.product.price ||
+    !this.product.quantity ||
+    this.product.images.length === 0 ||
+    this.product.categories.length === 0
+  ) {
+    window.alert("PREENCHA TODOS OS CAMPOS!");
+  } else {
+    window.alert("produto salvo com sucesso!");
 
-    if(
-      !this.product.name ||
-      !this.product.description ||
-      !this.product.price || 
-      !this.product.quantity ||  
-      this.product.images.length === 0 || 
-      this.product.categories.length === 0
-      ){
-      window.alert("PREENCHA TODOS OS CAMPOS!")
-      
-    }else{
+    const productId = await this.productService.saveProduct(this.product);
 
-      window.alert('produto salvo com sucesso!')
+    // Resetar o produto
+    this.product = {
+      name: '',
+      description: '',
+      price: '',
+      quantity: '',
+      sendingMethods: [],
+      images: [] as string[],
+      categories: [] as string[],
+    };
 
-      const productId = await this.productService.saveProduct(this.product)
-      
+    // 🔑 Resetar para o primeiro slide
+    this.swiper.slideTo(0);
+    this.currentStep = 0;
 
-      this.product = {
-        name: '',
-        description: '',
-        price: '',
-        quantity: '',
-        sendingMethods: [],
-        images: [] as string[],
-        categories: [] as string[]
-
-      }
-
-      this.goHome()
-
-      
-    }
+    // Redirecionar
+    this.goProfile();
   }
+}
+
 
   @ViewChild('swiperEl', { static: true }) swiperEl!: ElementRef;
 swiper!: Swiper;
@@ -166,4 +166,37 @@ prevStep() {
     this.swiper.slidePrev();
   }
 }
+
+validateStep(step: number): boolean {
+  switch (step) {
+    case 0: // Informações Básicas
+      return !!this.product.name && !!this.product.description && this.product.categories.length > 0;
+    
+    case 1: // Preço e Estoque
+      return !!this.product.price && !!this.product.quantity;
+
+    case 2: // Fotos do Produto
+      return this.product.images.length > 0;
+
+    default:
+      return false;
+  }
 }
+
+goNextStep() {
+  if (this.validateStep(this.currentStep)) {
+    if (this.currentStep < 2) {
+      this.nextStep();
+    } else {
+      this.saveProduct();
+    }
+  } else {
+    window.alert("Preencha todos os campos obrigatórios antes de continuar!");
+  }
+}
+
+goProfile(){
+   this.router.navigateByUrl('/tabs/profile');
+}
+}
+
