@@ -1,5 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item lines="none" class="search-item">
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input placeholder="Pesquisar..." [(ngModel)]="searchProductsQuery" (keyup.enter)="searchProducts()"
+        clearInput="true"></ion-input>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <app-header></app-header>
   <div *ngIf="cartItems.length === 0" class="empty-cart-message ion-padding">
     <ion-icon name="cart-outline" size="large"></ion-icon>
     <ion-text>

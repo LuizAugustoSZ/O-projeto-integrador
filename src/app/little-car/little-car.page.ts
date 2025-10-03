@@ -7,7 +7,6 @@ import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
-import { HeaderComponent } from '../header/header.component';
 import { arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash } from 'ionicons/icons';
 
 addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, addCircleOutline, trash });
@@ -17,12 +16,13 @@ addIcons({ arrowBackOutline, trashBinOutline, cartOutline, removeCircleOutline, 
   templateUrl: './little-car.page.html',
   styleUrls: ['./little-car.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, HeaderComponent]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class LittleCarPage implements OnInit, OnDestroy {
   cartItems: any[] = [];
   frete: number = 12.00;
   private cartSubscription!: Subscription;
+  searchProductsQuery: string = ''
 
   constructor(
     private littleCar: littleCar,
@@ -31,6 +31,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertController: AlertController,
     private toastController: ToastController,
+    
   ) { }
 
   ngOnInit() {
@@ -132,6 +133,19 @@ export class LittleCarPage implements OnInit, OnDestroy {
         ]
       });
       await alert.present();
+    }
+  }
+
+  onSearchChange(event: any) {
+    this.searchProductsQuery = event.detail.value;
+  }
+
+  async searchProducts() {
+    const query = this.searchProductsQuery.trim();
+    if (query) {
+      this.router.navigate(['tabs/search-results'], { queryParams: { q: query } });
+    } else {
+      console.log('Digite algo para pesquisar!');
     }
   }
 }

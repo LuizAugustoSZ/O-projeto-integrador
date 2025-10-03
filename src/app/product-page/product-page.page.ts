@@ -144,13 +144,7 @@ export class ProductPage implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.navCtrl.pop().then(hasPopped => {
-        if (!hasPopped) {
-            window.history.back();
-        }
-    }).catch(() => {
-        window.history.back();
-    });
-}
+    this.navCtrl.back();
+  }
 
 }
