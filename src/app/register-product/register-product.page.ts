@@ -9,20 +9,15 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ProductService } from '../service/product.service';
 import { addIcons } from 'ionicons';
-import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
-import { Router } from '@angular/router'; // Importe o Router
-import { AuthService } from '../service/auth.service'; // importe
+import { backspaceOutline, menuOutline } from 'ionicons/icons';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 import {ViewChild, ElementRef } from '@angular/core';
 import Swiper from 'swiper';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
-
-
-
-
-
-
-addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso no HTML
+addIcons({ backspaceOutline, menuOutline }); 
 
 @Component({
   selector: 'app-register-product',
@@ -48,6 +43,7 @@ export class RegisterProductPage implements OnInit {
   }
 
   constructor(
+    private navCtrl: NavController,
     private categoryService: CategoryService,
     private productService: ProductService,
     private router: Router
@@ -123,7 +119,6 @@ export class RegisterProductPage implements OnInit {
 
     const productId = await this.productService.saveProduct(this.product);
 
-    // Resetar o produto
     this.product = {
       name: '',
       description: '',
@@ -134,11 +129,9 @@ export class RegisterProductPage implements OnInit {
       categories: [] as string[],
     };
 
-    // 🔑 Resetar para o primeiro slide
     this.swiper.slideTo(0);
     this.currentStep = 0;
 
-    // Redirecionar
     this.goProfile();
   }
 }
@@ -169,13 +162,13 @@ prevStep() {
 
 validateStep(step: number): boolean {
   switch (step) {
-    case 0: // Informações Básicas
+    case 0: 
       return !!this.product.name && !!this.product.description && this.product.categories.length > 0;
     
-    case 1: // Preço e Estoque
+    case 1:
       return !!this.product.price && !!this.product.quantity;
 
-    case 2: // Fotos do Produto
+    case 2: 
       return this.product.images.length > 0;
 
     default:
@@ -198,5 +191,10 @@ goNextStep() {
 goProfile(){
    this.router.navigateByUrl('/tabs/profile');
 }
+
+goBack() {
+  this.navCtrl.navigateBack('/tabs/more');
+}
+
 }
 

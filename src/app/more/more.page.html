@@ -12,12 +12,12 @@
 <ion-content [fullscreen]="true" *ngIf="userId && isAuthReady" class="logged-in-content">
   
   <div class="profile-section ion-padding">
-    <div class="user-info" (click)="goToProfile()"> <ion-avatar class="user-avatar">
+    <div class="user-info"> <ion-avatar class="user-avatar">
         <img [src]="'https://i.pravatar.cc/150?u=' + userEmail" alt="Foto de Perfil" *ngIf="userEmail" />
       </ion-avatar>
       <div class="name-container">
         <h2>{{ userName || 'Usuário' }}</h2>
-        <p>{{ userEmail || 'Meu perfil' }} <ion-icon name="chevron-forward-outline"></ion-icon></p> 
+        <p>{{ userEmail || 'Meu perfil' }}</p> 
       </div>
     </div>
     <ion-button fill="clear" color="medium" size="small" (click)="editProfile()">

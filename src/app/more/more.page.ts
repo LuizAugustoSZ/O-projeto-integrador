@@ -101,7 +101,7 @@ export class MorePage implements OnInit, OnDestroy {
     
     if (action === 'register_product') {
       if (this.userId) {
-        this.router.navigateByUrl('/register-product');
+        this.router.navigateByUrl('tabs/register-product');
       } else {
         this.router.navigateByUrl('/login-user');
       }
