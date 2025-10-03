@@ -10,14 +10,14 @@
 </ion-content>
 
 <ion-content [fullscreen]="true" *ngIf="userId && isAuthReady" class="logged-in-content">
-  
+
   <div class="profile-section ion-padding">
     <div class="user-info"> <ion-avatar class="user-avatar">
         <img [src]="'https://i.pravatar.cc/150?u=' + userEmail" alt="Foto de Perfil" *ngIf="userEmail" />
       </ion-avatar>
       <div class="name-container">
         <h2>{{ userName || 'Usuário' }}</h2>
-        <p>{{ userEmail || 'Meu perfil' }}</p> 
+        <p>{{ userEmail || 'Meu perfil' }}</p>
       </div>
     </div>
     <ion-button fill="clear" color="medium" size="small" (click)="editProfile()">
@@ -25,7 +25,7 @@
       EDITAR PERFIL
     </ion-button>
   </div>
-  
+
   <ion-list-header>
     <ion-label>Navegação Rápida</ion-label>
   </ion-list-header>
@@ -57,7 +57,7 @@
 <ion-content [fullscreen]="true" *ngIf="!userId && isAuthReady" class="logged-out-content">
 
   <div class="profile-section ion-padding">
-    <div class="user-info" (click)="loginOrRegister()"> 
+    <div class="user-info" (click)="loginOrRegister()">
       <ion-avatar class="user-avatar">
         <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
       </ion-avatar>
@@ -81,7 +81,7 @@
       <ion-label>{{ item.label }}</ion-label>
     </ion-item>
   </ion-list>
-  
+
   <ion-list-header class="announcer-header">
     <ion-label>Seja um anunciante</ion-label>
   </ion-list-header>

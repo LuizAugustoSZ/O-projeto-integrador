@@ -24,16 +24,11 @@
         <div class="description-container" [class.expanded]="isExpanded">
           <p class="description">{{ product?.description }}</p>
         </div>
-        <ion-button 
-          fill="clear" 
-          size="small" 
-          class="read-more-button" 
-          *ngIf="product?.description && product?.description.length > 150"
-          (click)="toggleDescription()"
-        >
+        <ion-button fill="clear" size="small" class="read-more-button"
+          *ngIf="product?.description && product?.description.length > 150" (click)="toggleDescription()">
           {{ isExpanded ? 'Ler Menos' : 'Ler Mais' }}
         </ion-button>
-        
+
         <p class="price">R$ {{ product?.price | number:'1.2-2' }}</p>
         <p class="stock-info" *ngIf="(product?.quantity - qtdCarrinho) <= 100">
           <span [ngClass]="{'low-stock': (product?.quantity - qtdCarrinho) <= 10}">
@@ -68,12 +63,8 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button
-      expand="block"
-      class="add-to-cart-button"
-      (click)="adicionarCarrinho()"
-      [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0"
-    >
+    <ion-button expand="block" class="add-to-cart-button" (click)="adicionarCarrinho()"
+      [disabled]="qtd === 0 || (product?.quantity - qtdCarrinho) === 0">
       <ion-icon slot="start" name="cart-outline"></ion-icon>
       Adicionar ao Carrinho
     </ion-button>

@@ -4,17 +4,13 @@
       <ion-back-button defaultHref="/tabs/more" (click)="goBack()"></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-center">Anuncie seus Produto</ion-title>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
   <div class="product-form-container">
-    <swiper-container
-      slides-per-view="1"
-      allow-touch-move="false"
-      #swiperEl
-    >
+    <swiper-container slides-per-view="1" allow-touch-move="false" #swiperEl>
       <!-- SLIDE 1 -->
       <swiper-slide>
         <ion-card class="form-card">

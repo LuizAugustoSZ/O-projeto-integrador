@@ -45,7 +45,7 @@ ion-content {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background: var(--ion-color-light-contrast, #ffffff);
-    
+
     ion-thumbnail {
       --size: 80px;
       border-radius: 8px;
@@ -111,6 +111,7 @@ ion-content {
 
     ion-card-header {
       padding-bottom: 0;
+
       ion-card-title {
         font-size: 1.2em;
         font-weight: bold;

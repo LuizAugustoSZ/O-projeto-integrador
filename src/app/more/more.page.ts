@@ -5,7 +5,7 @@ import { IonicModule, NavController } from '@ionic/angular';
 import { Router } from '@angular/router'; // RouterLink REMOVIDO DAQUI
 import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
-import { littleCar } from '../service/littlercar.service'; 
+import { littleCar } from '../service/littlercar.service';
 import { addIcons } from 'ionicons';
 import {
   homeOutline, searchOutline, headsetOutline, bagHandleOutline,
@@ -26,15 +26,15 @@ addIcons({
   templateUrl: './more.page.html',
   styleUrls: ['./more.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, NgIf] 
+  imports: [IonicModule, CommonModule, FormsModule, NgIf]
 })
 export class MorePage implements OnInit, OnDestroy {
   userEmail: string | null = null;
   userName: string | null = null;
   userId: string | null = null;
-  isAuthReady: boolean = false; 
+  isAuthReady: boolean = false;
   qtdCarrinho: number = 0;
-  
+
   private cartSubscription!: Subscription;
   private authSubscription!: Subscription;
 
@@ -47,11 +47,11 @@ export class MorePage implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private navCtrl: NavController, 
-    private authService : AuthService, 
-    private router : Router,
-    private db: Database, 
-    private littleCar: littleCar 
+    private navCtrl: NavController,
+    private authService: AuthService,
+    private router: Router,
+    private db: Database,
+    private littleCar: littleCar
   ) { }
 
   ngOnInit() {
@@ -92,13 +92,13 @@ export class MorePage implements OnInit, OnDestroy {
   handleNavigation(action: string) {
     if (action === 'purchases') {
       if (this.userId) {
-        this.router.navigateByUrl('/tabs/profile'); 
+        this.router.navigateByUrl('/tabs/profile');
       } else {
         this.router.navigateByUrl('/login-user');
       }
       return;
     }
-    
+
     if (action === 'register_product') {
       if (this.userId) {
         this.router.navigateByUrl('tabs/register-product');
@@ -112,12 +112,12 @@ export class MorePage implements OnInit, OnDestroy {
       this.router.navigateByUrl('/tabs/home');
       return;
     }
-    
+
     if (action === 'search') {
       this.router.navigateByUrl('/tabs/search-results');
       return;
     }
-    
+
     if (action === 'favorites') {
       if (this.userId) {
         this.router.navigateByUrl('/tabs/favorites');
@@ -126,11 +126,11 @@ export class MorePage implements OnInit, OnDestroy {
       }
       return;
     }
-    
+
     if (action === 'help') {
-      this.router.navigateByUrl('/help-page'); 
+      this.router.navigateByUrl('/help-page');
     }
-    
+
     console.log(`Navegação não mapeada para: ${action}`);
   }
 

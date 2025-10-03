@@ -8,26 +8,27 @@ ion-header {
 ion-content {
   --padding-top: 0;
 }
-  
+
 ion-list-header {
   --background: var(--ion-color-light);
   font-weight: bold;
   font-size: 1.1rem;
   padding-top: 20px;
 }
-  
+
 ion-item {
   --border-radius: 0;
   --box-shadow: none;
   margin: 0;
-  
+
   ion-label {
-      h3 {
-          font-weight: bold;
-      }
-      p {
-          color: var(--ion-color-medium);
-      }
+    h3 {
+      font-weight: bold;
+    }
+
+    p {
+      color: var(--ion-color-medium);
+    }
   }
 }
 
@@ -39,11 +40,10 @@ ion-item {
   margin: 10px 10px 20px 10px;
 }
 
-/* Status do pedido */
 .order-status-complete {
-    color: var(--ion-color-success, #28ba62);
-    font-weight: 500;
-    margin-top: 5px !important;
+  color: var(--ion-color-success, #28ba62);
+  font-weight: 500;
+  margin-top: 5px !important;
 }
 
 .order-header {
@@ -54,47 +54,49 @@ ion-item {
 
 .item-list-details {
   padding: 0;
-  
+
   ion-item.product-item {
-      --background: transparent;
-      --padding-start: 16px;
-      --padding-end: 16px;
-      --inner-padding-end: 16px; 
-      
-      ion-label {
-          padding-top: 10px;
-          padding-bottom: 10px;
+    --background: transparent;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 16px;
 
-          .item-price, .item-subtotal {
-            font-size: 0.8rem;
-            margin-top: 4px;
-          }
-          .item-subtotal strong {
-            color: var(--ion-color-dark);
-            font-weight: 600;
-          }
+    ion-label {
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .item-price,
+      .item-subtotal {
+        font-size: 0.8rem;
+        margin-top: 4px;
       }
 
-      ion-thumbnail {
-          --size: 60px;
-          min-width: 60px;
-          margin-right: 10px;
+      .item-subtotal strong {
+        color: var(--ion-color-dark);
+        font-weight: 600;
       }
+    }
+
+    ion-thumbnail {
+      --size: 60px;
+      min-width: 60px;
+      margin-right: 10px;
+    }
   }
 }
 
-/* Resumo do pedido */
 .order-summary {
-    --background: var(--ion-color-light, #f4f5f8);
-    font-size: 1rem;
-    --min-height: 40px;
+  --background: var(--ion-color-light, #f4f5f8);
+  font-size: 1rem;
+  --min-height: 40px;
 
-    .total-label {
-        font-weight: 500;
-    }
-    .total-value {
-        font-weight: bold;
-        color: var(--ion-color-dark);
-        font-size: 1.1rem;
-    }
+  .total-label {
+    font-weight: 500;
+  }
+
+  .total-value {
+    font-weight: bold;
+    color: var(--ion-color-dark);
+    font-size: 1.1rem;
+  }
 }

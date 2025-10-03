@@ -40,7 +40,7 @@ export class ProductPage implements OnInit, OnDestroy {
     private littleCar: littleCar,
     private router: Router,
     private toastController: ToastController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id');
@@ -130,17 +130,17 @@ export class ProductPage implements OnInit, OnDestroy {
   }
 
   onSearchChange(event: any) {
-    this.searchProductsQuery = event.detail.value; 
+    this.searchProductsQuery = event.detail.value;
   }
-  
-    async searchProducts(){
-      const query = this.searchProductsQuery.trim();
-      if (query) {
-          this.router.navigate(['/search-results'], { queryParams: { q: query } });
-  
+
+  async searchProducts() {
+    const query = this.searchProductsQuery.trim();
+    if (query) {
+      this.router.navigate(['/search-results'], { queryParams: { q: query } });
+
     } else {
       window.alert('Digite algo para pesquisar!');
     }
-    }
-  
+  }
+
 }

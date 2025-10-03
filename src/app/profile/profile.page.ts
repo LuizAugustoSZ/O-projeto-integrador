@@ -23,14 +23,14 @@ addIcons({
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, DecimalPipe] 
+  imports: [IonicModule, CommonModule, FormsModule, DecimalPipe]
 })
 export class ProfilePage implements OnInit, OnDestroy {
   userId: string | null = null;
   orders: any[] = [];
 
   private authSubscription!: Subscription;
-  
+
   constructor(
     private navCtrl: NavController,
     private router: Router,
@@ -58,7 +58,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   fetchUserOrders() {
     if (!this.userId) return;
     const ordersRef = ref(this.db, `users/${this.userId}/orders`);
-    
+
     onValue(ordersRef, (snapshot) => {
       this.orders = [];
       if (snapshot.exists()) {
@@ -67,7 +67,7 @@ export class ProfilePage implements OnInit, OnDestroy {
           const order = ordersData[key];
           this.orders.push({
             id: key,
-            date: new Date(order.date).toLocaleDateString(), 
+            date: new Date(order.date).toLocaleDateString(),
             total: order.total,
             items: order.items || []
           });

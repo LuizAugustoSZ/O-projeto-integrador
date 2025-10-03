@@ -56,7 +56,7 @@ export class HomePage implements OnInit, OnDestroy {
       this.qtdCarrinho = cartItems.reduce((acc, item) => acc + item.qtd, 0);
     });
   }
-  
+
   async ionViewWillEnter() {
     this.isLoggedIn = this.authService.isLoggedIn();
     await this.loadProducts();
@@ -77,9 +77,9 @@ export class HomePage implements OnInit, OnDestroy {
       const availableProducts = allProducts.filter(product => product.quantity > 0);
 
       this.allProducts = availableProducts.sort((a, b) => b.id.localeCompare(a.id));
-      
+
       this.lowStockProducts = this.allProducts.filter(product => product.quantity > 0 && product.quantity <= 10);
-      
+
       console.log('Todos os Produtos carregados e ordenados:', this.allProducts);
       console.log('Produtos de Últimas Unidades:', this.lowStockProducts);
     } catch (err) {
@@ -89,7 +89,7 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
-  async loadCategories(){
+  async loadCategories() {
     const allCategories = await this.categoryService.getCategories();
     this.categories = allCategories;
   }
@@ -101,6 +101,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   goToProduct(id: string) {
-  this.router.navigate(['/tabs/product-page', id]);
-}
+    this.router.navigate(['/tabs/product-page', id]);
+  }
 }

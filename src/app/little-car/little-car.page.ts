@@ -23,7 +23,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
   cartItems: any[] = [];
   frete: number = 12.00;
   private cartSubscription!: Subscription;
-  
+
   constructor(
     private littleCar: littleCar,
     private navCtrl: NavController,
@@ -91,7 +91,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
   clearCart() {
     this.littleCar.clearCart();
   }
-  
+
   async proceedToCheckout() {
     if (this.authService.isLoggedIn()) {
       const alert = await this.alertController.create({

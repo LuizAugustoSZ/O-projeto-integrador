@@ -1,123 +1,127 @@
 <ion-header [translucent]="true">
-<ion-toolbar>
-<ion-buttons slot="start">
-<ion-button (click)="goBack()">
-<ion-icon name="arrow-back-outline"></ion-icon>
-</ion-button>
-</ion-buttons>
-<ion-title>Pagamento</ion-title>
-</ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pagamento</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<div class="stepper-container">
-<div class="stepper-step" [class.active]="paymentStep === 1" [class.completed]="paymentStep > 1">
-<div class="step-icon">1</div>
-<div class="step-label">Método</div>
-</div>
-<div class="stepper-line"></div>
-<div class="stepper-step" [class.active]="paymentStep === 2" [class.completed]="paymentStep > 2">
-<div class="step-icon">2</div>
-<div class="step-label">Dados</div>
-</div>
-<div class="stepper-line"></div>
-<div class="stepper-step" [class.active]="paymentStep === 3" [class.completed]="paymentStep === 3">
-<div class="step-icon">3</div>
-<div class="step-label">Confirmação</div>
-</div>
-</div>
-
-<div *ngIf="paymentStep === 1" class="ion-padding">
-<h2>Selecione o método de pagamento</h2>
-<ion-list lines="full">
-<ion-radio-group [(ngModel)]="selectedPaymentMethod">
-<ion-item>
-<ion-icon name="card-outline" slot="start"></ion-icon>
-<ion-radio value="card" label-placement="end">
-Cartão de Crédito
-</ion-radio>
-</ion-item>
-<ion-item>
-<ion-icon name="cash-outline" slot="start"></ion-icon>
-<ion-radio value="pix" label-placement="end">
-Pix
-</ion-radio>
-</ion-item>
-</ion-radio-group>
-</ion-list>
-<ion-button expand="block" class="ion-margin-top" (click)="nextStep()">
-Continuar
-</ion-button>
-</div>
-
-<div *ngIf="paymentStep === 2" class="ion-padding">
-<h2>Dados do Pagamento</h2>
-
-<div *ngIf="selectedPaymentMethod === 'card'">
-  <ion-list lines="none">
-    <ion-item>
-      <ion-input type="text" fill="solid" label="Nome no Cartão" label-placement="floating" [(ngModel)]="cardHolder"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" fill="solid" label="Número do Cartão" label-placement="floating" [(ngModel)]="cardNumber"></ion-input>
-    </ion-item>
-    <ion-row>
-      <ion-col size="6">
-        <ion-item>
-          <ion-input type="text" fill="solid" label="MM/AA" label-placement="floating" [(ngModel)]="expiryDate"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item>
-          <ion-input type="password" fill="solid" label="CVC" label-placement="floating" [(ngModel)]="cvc"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-list>
-  <ion-button expand="block" class="ion-margin-top" (click)="processPayment()">
-    Pagar R$ {{ totalAmount | number:'1.2-2' }}
-  </ion-button>
-</div>
-
-<div *ngIf="selectedPaymentMethod === 'pix'" class="pix-container ion-text-center">
-  <h3>Leia o QR Code para pagar</h3>
-    <ion-text>
-    <p>Ou copie e cole a chave Pix:</p>
-  </ion-text>
-  <div class="pix-key-box ion-padding">
-    {{ pixKey }}
+  <div class="stepper-container">
+    <div class="stepper-step" [class.active]="paymentStep === 1" [class.completed]="paymentStep > 1">
+      <div class="step-icon">1</div>
+      <div class="step-label">Método</div>
+    </div>
+    <div class="stepper-line"></div>
+    <div class="stepper-step" [class.active]="paymentStep === 2" [class.completed]="paymentStep > 2">
+      <div class="step-icon">2</div>
+      <div class="step-label">Dados</div>
+    </div>
+    <div class="stepper-line"></div>
+    <div class="stepper-step" [class.active]="paymentStep === 3" [class.completed]="paymentStep === 3">
+      <div class="step-icon">3</div>
+      <div class="step-label">Confirmação</div>
+    </div>
   </div>
-  <ion-button expand="block" class="ion-margin-top" (click)="processPayment()">
-    Simular Pagamento via Pix
-  </ion-button>
-</div>
 
-</div>
+  <div *ngIf="paymentStep === 1" class="ion-padding">
+    <h2>Selecione o método de pagamento</h2>
+    <ion-list lines="full">
+      <ion-radio-group [(ngModel)]="selectedPaymentMethod">
+        <ion-item>
+          <ion-icon name="card-outline" slot="start"></ion-icon>
+          <ion-radio value="card" label-placement="end">
+            Cartão de Crédito
+          </ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          <ion-radio value="pix" label-placement="end">
+            Pix
+          </ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <ion-button expand="block" class="ion-margin-top" (click)="nextStep()">
+      Continuar
+    </ion-button>
+  </div>
 
-<div *ngIf="paymentStep === 3" class="ion-padding ion-text-center confirmation-container">
-<ion-icon name="checkmark-circle-outline" color="success" class="confirmation-icon"></ion-icon>
-<h2>Pedido Concluído!</h2>
-<p>Seu pagamento foi recebido com sucesso. O pedido será processado e enviado em breve.</p>
-<ion-button expand="block" class="ion-margin-top" (click)="goToHome()">
-Voltar para o Início
-</ion-button>
-</div>
+  <div *ngIf="paymentStep === 2" class="ion-padding">
+    <h2>Dados do Pagamento</h2>
 
-<div class="summary-card ion-padding" *ngIf="paymentStep < 3">
-<ion-text>
-<h4>Resumo do Pedido</h4>
-</ion-text>
-<ion-row class="summary-row">
-<ion-col>Subtotal</ion-col>
-<ion-col class="ion-text-end">R$ {{ calculateSubtotal() | number:'1.2-2' }}</ion-col>
-</ion-row>
-<ion-row class="summary-row">
-<ion-col>Frete</ion-col>
-<ion-col class="ion-text-end">R$ {{ frete | number:'1.2-2' }}</ion-col>
-</ion-row>
-<ion-row class="summary-row total-row">
-<ion-col><strong>Total</strong></ion-col>
-<ion-col class="ion-text-end"><strong>R$ {{ totalAmount | number:'1.2-2' }}</strong></ion-col>
-</ion-row>
-</div>
+    <div *ngIf="selectedPaymentMethod === 'card'">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-input type="text" fill="solid" label="Nome no Cartão" label-placement="floating"
+            [(ngModel)]="cardHolder"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="text" fill="solid" label="Número do Cartão" label-placement="floating"
+            [(ngModel)]="cardNumber"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-input type="text" fill="solid" label="MM/AA" label-placement="floating"
+                [(ngModel)]="expiryDate"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-input type="password" fill="solid" label="CVC" label-placement="floating"
+                [(ngModel)]="cvc"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+      <ion-button expand="block" class="ion-margin-top" (click)="processPayment()">
+        Pagar R$ {{ totalAmount | number:'1.2-2' }}
+      </ion-button>
+    </div>
+
+    <div *ngIf="selectedPaymentMethod === 'pix'" class="pix-container ion-text-center">
+      <h3>Leia o QR Code para pagar</h3>
+      <ion-text>
+        <p>Ou copie e cole a chave Pix:</p>
+      </ion-text>
+      <div class="pix-key-box ion-padding">
+        {{ pixKey }}
+      </div>
+      <ion-button expand="block" class="ion-margin-top" (click)="processPayment()">
+        Simular Pagamento via Pix
+      </ion-button>
+    </div>
+
+  </div>
+
+  <div *ngIf="paymentStep === 3" class="ion-padding ion-text-center confirmation-container">
+    <ion-icon name="checkmark-circle-outline" color="success" class="confirmation-icon"></ion-icon>
+    <h2>Pedido Concluído!</h2>
+    <p>Seu pagamento foi recebido com sucesso. O pedido será processado e enviado em breve.</p>
+    <ion-button expand="block" class="ion-margin-top" (click)="goToHome()">
+      Voltar para o Início
+    </ion-button>
+  </div>
+
+  <div class="summary-card ion-padding" *ngIf="paymentStep < 3">
+    <ion-text>
+      <h4>Resumo do Pedido</h4>
+    </ion-text>
+    <ion-row class="summary-row">
+      <ion-col>Subtotal</ion-col>
+      <ion-col class="ion-text-end">R$ {{ calculateSubtotal() | number:'1.2-2' }}</ion-col>
+    </ion-row>
+    <ion-row class="summary-row">
+      <ion-col>Frete</ion-col>
+      <ion-col class="ion-text-end">R$ {{ frete | number:'1.2-2' }}</ion-col>
+    </ion-row>
+    <ion-row class="summary-row total-row">
+      <ion-col><strong>Total</strong></ion-col>
+      <ion-col class="ion-text-end"><strong>R$ {{ totalAmount | number:'1.2-2' }}</strong></ion-col>
+    </ion-row>
+  </div>
 </ion-content>

@@ -20,7 +20,7 @@ export class LoginUserPage implements OnInit {
   passwordError: string | null = null;
   loginError: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
@@ -50,7 +50,7 @@ export class LoginUserPage implements OnInit {
     try {
       await this.authService.login(this.email, this.password);
       this.router.navigate(['tabs/home']);
-      
+
     } catch (error: any) {
       this.loginError = this.getErrorMessage(error.code);
     }

@@ -7,7 +7,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 import { addIcons } from 'ionicons';
-import { 
+import {
   homeOutline,
   pricetagsOutline,
   cartOutline,
@@ -47,7 +47,7 @@ export class TabsPage implements OnInit, OnDestroy {
     private littleCar: littleCar,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {
