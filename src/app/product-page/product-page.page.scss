@@ -1,120 +1,118 @@
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-primary, #3880ff);
-    color: var(--ion-color-primary-contrast, #ffffff);
+    --background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 16px;
   }
+
+  ion-buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  ion-buttons ion-back-button {
+    --color: var(--ion-color-primary-contrast, #ffffff);
+}
+}
+
+.search-item {
+  width: 90%;
+  --background: var(--ion-color-light, #f4f5f8);
+  --border-radius: 20px;
+  --inner-padding-end: 0;
+  --min-height: 30px;
+  margin: 0 16px;
+}
+
+.search-item ion-icon {
+  color: var(--ion-color-medium);
+  font-size: 1.2em;
+  padding-right: 5px;
+}
+
+.search-item ion-input {
+  --placeholder-color: var(--ion-color-medium);
 }
 
 ion-content {
   --background: var(--ion-color-light, #f4f5f8);
-
-  ion-card {
-    margin: 16px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    img {
-      max-width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
-
-    ion-card-header {
-      padding-bottom: 0;
-
-      ion-card-subtitle {
-        color: var(--ion-color-medium, #92949c);
-        font-weight: bold;
-      }
-
-      ion-card-title {
-        font-size: 1.5em;
-        font-weight: bold;
-        color: var(--ion-color-dark, #222428);
-      }
-    }
-  }
 }
 
-.product-info-stars {
-  .stars {
-    display: flex;
-    align-items: center;
+ion-content ion-card {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    ion-icon {
-      color: var(--ion-color-warning, #ffc409);
-      margin-inline-end: 2px;
-    }
+ion-card swiper-container img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
-    ion-text {
-      margin-left: 5px;
-      color: var(--ion-color-medium, #92949c);
-    }
-  }
+ion-card ion-card-content {
+  padding: 16px;
+}
+
+.product-info-stars .stars {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-info-stars .stars ion-icon {
+  color: var(--ion-color-warning, #ffc409);
+  margin-inline-end: 2px;
+}
+
+.product-info-stars .stars ion-text {
+  margin-left: 5px;
+  color: var(--ion-color-medium, #92949c);
+  font-size: 0.9em;
 }
 
 .product-info-details {
   margin-top: 10px;
-
-  .name {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--ion-color-dark, #222428);
-    margin-bottom: 5px;
-  }
-
-  .description {
-    font-size: 1em;
-    color: var(--ion-color-dark, #222428);
-    line-height: 1.4;
-  }
-
-  .price {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--ion-color-success, #2dd36f);
-    margin-top: 10px;
-  }
-
-  .stock-info {
-    font-size: 0.9em;
-    color: var(--ion-color-medium, #92949c);
-    font-weight: 500;
-  }
-
-  .low-stock {
-    color: var(--ion-color-danger, #eb445a);
-    font-weight: bold;
-  }
 }
 
-.quantity-controls {
-  margin-top: 15px;
-
-  .item-quantity {
-    font-weight: bold;
-    font-size: 1.2em;
-    min-width: 30px;
-    text-align: center;
-  }
+.product-info-details .name {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--ion-color-dark, #222428);
+  margin-top: 0;
+  margin-bottom: 5px;
 }
 
-ion-footer {
-  ion-toolbar {
-    --background: var(--ion-color-light, #f4f5f8);
-  }
+.product-info-details .description {
+  font-size: 1em;
+  color: var(--ion-color-dark, #222428);
+  line-height: 1.4;
+  margin-top: 5px;
 }
 
-.add-to-cart-button {
-  --background: orange;
-  --background-hover: #ff8000;
-  --background-activated: #e67300;
-  --background-focused: #e67300;
-  --color: #fff;
+.product-info-details .price {
+  font-size: 1.8em;
   font-weight: bold;
-  font-size: 1.1em;
+  color: var(--ion-color-success, #2dd36f);
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.product-info-details .stock-info {
+  font-size: 0.9em;
+  color: var(--ion-color-medium, #92949c);
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.product-info-details .low-stock {
+  color: var(--ion-color-danger, #eb445a);
+  font-weight: bold;
 }
 
 .description-container {
@@ -122,32 +120,70 @@ ion-footer {
   overflow: hidden;
   position: relative;
   transition: max-height 0.3s ease-in-out;
+}
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(to top, var(--ion-background-color, #fff), transparent);
-    pointer-events: none;
-  }
+.description-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, var(--ion-background-color, #fff), transparent);
+  pointer-events: none;
+  height: 30px;
+}
 
-  &.expanded {
-    max-height: none;
+.description-container.expanded {
+  max-height: 500px;
+}
 
-    &::after {
-      content: none;
-    }
-  }
+.description-container.expanded::after {
+  content: none;
 }
 
 .read-more-button {
   margin-top: 5px;
-  text-align: right;
-  width: 100%;
   --padding-start: 0;
   --padding-end: 0;
   font-weight: bold;
+  color: var(--ion-color-primary, #FFA500);
+}
+
+.quantity-controls {
+  margin-top: 15px;
+  border-top: 1px solid var(--ion-color-light, #eee);
+  padding-top: 15px;
+}
+
+.quantity-controls .item-quantity {
+  font-weight: bold;
+  font-size: 1.2em;
+  min-width: 30px;
+  text-align: center;
+  color: var(--ion-color-dark);
+}
+
+.quantity-controls ion-button {
+  --color: var(--ion-color-dark);
+}
+
+.quantity-controls ion-icon {
+  font-size: 1.8rem;
+}
+
+ion-footer ion-toolbar {
+  --background: var(--ion-color-light, #f4f5f8);
+  --padding-start: 16px;
+  --padding-end: 16px;
+}
+
+.add-to-cart-button {
+  --background: var(--ion-color-primary, orange);
+  --background-hover: #ff8000;
+  --background-activated: #e67300;
+  --color: var(--ion-color-primary-contrast, #fff);
+  font-weight: bold;
+  font-size: 1.1em;
+  height: 48px;
+  --border-radius: 8px;
 }
