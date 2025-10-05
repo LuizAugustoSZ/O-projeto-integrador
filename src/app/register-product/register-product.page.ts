@@ -17,6 +17,7 @@ import Swiper from 'swiper';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
+
 addIcons({ backspaceOutline, menuOutline });
 
 @Component({
@@ -46,6 +47,7 @@ export class RegisterProductPage implements OnInit {
     private navCtrl: NavController,
     private categoryService: CategoryService,
     private productService: ProductService,
+    private authService: AuthService, 
     private router: Router
   ) { }
 
@@ -117,7 +119,14 @@ export class RegisterProductPage implements OnInit {
     } else {
       window.alert("produto salvo com sucesso!");
 
-      const productId = await this.productService.saveProduct(this.product);
+      const userId = this.authService.getCurrentUserUid();
+
+      const productToSave = {
+      ...this.product,
+      userId // ✅ salva o UID junto
+    };
+
+      const productId = await this.productService.saveProduct(productToSave);
 
       this.product = {
         name: '',

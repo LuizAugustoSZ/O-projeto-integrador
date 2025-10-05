@@ -14,6 +14,7 @@ import {
 } from 'ionicons/icons';
 import { Database, ref, onValue } from '@angular/fire/database';
 import { User } from '@angular/fire/auth';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 addIcons({
   homeOutline, searchOutline, headsetOutline, bagHandleOutline,
@@ -44,6 +45,7 @@ export class MorePage implements OnInit, OnDestroy {
     { icon: 'bag-handle-outline', label: 'Minhas Compras', action: 'purchases' },
     { icon: 'heart-outline', label: 'Favoritos', action: 'favorites' },
     { icon: 'headset-outline', label: 'Ajuda', action: 'help' },
+    { icon: 'bag-handle-outline', label: 'Meus Produtos', action: 'myproducts'}
   ];
 
   constructor(
@@ -129,6 +131,11 @@ export class MorePage implements OnInit, OnDestroy {
 
     if (action === 'help') {
       this.router.navigateByUrl('/help-page');
+    }
+
+    if (action === 'myproducts'){
+      this.router.navigateByUrl('/tabs/myproducts');
+      return;
     }
 
     console.log(`Navegação não mapeada para: ${action}`);

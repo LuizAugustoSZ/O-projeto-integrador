@@ -6,6 +6,7 @@ export const routes: Routes = [
     redirectTo: 'tabs/home',
     pathMatch: 'full'
   },
+
   {
     path: 'tabs',
     loadComponent: () => import('./tabs/tabs.page').then(m => m.TabsPage),
@@ -43,10 +44,10 @@ export const routes: Routes = [
         path: 'register-product',
         loadComponent: () => import('./register-product/register-product.page').then(m => m.RegisterProductPage)
       },
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
+
+       {
+      path: 'myproducts',
+     loadComponent: () => import('./myproducts/myproducts.page').then( m => m.MyproductsPage)
       }
     ]
   },
@@ -66,6 +67,8 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'tabs/home',
     pathMatch: 'full'
-  },
+  }
+  
+
 
 ];
