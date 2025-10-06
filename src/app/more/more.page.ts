@@ -42,10 +42,10 @@ export class MorePage implements OnInit, OnDestroy {
   mainNavigationItems = [
     { icon: 'home-outline', label: 'Início', action: 'home' },
     { icon: 'search-outline', label: 'Buscar/Navegar', action: 'search' },
+    { icon: 'bag-handle-outline', label: 'Meus Produtos', action: 'myproducts'},
     { icon: 'bag-handle-outline', label: 'Minhas Compras', action: 'purchases' },
     { icon: 'heart-outline', label: 'Favoritos', action: 'favorites' },
-    { icon: 'headset-outline', label: 'Ajuda', action: 'help' },
-    { icon: 'bag-handle-outline', label: 'Meus Produtos', action: 'myproducts'}
+    { icon: 'headset-outline', label: 'Ajuda', action: 'help' }
   ];
 
   constructor(
@@ -95,6 +95,15 @@ export class MorePage implements OnInit, OnDestroy {
     if (action === 'purchases') {
       if (this.userId) {
         this.router.navigateByUrl('/tabs/profile');
+      } else {
+        this.router.navigateByUrl('/login-user');
+      }
+      return;
+    }
+
+    if (action === 'myproducts') {
+      if (this.userId) {
+        this.router.navigateByUrl('/tabs/myproducts');
       } else {
         this.router.navigateByUrl('/login-user');
       }
