@@ -21,21 +21,21 @@
         <ion-list lines="none">
           <ion-item>
             <div class="input-container">
-              <ion-input type="text" fill="solid" label="Nome Completo" label-placement="floating" placeholder="Seu nome" [(ngModel)]="name" (ionChange)="validateName()"></ion-input>
+              <ion-input type="text" label="Nome Completo" label-placement="floating" placeholder="Seu nome" [(ngModel)]="name" (ionChange)="validateName()"></ion-input>
               <p *ngIf="nameError" class="error-message">{{ nameError }}</p>
             </div>
           </ion-item>
 
           <ion-item>
             <div class="input-container">
-              <ion-input type="email" fill="solid" label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
+              <ion-input type="email"  label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
               <p *ngIf="emailError" class="error-message">{{ emailError }}</p>
             </div>
           </ion-item>
 
           <ion-item>
             <div class="input-container">
-              <ion-input type="password" fill="solid" label="Senha" label-placement="floating" placeholder="Sua senha" [(ngModel)]="password" (ionChange)="validatePassword()"></ion-input>
+              <ion-input type="password" label="Senha" label-placement="floating" placeholder="Sua senha" [(ngModel)]="password" (ionChange)="validatePassword()"></ion-input>
               <p *ngIf="passwordError" class="error-message">{{ passwordError }}</p>
             </div>
           </ion-item>

@@ -127,7 +127,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
           {
             text: 'Fazer Login',
             handler: () => {
-              this.router.navigate(['tabs/login-user']);
+              this.router.navigate(['/login-user']);
             }
           }
         ]
