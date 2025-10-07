@@ -6,15 +6,16 @@ import { Router } from '@angular/router'; // RouterLink REMOVIDO DAQUI
 import { Subscription } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { littleCar } from '../service/littlercar.service';
+import { Database, ref, onValue } from '@angular/fire/database';
+import { User } from '@angular/fire/auth';
+import { Action } from 'rxjs/internal/scheduler/Action';
+
 import { addIcons } from 'ionicons';
 import {
   homeOutline, searchOutline, headsetOutline, bagHandleOutline,
   heartOutline, addCircleOutline, chevronForwardOutline, logOutOutline,
   settingsOutline, personCircleOutline, logInOutline
 } from 'ionicons/icons';
-import { Database, ref, onValue } from '@angular/fire/database';
-import { User } from '@angular/fire/auth';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 addIcons({
   homeOutline, searchOutline, headsetOutline, bagHandleOutline,
