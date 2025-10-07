@@ -43,7 +43,7 @@ export class MorePage implements OnInit, OnDestroy {
   mainNavigationItems = [
     { icon: 'home-outline', label: 'Início', action: 'home' },
     { icon: 'search-outline', label: 'Buscar/Navegar', action: 'search' },
-    { icon: 'bag-handle-outline', label: 'Meus Produtos', action: 'myproducts'},
+    { icon: 'bag-handle-outline', label: 'Meus Anuncios', action: 'myproducts'},
     { icon: 'bag-handle-outline', label: 'Minhas Compras', action: 'purchases' },
     { icon: 'heart-outline', label: 'Favoritos', action: 'favorites' },
     { icon: 'headset-outline', label: 'Ajuda', action: 'help' }
