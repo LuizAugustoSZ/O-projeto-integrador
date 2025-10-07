@@ -6,7 +6,6 @@ export const routes: Routes = [
     redirectTo: 'tabs/home',
     pathMatch: 'full'
   },
-
   {
     path: 'tabs',
     loadComponent: () => import('./tabs/tabs.page').then(m => m.TabsPage),
@@ -32,22 +31,25 @@ export const routes: Routes = [
         loadComponent: () => import('./product-page/product-page.page').then(m => m.ProductPage)
       },
       {
-
         path: 'category-page/:id',
         loadComponent: () => import('./category-page/category-page.page').then(m => m.CategoryPage)
       },
       {
         path: 'more',
-        loadComponent: () => import('./more/more.page').then( m => m.MorePage)
+        loadComponent: () => import('./more/more.page').then(m => m.MorePage)
       },
       {
         path: 'register-product',
         loadComponent: () => import('./register-product/register-product.page').then(m => m.RegisterProductPage)
       },
-
-       {
-      path: 'myproducts',
-     loadComponent: () => import('./myproducts/myproducts.page').then( m => m.MyproductsPage)
+      {
+        path: 'myproducts',
+        loadComponent: () => import('./myproducts/myproducts.page').then(m => m.MyproductsPage)
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/home',
+        pathMatch: 'full'
       }
     ]
   },
@@ -68,7 +70,4 @@ export const routes: Routes = [
     redirectTo: 'tabs/home',
     pathMatch: 'full'
   }
-  
-
-
 ];
