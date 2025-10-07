@@ -28,7 +28,7 @@
 
           <ion-item>
             <div class="input-container">
-              <ion-input type="email"  label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
+              <ion-input type="email" label="Email" label-placement="floating" placeholder="Seu email" [(ngModel)]="email" (ionChange)="validateEmail()"></ion-input>
               <p *ngIf="emailError" class="error-message">{{ emailError }}</p>
             </div>
           </ion-item>
@@ -53,22 +53,22 @@
         <ion-list lines="none">
           <ion-item>
             <div class="input-container">
-              <ion-input label="CEP" fill="solid" label-placement="floating" placeholder="00000-000" [(ngModel)]="cep" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
+              <ion-input label="CEP" label-placement="floating" placeholder="00000-000" [(ngModel)]="cep" (ionBlur)="buscarCep()" inputmode="numeric" maxlength="9"></ion-input>
               <p *ngIf="cepError" class="error-message">{{ cepError }}</p>
             </div>
           </ion-item>
           
           <ion-item>
-            <ion-input label="Rua" fill="solid" label-placement="floating" placeholder="Rua, Avenida, etc." [(ngModel)]="rua" [disabled]="true"></ion-input>
+            <ion-input label="Rua" label-placement="floating" placeholder="Rua, Avenida, etc." [(ngModel)]="rua" [disabled]="true"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Bairro" fill="solid" label-placement="floating" placeholder="Seu bairro" [(ngModel)]="bairro" [disabled]="true"></ion-input>
+            <ion-input label="Bairro" label-placement="floating" placeholder="Seu bairro" [(ngModel)]="bairro" [disabled]="true"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Cidade" fill="solid" label-placement="floating" placeholder="Sua cidade" [(ngModel)]="cidade" [disabled]="true"></ion-input>
+            <ion-input label="Cidade" label-placement="floating" placeholder="Sua cidade" [(ngModel)]="cidade" [disabled]="true"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Estado" fill="solid" label-placement="floating" placeholder="Seu estado (UF)" [(ngModel)]="estado" [disabled]="true"></ion-input>
+            <ion-input label="Estado" label-placement="floating" placeholder="Seu estado (UF)" [(ngModel)]="estado" [disabled]="true"></ion-input>
           </ion-item>
         </ion-list>
         
