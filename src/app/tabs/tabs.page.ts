@@ -7,7 +7,7 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 
 import { addIcons } from 'ionicons';
-import { 
+import {
   homeOutline,
   pricetagsOutline,
   cartOutline,
@@ -15,7 +15,8 @@ import {
   logInOutline,
   logOutOutline,
   searchOutline,
-  reorderThreeOutline
+  reorderThreeOutline,
+  personCircle
 } from 'ionicons/icons';
 
 addIcons({
@@ -26,7 +27,8 @@ addIcons({
   logInOutline,
   logOutOutline,
   searchOutline,
-  reorderThreeOutline
+  reorderThreeOutline,
+  personCircle
 });
 
 @Component({
@@ -45,7 +47,7 @@ export class TabsPage implements OnInit, OnDestroy {
     private littleCar: littleCar,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.cartSubscription = this.littleCar.cart$.subscribe(cartItems => {

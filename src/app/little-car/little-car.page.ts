@@ -22,7 +22,8 @@ export class LittleCarPage implements OnInit, OnDestroy {
   cartItems: any[] = [];
   frete: number = 12.00;
   private cartSubscription!: Subscription;
-  
+  searchProductsQuery: string = ''
+
   constructor(
     private littleCar: littleCar,
     private navCtrl: NavController,
@@ -30,6 +31,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertController: AlertController,
     private toastController: ToastController,
+    
   ) { }
 
   ngOnInit() {
@@ -90,7 +92,7 @@ export class LittleCarPage implements OnInit, OnDestroy {
   clearCart() {
     this.littleCar.clearCart();
   }
-  
+
   async proceedToCheckout() {
     if (this.authService.isLoggedIn()) {
       const alert = await this.alertController.create({
@@ -131,6 +133,19 @@ export class LittleCarPage implements OnInit, OnDestroy {
         ]
       });
       await alert.present();
+    }
+  }
+
+  onSearchChange(event: any) {
+    this.searchProductsQuery = event.detail.value;
+  }
+
+  async searchProducts() {
+    const query = this.searchProductsQuery.trim();
+    if (query) {
+      this.router.navigate(['tabs/search-results'], { queryParams: { q: query } });
+    } else {
+      console.log('Digite algo para pesquisar!');
     }
   }
 }

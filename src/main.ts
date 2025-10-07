@@ -11,6 +11,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database'; 
 import { firebaseConfig } from 'src/app/firebase.config';
 
+import { register } from 'swiper/element/bundle';
+register();
+
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

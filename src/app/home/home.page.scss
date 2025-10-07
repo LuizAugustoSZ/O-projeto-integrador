@@ -12,8 +12,13 @@
 }
 
 @keyframes slide {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .hero-banner {
@@ -42,7 +47,7 @@
 }
 
 .header-section .view-all-link {
-  color: var(--ion-color-primary, orange); 
+  color: var(--ion-color-primary, orange);
   text-decoration: none;
   font-weight: bold;
   font-size: 0.9em;
@@ -69,7 +74,7 @@
 }
 
 .product-name h3 {
-  font-size: 0.9em; 
+  font-size: 0.9em;
   font-weight: bold;
   margin: 0;
   text-overflow: ellipsis;
@@ -78,14 +83,14 @@
 }
 
 .product-category p {
-  font-size: 0.7em; 
+  font-size: 0.7em;
   color: #666;
   margin: 0;
 }
 
 .product-price h4 {
-  font-size: 1em; 
-  font-weight: bold;  
+  font-size: 1em;
+  font-weight: bold;
   color: var(--ion-color-primary, orange);
   margin: 5px 0 0;
 }

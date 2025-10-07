@@ -1,25 +1,93 @@
-ion-card {
-    border: 2px solid rgb(58, 54, 50);
+ion-header {
+    ion-toolbar {
+        --background: var(--ion-color-primary, #FFA500);
+        color: var(--ion-color-primary-contrast, #ffffff);
+
+        ion-buttons ion-back-button {
+            --color: var(--ion-color-primary-contrast, #ffffff);
+        }
+
+        ion-title {
+            color: var(--ion-color-primary-contrast, #ffffff);
+            font-size: 1.2rem;
+            display: block;
+        }
+    }
+}
+
+ion-content {
+    --background: var(--ion-color-light, #f4f5f8);
+}
+
+.product-form-container {
+    padding: 0;
+}
+
+swiper-container {
+    height: 100%;
+    width: 100%;
+}
+
+swiper-slide {
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form-card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+ion-card-header {
+    padding-bottom: 0;
 }
 
 ion-card-title {
-    font-size: 17px;
+    color: var(--ion-color-dark, #333);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+ion-list {
+    background: transparent;
+}
+
+ion-item {
+    color: var(--ion-color-dark, #333);
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
 }
 
 ion-label {
-    align-items: center;
-    justify-content: center;
-    display: flex;
+    font-weight: 500;
+    color: var(--ion-color-medium, #666);
 }
 
-ion-title {
-    font-size: 25px;
-    justify-content: center;
-    display: flex;
+.ion-padding ion-button[expand="full"] {
+    margin-top: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
-ion-button {
-    justify-content: center;
-    align-items: center;
+.image-buttons-container {
+    ion-button {
+        font-weight: 600;
+        margin-top: 10px;
+    }
+}
+
+.image-previews-container {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.preview-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--ion-color-medium, #ccc);
 }

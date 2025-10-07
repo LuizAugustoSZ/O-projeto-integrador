@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, push, set, get, child } from '@angular/fire/database';
+// Importamos 'remove' aqui ⬇️
+import { Database, query, ref, orderByChild, equalTo, push, set, get, child, update, remove } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  constructor(private db: Database) {}
+  constructor(private db: Database) { }
 
   async saveProduct(product: any) {
     const productsRef = ref(this.db, 'products');
@@ -15,6 +16,31 @@ export class ProductService {
       createdAt: Date.now()
     });
     return newProductRef.key;
+  }
+
+  async updateProduct(id: string, productData: any) {
+    const productRef = child(ref(this.db, 'products'), id);
+    try {
+      await update(productRef, {
+        ...productData,
+        updatedAt: Date.now()
+      });
+      return true;
+    } catch (error) {
+      console.error('Erro ao atualizar o produto:', error);
+      return false;
+    }
+  }
+
+  async deleteProduct(id: string): Promise<boolean> {
+    const productRef = child(ref(this.db, 'products'), id);
+    try {
+      await remove(productRef);
+      return true;
+    } catch (error) {
+      console.error('Erro ao remover o produto:', error);
+      return false;
+    }
   }
 
   async getProducts(): Promise<any[]> {
@@ -50,6 +76,27 @@ export class ProductService {
     } catch (error) {
       console.error(error);
       return null;
+    }
+  }
+
+  async getProductsByUser(userId: string): Promise<any[]> {
+    const productsRef = ref(this.db, 'products');
+    const q = query(productsRef, orderByChild('userId'), equalTo(userId));
+
+    try {
+      const snapshot = await get(q);
+      if (snapshot.exists()) {
+        const productsData = snapshot.val();
+        return Object.keys(productsData).map(key => ({
+          id: key,
+          ...productsData[key]
+        }));
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error('Erro ao buscar produtos do usuário:', error);
+      return [];
     }
   }
 }

@@ -1,4 +1,3 @@
-
 <ion-content [fullscreen]="true">
   <app-header></app-header>
 
@@ -23,9 +22,10 @@
 
   <!-- [routerLink]="['./tabs/product-page', product.id]"  -->
 
-  <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10" *ngIf="!isLoading && allProducts.length > 0">
+  <swiper-container [loop]="true" [slidesPerView]="2.2" [spaceBetween]="10"
+    *ngIf="!isLoading && allProducts.length > 0">
     <swiper-slide *ngFor="let product of allProducts">
-      <ion-card  (click)="goToProduct(product.id)" class="product-card">
+      <ion-card (click)="goToProduct(product.id)" class="product-card">
         <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
         <ion-card-content>
           <ion-text class="product-name">
@@ -41,7 +41,7 @@
       </ion-card>
     </swiper-slide>
   </swiper-container>
-  
+
   <div class="header-section ion-padding" *ngIf="!isLoading && lowStockProducts.length > 0">
     <h2>Últimas Unidades!</h2>
     <a routerLink="/last-units" class="view-all-link">Ver tudo &rarr;</a>
@@ -50,7 +50,7 @@
   <div *ngIf="!isLoading && lowStockProducts.length > 0">
     <swiper-container [loop]="false" [slidesPerView]="2.2" [spaceBetween]="10">
       <swiper-slide *ngFor="let product of lowStockProducts">
-        <ion-card [routerLink]="['./tabs/product-page', product.id]" class="product-card">
+        <ion-card (click)="goToProduct(product.id)" class="product-card">
           <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
           <ion-card-content>
             <ion-text class="product-name">

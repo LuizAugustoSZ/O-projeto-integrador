@@ -18,12 +18,12 @@ addIcons({ cartOutline, logOutOutline, personCircleOutline, searchOutline, menuO
   templateUrl: './search-results.page.html',
   styleUrls: ['./search-results.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, RouterLink, DecimalPipe, FormsModule, HeaderComponent], 
+  imports: [CommonModule, IonicModule, RouterLink, DecimalPipe, FormsModule, HeaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SearchResultsPage implements OnInit, OnDestroy {
   query: string = '';
-  searchProductsQuery: string = ''; 
+  searchProductsQuery: string = '';
   allProducts: any[] = [];
   filteredProducts: any[] = [];
   isLoading = true;
@@ -74,8 +74,8 @@ export class SearchResultsPage implements OnInit, OnDestroy {
       this.isLoading = false;
     }
   }
-  
-  async searchProducts(){
+
+  async searchProducts() {
     const query = this.searchProductsQuery.trim();
     if (query) {
       this.router.navigate(['tabs/search-results'], { queryParams: { q: query } });

@@ -1,56 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/more" (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Meus Pedidos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <div class="profile-header ion-text-center ion-padding-top">
-    <div class="profile-pic-container">
-      <ion-avatar>
-        <img src="https://i.pravatar.cc/150?u={{ userEmail }}" alt="Foto de Perfil" />
-      </ion-avatar>
-      <ion-icon name="camera-outline" class="edit-icon" (click)="editProfile()"></ion-icon>
-    </div>
-    <ion-text color="dark">
-      <h2 class="ion-no-margin" *ngIf="userName">{{ userName }}</h2>
-      <p *ngIf="userEmail">{{ userEmail }}</p>
-    </ion-text>
-    <ion-button fill="clear" color="medium" size="small" (click)="editProfile()">
-      <ion-icon name="settings-outline" slot="start"></ion-icon>
-      Editar Perfil
-    </ion-button>
-  </div>
-  
-  <ion-list-header>
-    <ion-label>Seja um anunciante</ion-label>
-  </ion-list-header>
-  <ion-list>
-    <ion-item button="true" routerLink="/register-product">
-      <ion-icon name="add-circle-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>Anunciar produto</ion-label>
-    </ion-item>
-  </ion-list>
 
   <ion-list-header>
-    <ion-label>Meus Pedidos</ion-label>
+    <ion-label>Histórico de Compras</ion-label>
   </ion-list-header>
-  
+
   <ion-list *ngIf="orders.length > 0; else noOrders">
-    <div *ngFor="let order of orders.reverse()" class="order-container ion-margin-bottom">
+    <div *ngFor="let order of orders" class="order-container ion-margin-bottom">
+
       <ion-item class="order-header" lines="none">
-        <ion-icon slot="start" name="receipt-outline"></ion-icon>
         <ion-label>
-          <h3>Pedido #{{ order.id }}</h3>
-          <p>Data: {{ order.date }}</p>
-          <p>Total: <strong>R$ {{ order.total | number:'1.2-2' }}</strong></p>
+          <h3>Pedido: #{{ order.id }} - {{ order.date }}</h3>
+          <p class="order-status-complete">Pedido concluído.</p>
         </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
       </ion-item>
+
       <ion-list class="item-list-details" lines="full">
         <ion-item *ngFor="let item of order.items" class="product-item">
           <ion-thumbnail slot="start">
-            <img [src]="item.images[0]" *ngIf="item.images" />
+            <img [src]="item.images[0]" *ngIf="item.images && item.images.length > 0" alt="{{ item.name }}" />
           </ion-thumbnail>
+
           <ion-label>
             <h3>{{ item.name }}</h3>
             <p>Quantidade: {{ item.quantity }}</p>
+            <p class="item-price" *ngIf="item.price">Preço Unitário: R$ {{ item.price | number:'1.2-2' }}</p>
+            <p class="item-subtotal">
+              Subtotal: <strong>R$ {{ getItemSubtotal(item) | number:'1.2-2' }}</strong>
+            </p>
           </ion-label>
         </ion-item>
       </ion-list>
+
+      <ion-item lines="none" class="order-summary">
+        <ion-label>
+          <p class="total-label">Total do Pedido</p>
+        </ion-label>
+        <ion-note slot="end" class="total-value">
+          R$ {{ order.total | number:'1.2-2' }}
+        </ion-note>
+      </ion-item>
+
     </div>
   </ion-list>
 

@@ -9,18 +9,24 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FilePicker } from '@capawesome/capacitor-file-picker';
 import { ProductService } from '../service/product.service';
 import { addIcons } from 'ionicons';
-import { backspaceOutline, menuOutline } from 'ionicons/icons'; // Importado os ícones de back e menu
-import { Router } from '@angular/router'; // Importe o Router
+import { backspaceOutline, menuOutline } from 'ionicons/icons';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import { ViewChild, ElementRef } from '@angular/core';
+import Swiper from 'swiper';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 
-addIcons({ backspaceOutline, menuOutline }); // Adicionado os ícones para uso no HTML
+addIcons({ backspaceOutline, menuOutline });
 
 @Component({
   selector: 'app-register-product',
   templateUrl: './register-product.page.html',
   styleUrls: ['./register-product.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonicModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class RegisterProductPage implements OnInit {
@@ -38,8 +44,10 @@ export class RegisterProductPage implements OnInit {
   }
 
   constructor(
+    private navCtrl: NavController,
     private categoryService: CategoryService,
     private productService: ProductService,
+    private authService: AuthService, 
     private router: Router
   ) { }
 
@@ -99,15 +107,26 @@ export class RegisterProductPage implements OnInit {
   }
 
   async saveProduct() {
+    if (
+      !this.product.name ||
+      !this.product.description ||
+      !this.product.price ||
+      !this.product.quantity ||
+      this.product.images.length === 0 ||
+      this.product.categories.length === 0
+    ) {
+      window.alert("PREENCHA TODOS OS CAMPOS!");
+    } else {
+      window.alert("produto salvo com sucesso!");
 
-    if(!this.product.name || !this.product.description || !this.product.price || !this.product.quantity ||  this.product.images.length === 0 || this.product.categories.length === 0){
-      window.alert("PREENCHA TODOS OS CAMPOS!")
-    }else{
+      const userId = this.authService.getCurrentUserUid();
 
-      window.alert('produto salvo com sucesso!')
+      const productToSave = {
+      ...this.product,
+      userId // ✅ salva o UID junto
+    };
 
-      const productId = await this.productService.saveProduct(this.product)
-      
+      const productId = await this.productService.saveProduct(productToSave);
 
       this.product = {
         name: '',
@@ -116,13 +135,75 @@ export class RegisterProductPage implements OnInit {
         quantity: '',
         sendingMethods: [],
         images: [] as string[],
-        categories: [] as string[]
+        categories: [] as string[],
+      };
 
-      }
+      this.swiper.slideTo(0);
+      this.currentStep = 0;
 
-      this.goHome()
-
-      
+      this.goBack();
     }
   }
+
+
+  @ViewChild('swiperEl', { static: true }) swiperEl!: ElementRef;
+  swiper!: Swiper;
+  currentStep = 0;
+
+  ngAfterViewInit() {
+    this.swiper = (this.swiperEl.nativeElement as any).swiper;
+    this.swiper.on('slideChange', () => {
+      this.currentStep = this.swiper.activeIndex;
+    });
+  }
+
+  nextStep() {
+    if (this.currentStep < 4) {
+      this.swiper.slideNext();
+    }
+  }
+
+  prevStep() {
+    if (this.currentStep > 0) {
+      this.swiper.slidePrev();
+    }
+  }
+
+  validateStep(step: number): boolean {
+    switch (step) {
+      case 0:
+        return !!this.product.name && !!this.product.description && this.product.categories.length > 0;
+
+      case 1:
+        return !!this.product.price && !!this.product.quantity;
+
+      case 2:
+        return this.product.images.length > 0;
+
+      default:
+        return false;
+    }
+  }
+
+  goNextStep() {
+    if (this.validateStep(this.currentStep)) {
+      if (this.currentStep < 2) {
+        this.nextStep();
+      } else {
+        this.saveProduct();
+      }
+    } else {
+      window.alert("Preencha todos os campos obrigatórios antes de continuar!");
+    }
+  }
+
+  goProfile() {
+    this.router.navigateByUrl('/tabs/profile');
+  }
+
+  goBack() {
+    this.navCtrl.navigateBack('/tabs/more');
+  }
+
 }
+

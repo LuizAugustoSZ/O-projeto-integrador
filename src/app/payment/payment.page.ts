@@ -23,7 +23,7 @@ export class PaymentPage implements OnInit {
   paymentStep: number = 1;
   selectedPaymentMethod: 'card' | 'pix' = 'card';
   paymentConfirmed: boolean = false;
-  
+
   cardHolder: string = '';
   cardNumber: string = '';
   expiryDate: string = '';
@@ -150,7 +150,7 @@ export class PaymentPage implements OnInit {
         if (newQuantity < 0) {
           throw new Error(`Estoque insuficiente para o produto: ${item.name}.`);
         }
-        
+
         await update(productRef, { quantity: newQuantity });
       }
 

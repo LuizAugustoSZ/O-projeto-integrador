@@ -10,7 +10,7 @@ import { star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircl
 import { Subscription } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { HeaderComponent } from '../header/header.component';
+import { NavController } from '@ionic/angular';
 register();
 
 addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCircleOutline, addCircleOutline, homeOutline });
@@ -20,7 +20,7 @@ addIcons({ star, starHalf, starOutline, cartOutline, arrowBackOutline, removeCir
   templateUrl: './product-page.page.html',
   styleUrls: ['./product-page.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, HeaderComponent],
+  imports: [IonicModule, CommonModule, FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductPage implements OnInit, OnDestroy {
@@ -35,12 +35,13 @@ export class ProductPage implements OnInit, OnDestroy {
   searchProductsQuery: string = ''
 
   constructor(
+    private navCtrl: NavController,
     private route: ActivatedRoute,
     private productService: ProductService,
     private littleCar: littleCar,
     private router: Router,
     private toastController: ToastController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id');
@@ -130,17 +131,20 @@ export class ProductPage implements OnInit, OnDestroy {
   }
 
   onSearchChange(event: any) {
-    this.searchProductsQuery = event.detail.value; 
+    this.searchProductsQuery = event.detail.value;
   }
-  
-    async searchProducts(){
-      const query = this.searchProductsQuery.trim();
-      if (query) {
-          this.router.navigate(['/search-results'], { queryParams: { q: query } });
-  
+
+  async searchProducts() {
+    const query = this.searchProductsQuery.trim();
+    if (query) {
+      this.router.navigate(['tabs/search-results'], { queryParams: { q: query } });
     } else {
-      window.alert('Digite algo para pesquisar!');
+      console.log('Digite algo para pesquisar!');
     }
-    }
-  
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
 }
