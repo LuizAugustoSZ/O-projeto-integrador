@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../service/product.service';
 
 @Component({
@@ -21,7 +21,8 @@ export class CategoryPage implements OnInit {
     private productService: ProductService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
+    // 🔍 Escuta as mudanças dos parâmetros
     this.route.queryParams.subscribe(async (params) => {
       this.categoryName = params['category'];
       if (this.categoryName) {
@@ -34,7 +35,16 @@ export class CategoryPage implements OnInit {
     this.isLoading = true;
     try {
       const allProducts = await this.productService.getProducts();
-      this.filteredProducts = allProducts.filter(p => p.category === category);
+
+      // ✅ Agora filtra usando o campo "categories" (array)
+      this.filteredProducts = allProducts.filter(p =>
+        Array.isArray(p.categories) &&
+        p.categories.some((c: string) =>
+          c.toLowerCase() === category.toLowerCase()
+        )
+      );
+
+      console.log('Produtos filtrados:', this.filteredProducts);
     } catch (error) {
       console.error('Erro ao carregar produtos por categoria', error);
     } finally {

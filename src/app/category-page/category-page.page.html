@@ -1,26 +1,23 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
-    </ion-buttons>
     <ion-title>{{ categoryName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="isLoading" class="loading-container">
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
     <ion-spinner></ion-spinner>
     <p>Carregando produtos...</p>
   </div>
 
-  <div *ngIf="!isLoading && filteredProducts.length === 0" class="no-products">
-    <p>Nenhum produto encontrado nesta categoria.</p>
+  <div *ngIf="!isLoading && filteredProducts.length === 0" class="ion-text-center ion-padding">
+    <p>Nenhum produto encontrado na categoria "{{ categoryName }}"</p>
   </div>
 
   <ion-list *ngIf="!isLoading && filteredProducts.length > 0">
     <ion-item *ngFor="let product of filteredProducts">
       <ion-thumbnail slot="start">
-        <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'">
+        <img [src]="product.images ? product.images[0] : '../assets/icon/placeholder.png'" />
       </ion-thumbnail>
       <ion-label>
         <h2>{{ product.name }}</h2>
