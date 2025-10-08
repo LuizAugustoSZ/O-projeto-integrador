@@ -46,6 +46,11 @@ export const routes: Routes = [
         path: 'myproducts',
         loadComponent: () => import('./myproducts/myproducts.page').then(m => m.MyproductsPage)
       },
+
+  {
+    path: 'categories',
+    loadComponent: () => import('./categories/categories.page').then( m => m.CategoriesPage)
+  } ,
       {
         path: '',
         redirectTo: '/tabs/home',
@@ -70,4 +75,5 @@ export const routes: Routes = [
     redirectTo: 'tabs/home',
     pathMatch: 'full'
   }
+
 ];

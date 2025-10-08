@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Categorias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Carregando categorias...</p>
+  </div>
+
+  <ion-list *ngIf="!isLoading && categories.length > 0">
+    <ion-item button *ngFor="let category of categories" (click)="goToCategory(category.name)">
+      <ion-label>
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.description }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="!isLoading && categories.length === 0" class="no-products-container">
+    <p>Nenhuma categoria cadastrada ainda.</p>
+  </div>
+</ion-content>
