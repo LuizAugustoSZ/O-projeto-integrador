@@ -103,4 +103,11 @@ export class HomePage implements OnInit, OnDestroy {
   goToProduct(id: string) {
     this.router.navigate(['/tabs/product-page', id]);
   }
+
+  goToCategory(categoryName: string) {
+    this.router.navigate(['/tabs/category-page'], {
+      queryParams: { category: categoryName }
+    });
+  }
+  
 }
