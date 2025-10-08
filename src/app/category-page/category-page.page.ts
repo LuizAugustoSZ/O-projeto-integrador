@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { IonicModule, NavController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../service/product.service';
 
 @Component({
@@ -18,11 +18,12 @@ export class CategoryPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private navCtrl: NavController,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // 🔍 Escuta as mudanças dos parâmetros
     this.route.queryParams.subscribe(async (params) => {
       this.categoryName = params['category'];
       if (this.categoryName) {
@@ -30,13 +31,21 @@ export class CategoryPage implements OnInit {
       }
     });
   }
+  
+  goToProductDetail(product: any) {
+    const productId = product.id || product.uid; 
+    
+    if (productId) {
+      this.router.navigate(['/tabs/product-page', productId]); 
+    } else {
+      console.error('Produto sem ID para navegação.');
+    }
+  }
 
   async loadProductsByCategory(category: string) {
     this.isLoading = true;
     try {
       const allProducts = await this.productService.getProducts();
-
-      // ✅ Agora filtra usando o campo "categories" (array)
       this.filteredProducts = allProducts.filter(p =>
         Array.isArray(p.categories) &&
         p.categories.some((c: string) =>
@@ -50,5 +59,9 @@ export class CategoryPage implements OnInit {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 }

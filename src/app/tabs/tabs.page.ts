@@ -16,7 +16,8 @@ import {
   logOutOutline,
   searchOutline,
   reorderThreeOutline,
-  personCircle
+  personCircle,
+  fileTrayStacked
 } from 'ionicons/icons';
 
 addIcons({
@@ -28,7 +29,8 @@ addIcons({
   logOutOutline,
   searchOutline,
   reorderThreeOutline,
-  personCircle
+  personCircle,
+  fileTrayStacked
 });
 
 @Component({

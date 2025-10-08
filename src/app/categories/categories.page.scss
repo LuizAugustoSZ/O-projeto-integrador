@@ -1,0 +1,29 @@
+ion-header {
+    ion-toolbar {
+        --background: var(--ion-color-primary);
+        color: var(--ion-color-primary-contrast);
+
+        ion-title {
+            color: var(--ion-color-primary-contrast);
+        }
+    }
+}
+
+.search-item {
+    width: 90%;
+    --background: var(--ion-color-light, #f4f5f8);
+    --border-radius: 20px;
+    --inner-padding-end: 0;
+    --min-height: 30px;
+    margin: 0 16px;
+}
+
+.search-item ion-icon {
+    color: var(--ion-color-medium);
+    font-size: 1.2em;
+    padding-right: 5px;
+}
+
+.search-item ion-input {
+    --placeholder-color: var(--ion-color-medium);
+}
