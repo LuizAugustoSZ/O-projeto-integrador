@@ -32,7 +32,7 @@ export class PaymentPage implements OnInit {
   totalAmount: number = 0;
 
   cartItems: any[] = [];
-  frete: number = 50.00;
+  frete: number = 12.00;
 
   constructor(
     private littleCar: littleCar,
